@@ -1,0 +1,16 @@
+ASTRAL CARDS — MISE À JOUR V2
+
+Tu n'as PAS besoin de supprimer tout le dépôt.
+
+1. Décompresse ce ZIP.
+2. Dans GitHub, ouvre le dépôt astral-cards.
+3. Clique sur Add file > Upload files.
+4. Sélectionne TOUS les fichiers contenus dans ce dossier.
+5. Glisse-les sur GitHub.
+6. GitHub indiquera que certains fichiers existent déjà : c'est normal, ils seront remplacés.
+7. Clique sur Commit changes.
+8. Attends 1 à 2 minutes puis actualise :
+   https://astraltcg.github.io/astral-cards/
+
+Le logo est volontairement à la racine pour éviter les difficultés avec le dossier assets.
+Les fichiers LISEZ-MOI.txt et README.md déjà présents peuvent rester : ils n'affectent pas le site.

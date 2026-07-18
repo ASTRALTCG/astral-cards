@@ -1,51 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <title>Astral Cards — Nouveautés</title>
-  
+<title>Astral Cards — Nouveautés</title>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Astral Cards — choisissez votre Navigateur, gagnez en puissance et venez conquérir les étoiles.">
-<link rel="icon" href="assets/logo-astral-cards.png">
+<meta name="theme-color" content="#050816">
+<meta name="description" content="Astral Cards — Choisissez votre Navigateur, gagnez en puissance et venez conquérir les étoiles.">
+<link rel="icon" type="image/png" href="logo-astral-cards.png">
 <link rel="stylesheet" href="style.css">
 
 </head>
 <body>
+<div class="space-bg" aria-hidden="true"><div class="nebula"></div><div class="stars stars-a"></div><div class="stars stars-b"></div></div>
 
 <header class="site-header">
-  <a class="brand" href="index.html" aria-label="Accueil Astral Cards">
-    <img src="assets/logo-astral-cards.png" alt="Logo Astral Cards">
+  <a class="brand" href="index.html" aria-label="Astral Cards — Accueil">
+    <img src="logo-astral-cards.png" alt="Astral Cards">
   </a>
-  <button class="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
-  <nav class="main-nav">
+  <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">
+    <span></span><span></span><span></span>
+    <span class="sr-only">Ouvrir le menu</span>
+  </button>
+  <nav id="main-nav" class="main-nav">
     <a href="index.html">Accueil</a>
     <a href="le-jeu.html">Le jeu</a>
     <a href="nouveautes.html">Nouveautés</a>
     <a href="regles.html">Règles</a>
     <a href="lore.html">Lore</a>
     <a href="faq.html">FAQ</a>
-    <a class="discord-link" href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Discord</a>
+    <a class="nav-cta" href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Discord</a>
   </nav>
 </header>
 
-<main class="page-main">
-  <section class="page-hero">
-    <p class="eyebrow">SUIVRE LE PROJET</p>
+<main class="subpage">
+  <section class="page-hero reveal">
+    <p class="kicker">SUIVRE LE DÉVELOPPEMENT</p>
     <h1>Nouveautés</h1>
-    <p>Les annonces, phases de test et évolutions importantes d’Astral Cards.</p>
+    <p>Les annonces, phases de test et évolutions importantes du projet.</p>
   </section>
-  <section class="section content-section">
+  <section class="section page-content reveal">
     
-    <div class="timeline">
-      <article class="news-card">
-        <p class="news-date">20 juillet 2026</p>
-        <h2>Première phase de test</h2>
-        <p>Les premiers joueurs sélectionnés découvrent Astral Cards et contribuent à améliorer le jeu grâce à leurs retours.</p>
+    <div class="news-list">
+      <article class="news-item">
+        <div class="news-meta"><span>20</span><small>JUIL. 2026</small></div>
+        <div><p class="kicker">PHASE DE TEST</p><h2>Première phase de test d’Astral Cards</h2>
+        <p>Les premiers joueurs sélectionnés découvrent les mécaniques, testent les règles et participent directement à l’évolution du jeu.</p></div>
       </article>
-      <article class="news-card muted">
-        <p class="news-date">Prochaine annonce</p>
-        <h2>À venir</h2>
-        <p>Les prochaines mises à jour seront ajoutées ici.</p>
+      <article class="news-item muted">
+        <div class="news-meta"><span>—</span><small>À VENIR</small></div>
+        <div><p class="kicker">PROCHAINE ANNONCE</p><h2>La suite sera publiée ici</h2>
+        <p>Les nouvelles versions, ajustements et événements seront ajoutés au fil du développement.</p></div>
       </article>
     </div>
     
@@ -53,9 +58,15 @@
 </main>
 
 <footer class="site-footer">
-  <img src="assets/logo-astral-cards.png" alt="" aria-hidden="true">
-  <p>Astral Cards — Projet de jeu de cartes à collectionner indépendant.</p>
-  <p>© 2026 Astral Cards. Tous droits réservés.</p>
+  <div class="footer-inner">
+    <img src="logo-astral-cards.png" alt="">
+    <div>
+      <strong>Astral Cards</strong>
+      <p>Jeu de cartes stratégique indépendant en développement.</p>
+    </div>
+    <a href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Rejoindre le Discord</a>
+  </div>
+  <p class="copyright">© 2026 Astral Cards. Tous droits réservés.</p>
 </footer>
 <script src="script.js"></script>
 
