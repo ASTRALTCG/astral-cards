@@ -1,0 +1,12 @@
+# Site Astral Cards
+
+Fichiers prêts pour GitHub Pages.
+
+## Mise en ligne
+1. Ouvrir le dépôt GitHub `astral-cards`.
+2. Cliquer sur **Add file** puis **Upload files**.
+3. Glisser tous les fichiers et le dossier `assets` dans GitHub.
+4. Valider avec **Commit changes**.
+5. Attendre environ une minute puis actualiser le site.
+
+Adresse : https://astraltcg.github.io/astral-cards/
