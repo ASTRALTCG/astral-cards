@@ -1,0 +1,24 @@
+MISE À JOUR DU LORE — ASTRAL CARDS
+
+Cette mise à jour ajoute :
+- Une page Lore avec deux grandes zones : Lore global / Lore par archétype
+- Une page Lore global
+- Une page listant les 4 premiers archétypes
+- Une fiche individuelle pour chaque archétype
+- Le CSS nécessaire à la nouvelle mise en page
+
+À FAIRE :
+1. Décompresse le ZIP.
+2. Dans GitHub : Add file > Upload files.
+3. Glisse tous les fichiers du dossier décompressé.
+4. Les fichiers lore.html, style.css et script.js seront remplacés.
+5. Clique sur Commit changes.
+6. Attends 1 à 2 minutes puis fais Ctrl + F5 sur le site.
+
+Nouvelles pages :
+- lore-global.html
+- lore-archetypes.html
+- demononuageux.html
+- sceau-brise.html
+- ordre-epine.html
+- guerriers-betes.html
