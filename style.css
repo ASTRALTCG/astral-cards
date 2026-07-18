@@ -219,3 +219,43 @@ a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
   .archetype-card{grid-template-columns:1fr}
   .archetype-visual{min-height:140px;border-right:0;border-bottom:1px solid var(--line)}
 }
+
+
+/* ===== CORRECTION LISTE DES ARCHÉTYPES ===== */
+.archetype-name-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+}
+.archetype-name-card{
+  min-height:220px;
+  display:flex;
+  align-items:flex-end;
+  padding:34px;
+  text-decoration:none !important;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(145,168,255,.16),transparent 38%),
+    linear-gradient(145deg,rgba(18,27,55,.88),rgba(7,12,28,.92));
+  box-shadow:var(--shadow);
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+.archetype-name-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(145,168,255,.42);
+  background:
+    radial-gradient(circle at 80% 10%,rgba(145,168,255,.23),transparent 42%),
+    linear-gradient(145deg,rgba(22,33,66,.92),rgba(8,13,30,.96));
+}
+.archetype-name-card h2{
+  margin:0;
+  color:var(--text);
+  font-size:clamp(1.8rem,3.4vw,3rem);
+  line-height:1.05;
+  text-decoration:none !important;
+}
+@media(max-width:800px){
+  .archetype-name-grid{grid-template-columns:1fr}
+  .archetype-name-card{min-height:170px}
+}
