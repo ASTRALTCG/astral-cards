@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astral Cards — Règles officielles</title>
+  <style>
+    :root{
+      --bg:#0a0f1f;
+      --bg2:#10182d;
+      --panel:rgba(18,28,52,.82);
+      --panel-2:rgba(10,16,32,.72);
+      --border:rgba(130,170,255,.22);
+      --text:#eef3ff;
+      --muted:#b7c3e6;
+      --accent:#70a7ff;
+      --accent-2:#8d7dff;
+      --good:#66e2b3;
+      --warn:#ffd76a;
+      --danger:#ff8c8c;
+      --shadow:0 18px 40px rgba(0,0,0,.35);
+      --max:1280px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(112,167,255,.18), transparent 28%),
+        radial-gradient(circle at top right, rgba(141,125,255,.16), transparent 24%),
+        linear-gradient(180deg, #09101d 0%, #0b1221 46%, #080d18 100%);
+      min-height:100vh;
+    }
+
+    .text-red{
+      color:#ff6b6b;
+      font-weight:600;
+    }
+
+    .gloss-link{
+      color:#9fc2ff;
+      font-weight:700;
+      text-decoration:none;
+      border-bottom:1px dotted rgba(159,194,255,.8);
+      cursor:pointer;
+    }
+
+    .gloss-link:hover{
+      color:#ffffff;
+      border-bottom-color:#ffffff;
+    }
+
+    .term:target{
+      outline:2px solid rgba(112,167,255,.85);
+      box-shadow:0 0 0 6px rgba(112,167,255,.13), 0 0 26px rgba(112,167,255,.22);
+      background:rgba(112,167,255,.10);
+    }
+
+    .stars, .stars:before, .stars:after{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,.9) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 80% 12%, rgba(255,255,255,.8) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 34% 70%, rgba(255,255,255,.7) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 62% 42%, rgba(255,255,255,.7) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 92% 82%, rgba(255,255,255,.85) 0 1px, transparent 1.5px),
+        radial-gradient(circle at 18% 88%, rgba(255,255,255,.55) 0 1px, transparent 1.5px);
+      opacity:.35;
+    }
+
+    .stars:before{transform:scale(1.2); opacity:.18}
+    .stars:after{transform:scale(.85); opacity:.22}
+
+    .container{
+      width:min(calc(100% - 32px), var(--max));
+      margin:0 auto;
+    }
+
+    .hero{
+      padding:72px 0 26px;
+      position:relative;
+    }
+
+    .hero-card{
+      background:linear-gradient(180deg, rgba(16,24,45,.85), rgba(11,17,33,.78));
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      border-radius:32px;
+      padding:34px;
+      backdrop-filter: blur(14px);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card:before{
+      content:"";
+      position:absolute;
+      width:420px;
+      height:420px;
+      right:-120px;
+      top:-160px;
+      background:radial-gradient(circle, rgba(112,167,255,.22), transparent 62%);
+      border-radius:50%;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size:.82rem;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:#c6d4ff;
+      padding:10px 14px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      backdrop-filter: blur(8px);
+    }
+
+    h1{
+      margin:18px 0 10px;
+      font-size:clamp(2rem, 4vw, 4rem);
+      line-height:1.02;
+    }
+
+    .lead{
+      max-width:860px;
+      color:var(--muted);
+      font-size:1.04rem;
+      line-height:1.75;
+      margin:0 0 26px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.3fr .7fr;
+      gap:18px;
+      align-items:end;
+    }
+
+    .hero-metrics{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0,1fr));
+      gap:14px;
+      margin-top:16px;
+    }
+
+    .metric{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .metric strong{
+      display:block;
+      font-size:1.35rem;
+      margin-bottom:4px;
+    }
+
+    .metric span{
+      color:var(--muted);
+      font-size:.93rem;
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns:300px 1fr;
+      gap:20px;
+      padding:10px 0 56px;
+    }
+
+    .sidebar{
+      position:sticky;
+      top:18px;
+      align-self:start;
+      background:var(--panel);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      border-radius:24px;
+      padding:22px;
+      backdrop-filter: blur(14px);
+    }
+
+    .sidebar h2{
+      margin:0 0 14px;
+      font-size:1.1rem;
+    }
+
+    .nav{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    .nav a{
+      text-decoration:none;
+      color:var(--text);
+      padding:12px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,.035);
+      border:1px solid transparent;
+      transition:.2s ease;
+      font-size:.96rem;
+    }
+
+    .nav a:hover{
+      transform:translateX(4px);
+      background:rgba(112,167,255,.10);
+      border-color:rgba(112,167,255,.20);
+    }
+
+    .content{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    section{
+      background:var(--panel);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+      border-radius:24px;
+      padding:26px;
+      backdrop-filter: blur(14px);
+    }
+
+    section h2{
+      margin:0 0 18px;
+      font-size:1.5rem;
+    }
+
+    section h3{
+      margin:22px 0 10px;
+      font-size:1.08rem;
+      color:#dbe5ff;
+    }
+
+    section p, section li{
+      color:var(--muted);
+      line-height:1.72;
+    }
+
+    .section-tag{
+      display:inline-block;
+      font-size:.78rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(112,167,255,.12);
+      color:#dbe7ff;
+      border:1px solid rgba(112,167,255,.15);
+      margin-bottom:12px;
+    }
+
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:14px;
+    }
+
+    .card{
+      background:var(--panel-2);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      padding:18px;
+    }
+
+    .card h4{
+      margin:0 0 8px;
+      font-size:1rem;
+      color:#fff;
+    }
+
+    .clean-list{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:10px;
+    }
+
+    .clean-list li{
+      padding:12px 14px;
+      border-radius:14px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .playmat{
+      display:grid;
+      grid-template-columns:repeat(5, 1fr);
+      gap:10px;
+      margin-top:14px;
+    }
+
+    .zone{
+      min-height:92px;
+      padding:12px;
+      border-radius:16px;
+      border:1px dashed rgba(255,255,255,.18);
+      background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      color:#dbe5ff;
+      font-size:.92rem;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:8px;
+      flex-direction:column;
+    }
+
+    .zone span{
+      font-size:.78rem;
+      color:var(--muted);
+    }
+
+    .zone-wide{grid-column:span 2}
+    .zone-tall{min-height:120px}
+    .zone.red{border-color:rgba(255,140,140,.35)}
+    .zone.blue{border-color:rgba(112,167,255,.35)}
+    .zone.green{border-color:rgba(102,226,179,.32)}
+
+    .playmat-image{
+      margin-top:16px;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.1);
+      box-shadow:0 10px 30px rgba(0,0,0,.4);
+      background:rgba(255,255,255,.03);
+    }
+
+    .playmat-image img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .flow{
+      display:grid;
+      gap:10px;
+      counter-reset:step;
+      margin-top:10px;
+    }
+
+    .flow .step{
+      counter-increment:step;
+      display:grid;
+      grid-template-columns:44px 1fr;
+      gap:14px;
+      align-items:start;
+      padding:14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.06);
+    }
+
+    .flow .step:before{
+      content:counter(step);
+      width:44px;
+      height:44px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:linear-gradient(180deg, rgba(112,167,255,.24), rgba(141,125,255,.18));
+      color:#fff;
+      font-weight:700;
+      border:1px solid rgba(255,255,255,.1);
+    }
+
+    .highlight{
+      border-left:4px solid var(--accent);
+      padding:14px 16px;
+      background:rgba(112,167,255,.08);
+      border-radius:0 16px 16px 0;
+      color:#dfe8ff;
+    }
+
+    .card-showcase{
+      display:grid;
+      grid-template-columns:260px 1fr;
+      gap:18px;
+      align-items:center;
+      margin-top:16px;
+      padding:18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.08);
+    }
+
+    .card-showcase + .card-showcase{
+      margin-top:14px;
+    }
+
+    .card-showcase-image{
+      border-radius:16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.1);
+      background:rgba(255,255,255,.03);
+      box-shadow:0 10px 30px rgba(0,0,0,.28);
+      cursor:pointer;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+
+    .card-showcase-image:hover{
+      transform:scale(1.02);
+      box-shadow:0 14px 36px rgba(0,0,0,.34);
+    }
+
+    .card-showcase-image img{
+      display:block;
+      width:100%;
+      height:auto;
+    }
+
+    .card-showcase-content h4{
+      margin:0 0 10px;
+      font-size:1.1rem;
+      color:#fff;
+    }
+
+    .card-showcase-content p{
+      margin:0 0 10px;
+    }
+
+    .card-showcase-content p:last-child{
+      margin-bottom:0;
+    }
+
+    .glossary{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:12px;
+    }
+
+    .term{
+      padding:16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.06);
+      min-width:0;
+      overflow-wrap:anywhere;
+      word-break:normal;
+      scroll-margin-top:24px;
+    }
+
+    .term strong{
+      display:block;
+      margin-bottom:6px;
+      color:#fff;
+      font-size:1.02rem;
+    }
+
+    .foot{
+      padding:0 0 50px;
+      text-align:center;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .foot a{
+      color:#cfe0ff;
+      margin:0 8px;
+    }
+
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .pill{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);
+      color:#e8eeff;
+      font-size:.9rem;
+    }
+
+    .good{color:var(--good)}
+    .warn{color:var(--warn)}
+    .danger{color:var(--danger)}
+
+    .image-lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(5,10,20,.88);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:30px;
+      z-index:9999;
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .22s ease;
+    }
+
+    .image-lightbox.active{
+      opacity:1;
+      pointer-events:auto;
+    }
+
+    .image-lightbox-content{
+      position:relative;
+      max-width:min(90vw, 900px);
+      max-height:90vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .image-lightbox img{
+      max-width:100%;
+      max-height:90vh;
+      display:block;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 20px 60px rgba(0,0,0,.5);
+      background:rgba(255,255,255,.03);
+    }
+
+    .image-lightbox-close{
+      position:absolute;
+      top:-14px;
+      right:-14px;
+      width:42px;
+      height:42px;
+      border:none;
+      border-radius:50%;
+      cursor:pointer;
+      font-size:1.4rem;
+      line-height:1;
+      color:#fff;
+      background:rgba(20,30,55,.95);
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow:0 10px 25px rgba(0,0,0,.35);
+    }
+
+    .image-lightbox-close:hover{
+      transform:scale(1.05);
+    }
+
+    @media (max-width: 1080px){
+      .layout{grid-template-columns:1fr}
+      .sidebar{position:relative; top:auto}
+      .hero-grid{grid-template-columns:1fr}
+      .hero-metrics{grid-template-columns:repeat(2, minmax(0,1fr))}
+    }
+
+    @media (max-width: 760px){
+      .grid-2,
+      .glossary,
+      .playmat{
+        grid-template-columns:1fr;
+      }
+
+      .zone-wide{grid-column:auto}
+      .hero-card, section, .sidebar{padding:20px}
+      .hero-metrics{grid-template-columns:1fr}
+      h1{line-height:1.06}
+
+      .card-showcase{
+        grid-template-columns:1fr;
+        align-items:start;
+      }
+    }
+  </style>
+
+  <link rel="icon" type="image/png" href="../logo-astral-cards.png">
+  <style>
+    .astral-site-return{position:fixed;z-index:9999;top:14px;left:14px;display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid rgba(130,170,255,.32);border-radius:999px;background:rgba(8,13,24,.88);color:#eef3ff;text-decoration:none;font:600 14px/1.2 Inter,system-ui,sans-serif;box-shadow:0 10px 28px rgba(0,0,0,.3);backdrop-filter:blur(12px);transition:.2s ease}
+    .astral-site-return:hover{transform:translateY(-2px);border-color:rgba(112,167,255,.7);background:rgba(18,28,52,.96)}
+    @media(max-width:700px){.astral-site-return{position:absolute;top:10px;left:10px;padding:8px 11px;font-size:12px}}
+  </style>
+</head>
+<body>
+<a class="astral-site-return" href="../index.html" aria-label="Retour au site Astral Cards">← Retour au site</a>
+  <div class="stars"></div>
+
+  <header class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="eyebrow">Astral Cards • Règles du jeu</div>
+        <div class="hero-grid">
+          <div>
+            <h1>Règles officielles d’Astral Cards</h1>
+            <p class="lead">
+              Une page claire, propre et lisible pour présenter les fondamentaux du jeu :
+              préparation, types de cartes, déroulement d’une partie, combat, résolution d’effets
+              et glossaire complet. Si vous ne comprenez pas un mot, référez-vous au Glossaire.
+            </p>
+
+            <div class="hero-metrics">
+              <div class="metric">
+                <strong>40</strong>
+                <span>cartes maximum dans un deck</span>
+              </div>
+              <div class="metric">
+                <strong>7</strong>
+                <span>Energy maximum</span>
+              </div>
+              <div class="metric">
+                <strong>12</strong>
+                <span>étoiles maximum</span>
+              </div>
+              <div class="metric">
+                <strong>4</strong>
+                <span>conditions de victoire</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h4>Vue rapide</h4>
+            <p>
+              Astral Cards repose sur un <strong>Navigateur</strong>, un <strong>Environnement</strong>,
+              des <strong>Sbires</strong>, des <strong>Pouvoirs</strong>, des cartes <strong>Cosmiques</strong>
+              et des <strong>Spéciales</strong>. Le rythme du jeu tourne autour de l’Energy, des étoiles,
+              des actions principales et de la résolution des effets.
+            </p>
+            <div class="pill-row">
+              <div class="pill">Deck centré sur 1 Navigateur</div>
+              <div class="pill">Étoiles et montée en état</div>
+              <div class="pill">Cosmique / Astral</div>
+              <div class="pill">Chaîne d’effets inversée</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container layout">
+    <aside class="sidebar">
+      <h2>Sommaire</h2>
+      <nav class="nav">
+        <a href="#preparation">I. Préparation</a>
+        <a href="#cartes">II. Les cartes du jeu</a>
+        <a href="#jouer">III. Comment jouer</a>
+        <a href="#glossaire">IV. Glossaire</a>
+      </nav>
+    </aside>
+
+    <div class="content">
+      <section id="preparation">
+        <div class="section-tag">I. Préparation</div>
+        <h2>Préparation de la partie</h2>
+
+        <h3>1) Structure de deck nécessaire</h3>
+        <div class="grid-2">
+          <div class="card">
+            <h4>Composition obligatoire</h4>
+            <ul class="clean-list">
+              <li><strong>1 Carte Navigateur</strong></li>
+              <li><strong>1 Carte Environnement</strong></li>
+              <li><strong>15 Cartes Sbires</strong></li>
+              <li><strong>15 Cartes Pouvoirs</strong></li>
+              <li><strong>4 Cartes Cosmiques</strong></li>
+            </ul>
+          </div>
+          <div class="card">
+            <h4>Complément / Recommandé</h4>
+            <ul class="clean-list">
+              <li><strong>1 à 4 Cartes Spéciales</strong></li>
+              <li><strong>Maximum total du deck :</strong> 40 cartes</li>
+              <li><strong>Aucune carte ne peut être jouée en doublon dans le deck</strong>, sauf si elle possède la faculté <strong>Multiples (x)</strong> voir glossaire.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>2) Le tapis de jeu</h3>
+        <p>
+          Chaque joueur prépare son espace de jeu avec les zones suivantes. La grille ci-dessous
+          sert de représentation textuelle du tapis.
+        </p>
+
+        <div class="playmat">
+          <div class="zone blue"><strong>(1) Compteur Étoile</strong><span>Suivi des étoiles</span></div>
+          <div class="zone blue"><strong>(2) Environnement</strong><span>Face recto / verso</span></div>
+          <div class="zone"><strong>(3) Néant</strong><span>Zone d’exil</span></div>
+          <div class="zone"><strong>(4) Vortex</strong><span>Défausse principale</span></div>
+          <div class="zone"><strong>(5) Deck</strong><span>Pioche du joueur</span></div>
+
+          <div class="zone"><strong>(6) Spéciale</strong><span>Réserve des cartes Spéciales</span></div>
+          <div class="zone"><strong>(7) Cosmique</strong><span>Réserve cosmique</span></div>
+          <div class="zone green"><strong>(8) Energy</strong><span>Compteur d’Energy</span></div>
+          <div class="zone zone-wide"><strong>(9) Pouvoir</strong><span>Zone des cartes Pouvoir</span></div>
+
+          <div class="zone zone-wide red zone-tall"><strong>(10) Sbire</strong><span>Zone des Sbires. Carré rouge = PP, Carré vert = PV / PA si applicable.</span></div>
+          <div class="zone zone-wide red zone-tall"><strong>(12) Navigateur</strong><span>Zone du Navigateur. Carré rouge = PP, Carré vert = PV / PA si applicable.</span></div>
+        </div>
+
+        <div class="playmat-image">
+          <img src="tapis de jeu.png" alt="Illustration du tapis de jeu Astral Cards">
+        </div>
+
+        <h3>3) Objets complémentaires</h3>
+        <div class="highlight">
+          Prévoir des <strong>dés</strong> et des <strong>compteurs</strong> pour suivre plus facilement
+          l’Energy, les étoiles, les PV, les PA et les autres états de jeu.
+        </div>
+      </section>
+
+      <section id="cartes">
+        <div class="section-tag">II. Les cartes du jeu</div>
+        <h2>Les différents types de cartes</h2>
+        <p>
+          Cette section présente directement chaque type de carte avec son visuel à gauche
+          et son explication à droite. Cliquez sur une carte pour l’agrandir.
+        </p>
+
+        <div class="card-showcase">
+          <div class="card-showcase-image" onclick="openLightbox('navigateur.png', 'Carte Navigateur')">
+            <img src="navigateur.png" alt="Carte Navigateur">
+          </div>
+          <div class="card-showcase-content">
+            <h4>Navigateur</h4>
+            <p>
+              Élément central du deck. Chaque Navigateur possède sa propre mécanique et définit
+              une partie de l’identité stratégique du joueur.
+            </p>
+            <p>
+              Lorsque le joueur passe au tour 7, il devient ASTRAL et le Navigateur se retourne.. Dévoilant sa forme ASTRAL !
+            </p>
+          </div>
+        </div>
+
+        <div class="card-showcase">
+          <div class="card-showcase-image" onclick="openLightbox('environnement.png', 'Carte Environnement')">
+            <img src="environnement.png" alt="Carte Environnement">
+          </div>
+          <div class="card-showcase-content">
+            <h4>Environnement</h4>
+            <p>
+              L’Environnement est une carte centrale dans la stratégie du Deck !
+            </p>
+            <p>
+              Elle se dévoile au tour 3 en même temps que le Navigateur ! 
+        
+            </p>
+          </div>
+        </div>
+
+        <div class="card-showcase">
+          <div class="card-showcase-image" onclick="openLightbox('sbire.png', 'Carte Sbire')">
+            <img src="sbire.png" alt="Carte Sbire">
+          </div>
+          <div class="card-showcase-content">
+            <h4>Sbire</h4>
+            <p>
+              Les Sbires sont vos unités de terrain. Ils servent à combattre, défendre,
+              détruire les cartes adverses et mettre la pression sur le Navigateur ennemi.
+            </p>
+            <p>
+              Leurs effets peuvent se déclencher de différentes manières :
+              Apparition, Destruction, Conquérant, Retour et plus encore.
+            </p>
+          </div>
+        </div>
+
+        <div class="card-showcase">
+          <div class="card-showcase-image" onclick="openLightbox('pouvoir.png', 'Carte Pouvoir')">
+            <img src="pouvoir.png" alt="Carte Pouvoir">
+          </div>
+          <div class="card-showcase-content">
+            <h4>Pouvoir</h4>
+            <p>
+              Les cartes Pouvoir permettent de produire une ou plusieurs actions selon leur texte.
+            </p>
+            <p>
+              Elles peuvent soutenir vos cartes, perturber l’adversaire, modifier le terrain
+              ou créer des effets particuliers comme Turbo, Infinity ou Black-Hole.
+            </p>
+          </div>
+        </div>
+
+        <div class="card-showcase">
+          <div class="card-showcase-image" onclick="openLightbox('cosmique.png', 'Carte Cosmique')">
+            <img src="cosmique.png" alt="Carte Cosmique">
+          </div>
+          <div class="card-showcase-content">
+            <h4>Cosmique</h4>
+            <p>
+              Les cartes Cosmiques peuvent être de type Sbire ou Pouvoir.
+            </p>
+            <p>
+              Ce sont des outils puissants pour votre deck, mais elles demandent
+              certaines conditions avant de pouvoir être jouées.
+            </p>
+          </div>
+        </div>
+
+        <div class="card-showcase">
+          <div class="card-showcase-image" onclick="openLightbox('speciale.png', 'Carte Spéciale')">
+            <img src="speciale.png" alt="Carte Spéciale">
+          </div>
+          <div class="card-showcase-content">
+            <h4>Spéciale</h4>
+            <p>
+              Les cartes Spéciales sont des cartes particulières invocables / activables uniquement
+              par des effets de cartes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="jouer">
+        <div class="section-tag">III. Comment jouer</div>
+        <h2>Déroulement d’une partie</h2>
+
+        <h3>1) Les différentes conditions de victoire</h3>
+        <ul class="clean-list">
+          <li><strong class="danger">PV du Navigateur adverse à 0</strong></li>
+          <li><strong class="warn">L’adversaire n’a plus de cartes dans son deck et ne peut plus jouer d’action principale durant son tour</strong></li>
+          <li><strong class="good">Vous atteignez 12 étoiles</strong></li>
+          <li><strong>Un effet de carte vous donne directement la victoire</strong></li>
+        </ul>
+
+        <h3>2) Règles globales</h3>
+        <div class="card">
+          <p>
+            Chaque joueur commence avec <strong>0 étoile</strong> et <strong>0 Energy</strong>.
+            Au début de son tour, l’Energy maximum du joueur augmente de <strong>1</strong>, jusqu’à
+            un maximum de <strong>7</strong>.
+          </p>
+          <p>
+            Lors du tour du joueur, il pioche 2 cartes. La Main d'un joueur à la fin de son tour ne peut pas excéder 7 cartes. Dans le cas contraire, il envoie le surplus dans son Deck puis le mélange.
+          </p>
+          <p>
+            Détruire un Sbire adverse augmente votre <strong>nombre maximum d’étoiles</strong> de 1.
+            Incliner l’un de vos Sbires augmente également votre <strong>nombre maximum d’étoiles</strong> de 1,
+            à condition que le Navigateur adverse ne soit pas encore révélé.
+          </p>
+          <p>
+            12 étant le nombre d'étoiles maximum, cela fait gagner la partie instantanément.
+          </p>
+          <p>
+            • Lorsque vous avez 3 points d'Energy, tour 3 du joueur, vous révélez votre Navigateur. Ce faisant, vous déplacez et dévoilez votre carte Environnement dans sa Zone dédiée.
+          </p>
+          <p>
+            • Lorsque vous avez 5 points d'Energy, tour 5 du joueur : État Cosmique ! Vous ajoutez votre Deck Cosmique dans votre Deck principal.
+          </p>
+          <p>
+            • Lorsque vous avez 7 points d'Energy (tour 7 du joueur), entrez en État Astral ! Vous retournez votre Navigateur, dévoilant sa véritable puissance. 
+            Vous pouvez désormais effectuer une troisième action principale à chacun de vos tours et vous débloquez les effets Astral de vos cartes. 
+            À partir de cet instant, votre Navigateur est également autorisé à attaquer le Navigateur adverse, en respectant les mêmes conditions d'attaque qu'un Sbire.
+          </p>
+          <p>
+            • À partir du tour 9, la SuperNova entre en scène. Lorsque vous terminez votre tour, votre Navigateur perd 1 PV.
+          </p>
+          <p>
+            Lors du changement d'état, révélation du Navigateur, État Cosmique / Astral, cela s'effectue toujours lorsque vous avez redressé vos cartes. Voir le déroulement d'un tour plus bas.
+          </p>
+          <p>
+            Chaque joueur peut effectuer jusqu’à <strong>2 actions principales</strong> à n’importe quel moment
+            de son tour, puis une <strong>3e action principale</strong> une fois les <strong>7 d’Energy</strong> atteints.
+            Il n’est pas possible d’effectuer plus de <strong>2 fois le même type</strong> d’action principale
+            durant le même tour. Sbire ≠ Pouvoir.
+          </p>
+          <p>
+            Un joueur peut attaquer à n’importe quel moment de son tour avec un Sbire
+            <strong>prêt au combat</strong>, donc en position verticale.
+          </p>
+          <p>
+            Quand un Sbire avec un coût d'Energy est invoqué en payant le coût, on dit alors qu'il est invoqué normalement. Cela compte dans votre action principale du tour.
+            En revanche, un Sbire invoqué par un effet de carte est invoqué spécialement. L'action d'invoquer ne coûte pas d'action principale ni de payer le coût d'Energy, sauf si l'effet mentionne de payer le coût.
+          </p>
+          <p>
+            <strong>Un Sbire sans coût d’Energy ne peut être invoqué que par un effet.</strong>
+            Il ne peut donc pas être invoqué gratuitement depuis la main.
+            De plus, un Sbire n'a que deux positions : Vertical, Redressé, ou Horizontal, Incliné.
+          </p>
+          <p>
+            Les effets de cartes priment toujours sur les règles globales. Exemple :
+            si une règle dit de piocher 2 cartes au début du tour, mais qu’un effet indique
+            que vous ne pouvez en piocher qu’une, alors vous n’en piochez qu’une.
+          </p>
+          <p>
+            Durant le tour de votre adversaire vous ne pouvez activer qu'un seul effet de carte
+            avec la Faculté <strong>Turbo</strong> ou <strong>Black-Hole</strong>.
+          </p>
+          <p>
+            <strong>Facultés et effets</strong> :
+            Les cartes possèdent un encadré de texte décrivant leurs effets.
+            Ces effets représentent les actions ou capacités d’une carte et peuvent être activés, déclenchés ou annulés.
+            Certaines cartes possèdent également des facultés, indiquées à côté de leur type.
+            Une faculté est une caractéristique propre à la carte, indépendante de son texte d’effet.
+            Elle représente un trait permanent ou une propriété identifiable, par exemple Tank, Retour, etc.
+            Les facultés ne sont pas affectées par les effets qui annulent ou modifient les effets de carte, sauf mention contraire.
+            De même, certaines interactions peuvent cibler ou référencer spécifiquement des facultés, sans interagir avec les effets.
+            Cette distinction permet de différencier les propriétés intrinsèques d’une carte de ses capacités.
+          </p>
+          <p>
+            La différence entre “Ce tour”, “Pendant votre tour” et “Durant votre tour” est différente de “tour global”, ce dernier signifiant que l'action se prolonge pendant le tour des deux joueurs. Voir l'effet sur la carte.
+          </p>
+          <p>
+            Par défaut, un effet <strong>Actif</strong> d'un Sbire n'est activable qu'une seule fois par tour, sauf si l'effet mentionne le contraire. De plus,
+            si Actif est précédé de <strong>Turbo</strong>, alors l'effet Actif peut être utilisé durant le tour de votre adversaire,
+            sinon il n'est activable que durant votre tour de jeu. Actif Turbo est différent d'une carte Pouvoir durant le tour adverse, vous pouvez faire l'un et l'autre mais une seule fois.
+          </p>
+          <p>
+            Lorsqu'un effet vous demande d'ajouter une carte à votre Deck ou de prendre une carte depuis votre Deck (autrement que par un effet de Pioche), 
+            mélangez votre Deck une fois la résolution complète de cet effet terminée.
+          </p>
+          <p>
+            ✦ : Étoile — Représente une ressource. Certaines cartes possèdent des effets nécessitant de payer un coût en ✦ (indiqué sur la carte) pour pouvoir les activer.
+          </p>
+        </div>
+
+        <h3>3) Préparation du tapis de jeu</h3>
+        <p>
+          Les joueurs placent leurs cartes <strong>Navigateurs</strong> bas <strong>↓</strong> dans l'emplacement dédié
+          puis posent leurs cartes <strong>Environnements</strong> par-dessus face verso pour le <strong>cacher</strong>.
+          Ensuite chaque joueur place <strong>face verso</strong> sur les zones prévues : leurs cartes <strong>Cosmiques</strong> et <strong>Spéciales</strong>.
+        </p>
+        <p>
+          Ensuite, chaque joueur lance 1D6. Le joueur obtenant le plus grand résultat décide
+          s’il souhaite commencer ou non.
+        </p>
+
+        <h3>4) Structure du premier tour</h3>
+        <div class="flow">
+          <div class="step">
+            <div>
+              <strong>Pioche initiale</strong>
+              <p>Chaque joueur pioche <strong>5 cartes</strong> depuis son deck.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <strong>Reforge optionnelle</strong>
+              <p>Chaque joueur peut <strong>Reforger</strong> sa main <strong>1 fois</strong>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <strong>Premier joueur</strong>
+              <p>Le premier joueur augmente son <strong>Energy max de 1</strong>, ne pioche <strong>aucune carte</strong> et poursuit son tour normalement.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <strong>Second joueur</strong>
+              <p>Lors de son premier tour, le second joueur augmente son <strong>Energy de 1</strong>, pioche <strong>1 carte</strong> puis poursuit son tour normalement.</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>5) Structure d’un tour, à partir du tour 2</h3>
+        <div class="flow">
+          <div class="step">
+            <div>
+              <strong>Augmentez votre Energy max</strong>
+              <p>Votre réserve d’Energy maximum progresse de 1, jusqu’à 7.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <strong>Piochez 2 cartes</strong>
+              <p>Sauf si un effet modifie cette règle.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <strong>Redressez vos cartes</strong>
+              <p>Redressez vos Sbires et votre Navigateur, sauf les Sbires n'ayant pas de statistique de Puissance eux, restent inclinés.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <strong>Regardez votre Energy</strong>
+              <p>Vérifiez la progression et vos états éventuels : Navigateur / Cosmique / Astral / SuperNova.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="highlight" style="margin-top:14px;">
+          Après l’étape <strong>« Regardez votre Energy »</strong>, vous êtes libre d’attaquer,
+          d’invoquer, de jouer des cartes, d’activer des effets et d’ordonner votre tour comme vous le souhaitez,
+          dans le respect des limites d’actions principales.
+        </div>
+
+        <h3>6) Combat et suite d’effets</h3>
+        <div class="grid-2">
+          <div class="card">
+            <h4>Règles de combat</h4>
+            <p>
+              Lorsqu’un Sbire est <strong>prêt au combat</strong>, en position verticale, il peut attaquer
+              un Sbire adverse ou le Navigateur adverse. Lorsqu’il attaque, il <strong>s’incline</strong>.
+              Il doit cependant avoir au minimum 1 PP. S'il ne possède pas statistique de Puissance, le Sbire ne peut pas se redresser et reste donc incliné.
+            </p>
+            <p>
+              Contre un Navigateur, les dégâts sont toujours de <strong>1</strong>, à condition que le Sbire
+              possède au moins <strong>1 point de Puissance, PP</strong>. Le joueur doit d'abord détruire tous les Sbires sur le Terrain adverse avant de pouvoir attaquer le Navigateur adverse.
+            </p>
+            <p>
+              Contre un autre Sbire, on soustrait la <strong>Puissance</strong> de la carte attaquante
+              aux <strong>PA</strong> si applicable puis aux <strong>PV</strong>.
+            </p>
+            <p>
+              <strong>Exemple :</strong> un Sbire à <strong>4 PP</strong> attaque un Sbire à <strong>6 PV</strong>.
+              Après l’attaque, le Sbire attaqué tombe à <strong>2 PV</strong>.
+            </p>
+            <p>
+              <strong>Exemple² :</strong> un Sbire à <strong>4 PP</strong> attaque un Sbire à <strong>2 PA</strong> et possède <strong>4 PV</strong>.
+              Après l’attaque, le Sbire attaqué tombe à <strong>2 PV</strong>.
+            </p>
+            <p>
+              Si les PV tombent à <strong>0</strong>, la carte est envoyée dans la <strong>Vortex</strong> de son
+              propriétaire, sauf si un effet précise autre chose.
+            </p>
+          </div>
+
+          <div class="card">
+            <h4>Activations et limites</h4>
+            <p>
+              Un Sbire qui attaque et s’incline peut quand même activer ses effets,
+              sauf restriction indiquée sur la carte.
+            </p>
+            <p>
+              Règle importante : un <strong>effet Actif d’un même Sbire</strong> ne peut être activé
+              qu’<strong>une seule fois par tour</strong>.
+            </p>
+            <p>
+              Exemple : si vous contrôlez <strong>Sbire A</strong> et <strong>Sbire B</strong>,
+              chacun peut activer son effet Actif une fois, mais pas d'avantage.
+            </p>
+          </div>
+        </div>
+
+        <h3>Chaîne de résolution des effets</h3>
+        <div class="card">
+          <p>
+            Les effets se résolvent dans l’ordre inverse de leur activation.
+            Si <strong>Effet A</strong> s’active, puis <strong>Effet B</strong>, puis <strong>Effet C</strong>,
+            on résout d’abord <strong>C</strong>, puis <strong>B</strong>, puis <strong>A</strong>.
+          </p>
+          <p>
+            Si un effet ne dit pas qu’il <strong>annule</strong> mais qu’il <strong>détruit</strong> une carte,
+            alors une carte déjà détruite peut tout de même voir son effet se déclencher si sa condition a été remplie.
+          </p>
+          <p>
+            <strong>Exemple :</strong> vous invoquez un Sbire avec un effet d’<strong>Apparition</strong>.
+            Votre adversaire active un effet disant que lorsqu’un Sbire est invoqué, il est détruit.
+            Le Sbire a bien touché le terrain, donc sa condition d’Apparition a été remplie.
+            Il est détruit, mais son effet d’Apparition n’est pas annulé pour autant.
+          </p>
+        </div>
+
+        <h3>Mort subite</h3>
+        <div class="card">
+          <p>
+            La mort subite commence lorsqu’un joueur n’a plus de carte à piocher.
+            Ce joueur doit alors, durant son tour, au minimum :
+          </p>
+          <ul class="clean-list">
+            <li><strong>invoquer un Sbire</strong> depuis sa main</li>
+            <li><strong>ou activer une carte Pouvoir</strong> depuis sa main</li>
+          </ul>
+          <p>
+            S’il ne peut faire <strong>aucune de ces deux actions</strong>, il perd la partie
+            au moment où il devrait <strong>terminer / passer son tour</strong>.
+          </p>
+          <p>
+            Cela signifie qu’il peut encore effectuer un dernier tour complet :
+            attaquer, activer des effets, tenter une remontée… mais s’il finit sans avoir invoqué
+            ou activé une carte depuis sa main, la partie est perdue.
+          </p>
+        </div>
+      </section>
+
+      <section id="glossaire">
+        <div class="section-tag">IV. Glossaire</div>
+        <h2>Glossaire des effets et mots-clés</h2>
+
+        <div class="glossary">
+          <div class="term"><strong>PV</strong>Point de vie.</div>
+          <div class="term"><strong>PP</strong>Point de puissance.</div>
+          <div class="term"><strong>PA</strong>Point d’Armure. Il doit d’abord être utilisé comme les PV et ne peut pas être ignoré.</div>
+          <div class="term"><strong>Prêt au combat</strong>Un Sbire est prêt au combat lorsqu’il est en position verticale.</div>
+          <div class="term"><strong>Inclinez</strong>Pivotez un Sbire horizontalement.</div>
+          <div class="term"><strong>Redressez</strong>Pivotez un Sbire verticalement.</div>
+          <div class="term"><strong>Action principale</strong>Invoquer un Sbire, jouer une carte Pouvoir, Faculté Turbo incluse, ou activer un effet qui mentionne de consommer une action principale.</div>
+          <div class="term"><strong>Invocation normale</strong>Invoquer un Sbire en payant son coût d'Energy notifié sur la carte en position inclinée.</div>
+          <div class="term"><strong>Invocation spéciale</strong>Invoquer un Sbire par un effet sans payer le coût d'Energy ni consommer d'action principale en position prêt au combat. Et le tout sans limitation !</div>
+          <div class="term"><strong>Cosmique</strong>L’effet peut se déclencher si vous êtes en état Cosmique.</div>
+          <div class="term"><strong>Astral</strong>L’effet peut se déclencher si vous êtes en état Astral.</div>
+
+          <div class="term"><strong>Passif</strong>L’effet est actif tant que la carte est sur le terrain.</div>
+          <div class="term"><strong>Actif</strong>L’effet peut s’activer une fois par tour, sauf si une limite différente est mentionnée.</div>
+          <div class="term"><strong>Apparition</strong>L’effet se déclenche à l’apparition du Sbire sur le terrain.</div>
+          <div class="term"><strong>Destruction</strong>L’effet se déclenche à la destruction d’un Sbire au cours d’un combat.</div>
+          <div class="term"><strong>Conquérant</strong>L’effet se déclenche lorsqu’un Sbire en détruit un autre au cours d’un combat.</div>
+          <div class="term"><strong>Pioche*</strong>L’effet s’active au moment où la carte est piochée.</div>
+          <div class="term"><strong>Infinity</strong>L’effet est actif tant que la carte Pouvoir est sur le terrain.</div>
+          <div class="term"><strong>Turbo</strong>L’effet peut être activé depuis votre main pendant votre tour comme une carte Pouvoir classique ou pendant le tour de votre adversaire, une fois par tour de joueur. Deux effets bien différents : “Votre tour” et “Tour adverse”. L’effet appliqué dépend uniquement du moment où la carte est jouée.</div>
+          <div class="term"><strong>Révélez</strong>Les cartes concernées doivent être visibles par les deux joueurs.</div>
+          <div class="term"><strong>Défaussez</strong>L’action de défausser une carte se fait depuis la main.</div>
+          <div class="term"><strong>Sacrifiez</strong>Envoyez un Sbire de votre terrain dans votre Vortex ou au Néant, selon la mention de l’effet.</div>
+          <div class="term"><strong>Reforger</strong>Envoyez votre main dans votre deck, mélangez, puis piochez le même nombre de cartes.</div>
+          <div class="term"><strong>Tank</strong>L’adversaire doit attaquer cette carte avant les autres. S’il y a deux Tanks, c’est le joueur attaquant qui choisit.</div>
+          <div class="term"><strong>Retour</strong>L’effet s’active depuis le Vortex pendant votre phase de redressement, si le Sbire a été détruit au cours d’un combat lors du tour précédent.</div>
+          <div class="term"><strong>Combo</strong>Lorsqu'un Sbire en détruit un autre lors d'un combat : Vous pouvez infliger 1 pt de dégât à l'un des Sbires de votre adversaire.</div>
+          <div class="term"><strong>Déclenchement</strong>Peut s’activer depuis votre main lorsque les conditions sont remplies. Ne consomme aucune action principale et n’a pas de limite par tour d’effet de Déclenchement.</div>
+          <div class="term"><strong>Black-Hole</strong>Se place dans la zone Pouvoir face verso et n’est activable qu’à partir du moment où votre tour se termine. La poser ou l’activer ne consomme aucune action principale.</div>
+          <div class="term"><strong>Révélation</strong>Effet qui s’active en révélant la carte depuis votre main. Ne consomme aucune action principale.</div>
+          <div class="term"><strong>Multiples (x)</strong><em>x</em> représente le nombre d’exemplaires de cette carte que vous pouvez mettre dans le deck.</div>
+          <div class="term"><strong>Absolue</strong>La carte ne peut pas quitter le terrain et ses effets ne peuvent pas être annulés.</div>
+          <div class="term"><strong>Intemporelle</strong>Après l’activation de l’effet de la carte, renvoyez-la dans votre Main. Lorsqu'elle est jouée une seconde fois durant la partie, envoyez-la au Néant après l'effet.</div>
+        </div>
+      </section>
+
+      <div class="foot">
+        Créée, affinée et chouchoutée par ASL NASHOBA et ASL KEYTCHUP... Pour vous servir !
+        <a href="https://www.youtube.com/@AstralCardsGame">Chaîne Youtube</a>
+        <a href="https://www.tiktok.com/@astral.cards.tcg">Compte TIKTOK</a>
+    
+      </div>
+    </div>
+  </main>
+
+  <div class="image-lightbox" id="imageLightbox" onclick="closeLightbox(event)">
+    <div class="image-lightbox-content">
+      <button class="image-lightbox-close" onclick="closeLightboxButton()" aria-label="Fermer">×</button>
+      <img id="lightboxImg" src="" alt="">
+    </div>
+  </div>
+
+  <script>
+    function openLightbox(src, alt) {
+      const lightbox = document.getElementById('imageLightbox');
+      const img = document.getElementById('lightboxImg');
+      img.src = src;
+      img.alt = alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(event) {
+      if (event.target.id === 'imageLightbox') {
+        document.getElementById('imageLightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeLightboxButton() {
+      document.getElementById('imageLightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.getElementById('imageLightbox').classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    function slugifyGlossaryTerm(text){
+      return 'gloss-' + text
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+    }
+
+    function escapeRegExp(text){
+      return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function buildGlossaryLinks(){
+      const glossarySection = document.getElementById('glossaire');
+      if (!glossarySection) return;
+
+      const glossaryTerms = Array.from(glossarySection.querySelectorAll('.term strong'))
+        .map(strong => {
+          const label = strong.textContent.trim();
+          const box = strong.closest('.term');
+          const id = slugifyGlossaryTerm(label);
+          box.id = id;
+          return { label, id };
+        })
+        .filter(term => term.label.length > 1)
+        .sort((a, b) => b.label.length - a.label.length);
+
+      if (!glossaryTerms.length) return;
+
+      const boundaries = 'A-Za-zÀ-ÖØ-öø-ÿ0-9_';
+      const pattern = new RegExp(
+        '(^|[^' + boundaries + '])(' + glossaryTerms.map(term => escapeRegExp(term.label)).join('|') + ')(?=$|[^' + boundaries + '])',
+        'gi'
+      );
+
+      const areasToScan = document.querySelectorAll('#preparation, #cartes, #jouer');
+
+      areasToScan.forEach(area => {
+        const walker = document.createTreeWalker(
+          area,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode(node){
+              const parent = node.parentElement;
+              if (!parent) return NodeFilter.FILTER_REJECT;
+              if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+              if (parent.closest('a, script, style, textarea, input, button, .image-lightbox')) return NodeFilter.FILTER_REJECT;
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          }
+        );
+
+        const textNodes = [];
+        while (walker.nextNode()) {
+          textNodes.push(walker.currentNode);
+        }
+
+        textNodes.forEach(node => {
+          const originalText = node.nodeValue;
+          pattern.lastIndex = 0;
+
+          if (!pattern.test(originalText)) return;
+
+          pattern.lastIndex = 0;
+          const replacedHTML = originalText.replace(pattern, function(fullMatch, before, matchedWord){
+            const normalizedMatch = matchedWord.toLowerCase();
+            const found = glossaryTerms.find(term => term.label.toLowerCase() === normalizedMatch);
+            if (!found) return fullMatch;
+            return before + '<a href="#' + found.id + '" class="gloss-link" title="Voir dans le glossaire">' + matchedWord + '</a>';
+          });
+
+          const wrapper = document.createElement('span');
+          wrapper.innerHTML = replacedHTML;
+          node.replaceWith(...wrapper.childNodes);
+        });
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', buildGlossaryLinks);
+  </script>
+</body>
+</html>
