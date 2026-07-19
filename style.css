@@ -54,6 +54,24 @@ a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:24px;
 }
+.archetype-emblem{
+    display:grid;
+    place-items:center;
+    width:150px;
+    height:150px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:rgba(255,255,255,.03);
+    box-shadow:0 0 50px rgba(145,168,255,.10);
+    overflow:hidden; /* Très important */
+}
+
+.archetype-emblem img{
+    width:70%;
+    height:70%;
+    object-fit:contain;
+    display:block;
+}
 .lore-choice-card{
   position:relative;
   min-height:390px;
