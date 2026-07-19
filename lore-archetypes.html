@@ -2,14 +2,12 @@
 <html lang="fr">
 <head>
 <title>Astral Cards — Lore par archétype</title>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050816">
-<meta name="description" content="Astral Cards — Découvrez le lore global et les archétypes de l’univers.">
+<meta name="description" content="Astral Cards — Explorez les archétypes à travers leurs Navigateurs.">
 <link rel="icon" type="image/png" href="logo-astral-cards.png">
 <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
 <div class="space-bg" aria-hidden="true"><div class="nebula"></div><div class="stars stars-a"></div><div class="stars stars-b"></div></div>
@@ -35,75 +33,67 @@
 
 <main class="subpage">
   <section class="page-hero reveal">
-    <p class="kicker">FACTIONS ET PEUPLES</p>
+    <p class="kicker">DESTINS ET ARCHÉTYPES</p>
     <h1>Lore par archétype</h1>
-    <p>Choisissez un archétype pour découvrir son histoire, ses personnages et ses ambitions.</p>
+    <p>Explorez la ligne astrale et choisissez un Navigateur pour découvrir l’histoire de son archétype.</p>
   </section>
+
   <section class="section page-content reveal">
-    
     <div class="breadcrumbs"><a href="lore.html">Lore</a><span>›</span><strong>Lore par archétype</strong></div>
-    <div class="archetype-name-grid">
-      <a class="archetype-name-card" href="demononuageux.html">
-        <h2>Démononuageux</h2>
-      </a>
 
-      <a class="archetype-name-card" href="sceau-brise.html">
-        <h2>Le Sceau Brisé</h2>
-      </a>
+    <div class="lore-timeline-shell" aria-label="Frise interactive des Navigateurs">
+      <button class="timeline-control timeline-control-left" type="button" aria-label="Faire défiler vers la gauche">‹</button>
 
-      <a class="archetype-name-card" href="ordre-epine.html">
-        <h2>L’Ordre de l’Épine</h2>
-      </a>
+      <div class="lore-timeline-viewport" tabindex="0">
+        <div class="lore-timeline-track">
+          <div class="lore-timeline-line" aria-hidden="true"></div>
 
-      <a class="archetype-name-card" href="guerriers-betes.html">
-        <h2>Les Guerriers-Bêtes</h2>
-      </a>
+          <!-- Pour ajouter un Navigateur plus tard : dupliquez un bloc .timeline-node,
+               changez le nom, l'image, le lien et la classe node-top / node-bottom. -->
+          <a class="timeline-node node-top" href="ordre-epine.html" aria-label="Découvrir l’archétype de Zyraël">
+            <span class="timeline-orbit" aria-hidden="true"></span>
+            <span class="timeline-bubble">
+              <img src="images/zyrael.png" alt="Zyraël">
+            </span>
+            <span class="timeline-name">Zyraël</span>
+          </a>
+
+          <a class="timeline-node node-bottom" href="demononuageux.html" aria-label="Découvrir l’archétype de Zvatas">
+            <span class="timeline-orbit" aria-hidden="true"></span>
+            <span class="timeline-bubble">
+              <img src="images/zvatas.png" alt="Zvatas">
+            </span>
+            <span class="timeline-name">Zvatas</span>
+          </a>
+
+          <a class="timeline-node node-top" href="guerriers-betes.html" aria-label="Découvrir l’archétype du Dompteur">
+            <span class="timeline-orbit" aria-hidden="true"></span>
+            <span class="timeline-bubble">
+              <img src="images/dompteur.png" alt="Dompteur">
+            </span>
+            <span class="timeline-name">Dompteur</span>
+          </a>
+
+          <a class="timeline-node node-bottom" href="sceau-brise.html" aria-label="Découvrir l’archétype de Rebecca">
+            <span class="timeline-orbit" aria-hidden="true"></span>
+            <span class="timeline-bubble">
+              <img src="images/rebecca.png" alt="Rebecca">
+            </span>
+            <span class="timeline-name">Rebecca</span>
+          </a>
+        </div>
+      </div>
+
+      <button class="timeline-control timeline-control-right" type="button" aria-label="Faire défiler vers la droite">›</button>
     </div>
-      <div class="archetype-content">
-        <p class="kicker">ARCHÉTYPE</p>
-        <h2>Démononuageux</h2>
-        <p>Nés au cœur des nuages démoniaques, ils portent en eux une puissance aussi ancienne qu’instable.</p>
-        <span>Découvrir la fiche →</span>
-      </div>
-    </a>
-    
 
-    <a class="archetype-card" href="sceau-brise.html">
-      <div class="archetype-visual">◇</div>
-      <div class="archetype-content">
-        <p class="kicker">ARCHÉTYPE</p>
-        <h2>Le Sceau Brisé</h2>
-        <p>Une force libérée après la rupture d’un ancien sceau, bouleversant l’équilibre entre les mondes.</p>
-        <span>Découvrir la fiche →</span>
-      </div>
-    </a>
-    
-
-    <a class="archetype-card" href="ordre-epine.html">
-      <div class="archetype-visual">✧</div>
-      <div class="archetype-content">
-        <p class="kicker">ARCHÉTYPE</p>
-        <h2>L’Ordre de l’Épine</h2>
-        <p>Un ordre aussi élégant que redoutable, guidé par ses serments, ses rites et une volonté inflexible.</p>
-        <span>Découvrir la fiche →</span>
-      </div>
-    </a>
-    
-
-    <a class="archetype-card" href="guerriers-betes.html">
-      <div class="archetype-visual">◈</div>
-      <div class="archetype-content">
-        <p class="kicker">ARCHÉTYPE</p>
-        <h2>Les Guerriers-Bêtes</h2>
-        <p>Des combattants liés aux instincts primordiaux, à la force sauvage et aux traditions de leur peuple.</p>
-        <span>Découvrir la fiche →</span>
-      </div>
-    </a>
-    
-    </div>
-    
+    <p class="timeline-help">Faites glisser la frise ou utilisez les flèches. Survolez une bulle pour révéler son nom, puis cliquez pour entrer dans son histoire.</p>
   </section>
 </main>
+
+<div class="timeline-transition" aria-hidden="true">
+  <div class="timeline-transition-image"></div>
+</div>
 
 <footer class="site-footer">
   <div class="footer-inner">
@@ -117,6 +107,5 @@
   <p class="copyright">© 2026 Astral Cards. Tous droits réservés.</p>
 </footer>
 <script src="script.js"></script>
-
 </body>
 </html>
