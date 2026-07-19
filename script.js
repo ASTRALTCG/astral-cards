@@ -38,16 +38,17 @@ if (timelineViewport) {
   });
 
   let isDragging = false;
-  let didDrag = false;
   let startX = 0;
   let startScrollLeft = 0;
-  const dragThreshold = 7;
 
   timelineViewport.addEventListener('pointerdown', (event) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
 
+    // IMPORTANT : une bulle reste exclusivement un lien.
+    // Le glissement ne démarre que depuis l'espace vide de la frise.
+    if (event.target.closest('.timeline-node')) return;
+
     isDragging = true;
-    didDrag = false;
     startX = event.clientX;
     startScrollLeft = timelineViewport.scrollLeft;
     timelineViewport.classList.add('is-dragging');
@@ -56,35 +57,27 @@ if (timelineViewport) {
 
   timelineViewport.addEventListener('pointermove', (event) => {
     if (!isDragging) return;
-
-    const distance = event.clientX - startX;
-    if (Math.abs(distance) > dragThreshold) didDrag = true;
-
-    if (didDrag) {
-      event.preventDefault();
-      timelineViewport.scrollLeft = startScrollLeft - distance;
-    }
+    event.preventDefault();
+    timelineViewport.scrollLeft = startScrollLeft - (event.clientX - startX);
   });
 
   const stopDragging = (event) => {
     if (!isDragging) return;
     isDragging = false;
     timelineViewport.classList.remove('is-dragging');
-    timelineViewport.releasePointerCapture?.(event.pointerId);
+    if (timelineViewport.hasPointerCapture?.(event.pointerId)) {
+      timelineViewport.releasePointerCapture(event.pointerId);
+    }
   };
 
   timelineViewport.addEventListener('pointerup', stopDragging);
   timelineViewport.addEventListener('pointercancel', stopDragging);
-  timelineViewport.addEventListener('pointerleave', (event) => {
-    if (isDragging && event.pointerType === 'mouse') stopDragging(event);
-  });
 
   // Empêche le navigateur de saisir/faire voler les images.
   timelineViewport.querySelectorAll('img').forEach((image) => {
     image.draggable = false;
     image.addEventListener('dragstart', (event) => event.preventDefault());
   });
-
   timelineViewport.addEventListener('dragstart', (event) => event.preventDefault());
 
   const transition = document.querySelector('.timeline-transition');
@@ -93,13 +86,6 @@ if (timelineViewport) {
 
   document.querySelectorAll('.timeline-node').forEach((node) => {
     node.addEventListener('click', (event) => {
-      // Un vrai glissement ne doit pas ouvrir une page ; un simple clic, oui.
-      if (didDrag) {
-        event.preventDefault();
-        didDrag = false;
-        return;
-      }
-
       const destination = node.getAttribute('href');
       if (!destination) {
         event.preventDefault();
@@ -116,7 +102,7 @@ if (timelineViewport) {
       transition.classList.add('active');
 
       window.setTimeout(() => {
-        window.location.href = destination;
+        window.location.assign(destination);
       }, 650);
     });
   });

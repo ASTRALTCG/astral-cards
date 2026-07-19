@@ -64,6 +64,8 @@
   text-decoration:none;
   animation:timelineFloat 4.6s ease-in-out infinite;
   outline:none;
+  cursor:pointer;
+  touch-action:manipulation;
 }
 .timeline-node:nth-of-type(3){animation-delay:-1.1s}
 .timeline-node:nth-of-type(4){animation-delay:-2.2s}
@@ -254,8 +256,5 @@
   -webkit-user-drag:none;
 }
 .timeline-bubble img{
-  pointer-events:none;
-}
-.lore-timeline-viewport.is-dragging .timeline-node{
   pointer-events:none;
 }
