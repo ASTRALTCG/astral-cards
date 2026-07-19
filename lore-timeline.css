@@ -64,8 +64,6 @@
   text-decoration:none;
   animation:timelineFloat 4.6s ease-in-out infinite;
   outline:none;
-  cursor:pointer;
-  touch-action:manipulation;
 }
 .timeline-node:nth-of-type(3){animation-delay:-1.1s}
 .timeline-node:nth-of-type(4){animation-delay:-2.2s}
@@ -186,39 +184,11 @@
   text-align:center;
   font-size:.95rem;
 }
-.timeline-transition{
-  position:fixed;
-  z-index:9999;
-  inset:0;
-  display:grid;
-  place-items:center;
-  background:#030611;
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-  transition:opacity .28s ease,visibility .28s ease;
-}
-.timeline-transition.active{opacity:1;visibility:visible}
-.timeline-transition-image{
-  width:140px;
-  height:140px;
-  border-radius:50%;
-  background-position:center;
-  background-size:cover;
-  box-shadow:0 0 50px rgba(130,151,255,.65),0 0 120px rgba(101,77,255,.4);
-  transform:scale(.35);
-  opacity:.65;
-}
-.timeline-transition.active .timeline-transition-image{animation:timelinePortal .72s cubic-bezier(.2,.72,.15,1) forwards}
 @keyframes timelineFloat{
   0%,100%{margin-top:0}
   50%{margin-top:-9px}
 }
-@keyframes timelinePortal{
-  0%{transform:scale(.35);opacity:.55}
-  60%{border-radius:50%;opacity:1}
-  100%{transform:scale(18);border-radius:0;opacity:1}
-}
+
 @media(max-width:800px){
   .lore-timeline-shell{padding:12px 42px}
   .lore-timeline-track{height:420px;gap:105px;padding:0 55px}
@@ -243,7 +213,6 @@
   .timeline-node{animation:none}
   .lore-timeline-viewport{scroll-behavior:auto}
   .timeline-bubble,.timeline-bubble img,.timeline-orbit,.timeline-name{transition:none}
-  .timeline-transition.active .timeline-transition-image{animation:none;transform:scale(18)}
 }
 
 /* Empêche la sélection et le glisser natif des portraits. */
@@ -256,5 +225,8 @@
   -webkit-user-drag:none;
 }
 .timeline-bubble img{
+  pointer-events:none;
+}
+.lore-timeline-viewport.is-dragging .timeline-node{
   pointer-events:none;
 }
