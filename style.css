@@ -73,7 +73,6 @@ a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
 }
 .hero-image img{
     width:100%;
-    max-width:600px;
     height:auto;
     display:block;
     margin:auto;
