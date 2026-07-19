@@ -301,8 +301,8 @@ a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
 .pillar-card:hover::before{opacity:1;transform:scale(1)}
 .pillar-card:hover::after{left:135%}
 .pillar-image-wrap{
-  height:175px;
-  margin:-8px -8px 26px;
+  height:110px;
+  margin:-4px -4px 22px;
   border-radius:15px;
   overflow:hidden;
   background:rgba(4,8,22,.52);
@@ -330,10 +330,10 @@ a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
 
 @media(max-width:900px){
   .pillar-card{min-height:auto}
-  .pillar-image-wrap{height:220px}
+  .pillar-image-wrap{height:120px}
 }
 @media(max-width:600px){
-  .pillar-image-wrap{height:190px;margin:-6px -6px 22px}
+  .pillar-image-wrap{height:105px;margin:-4px -4px 20px}
   .pillar-card:hover{transform:translateY(-4px)}
 }
 @media(prefers-reduced-motion:reduce){
