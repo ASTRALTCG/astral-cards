@@ -67,8 +67,8 @@ a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
 }
 
 .archetype-emblem img{
-    width:150%;
-    height:150%;
+    width:175%;
+    height:175%;
     object-fit:contain;
     display:block;
 }
