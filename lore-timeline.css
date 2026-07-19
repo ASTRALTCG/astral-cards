@@ -243,3 +243,19 @@
   .timeline-bubble,.timeline-bubble img,.timeline-orbit,.timeline-name{transition:none}
   .timeline-transition.active .timeline-transition-image{animation:none;transform:scale(18)}
 }
+
+/* Empêche la sélection et le glisser natif des portraits. */
+.lore-timeline-viewport,
+.timeline-node,
+.timeline-bubble,
+.timeline-bubble img{
+  -webkit-user-select:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.timeline-bubble img{
+  pointer-events:none;
+}
+.lore-timeline-viewport.is-dragging .timeline-node{
+  pointer-events:none;
+}

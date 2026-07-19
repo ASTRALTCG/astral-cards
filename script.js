@@ -38,25 +38,54 @@ if (timelineViewport) {
   });
 
   let isDragging = false;
+  let didDrag = false;
   let startX = 0;
   let startScrollLeft = 0;
+  const dragThreshold = 7;
 
   timelineViewport.addEventListener('pointerdown', (event) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
+
     isDragging = true;
+    didDrag = false;
     startX = event.clientX;
     startScrollLeft = timelineViewport.scrollLeft;
+    timelineViewport.classList.add('is-dragging');
     timelineViewport.setPointerCapture?.(event.pointerId);
   });
 
   timelineViewport.addEventListener('pointermove', (event) => {
     if (!isDragging) return;
-    timelineViewport.scrollLeft = startScrollLeft - (event.clientX - startX);
+
+    const distance = event.clientX - startX;
+    if (Math.abs(distance) > dragThreshold) didDrag = true;
+
+    if (didDrag) {
+      event.preventDefault();
+      timelineViewport.scrollLeft = startScrollLeft - distance;
+    }
   });
 
-  const stopDragging = () => { isDragging = false; };
+  const stopDragging = (event) => {
+    if (!isDragging) return;
+    isDragging = false;
+    timelineViewport.classList.remove('is-dragging');
+    timelineViewport.releasePointerCapture?.(event.pointerId);
+  };
+
   timelineViewport.addEventListener('pointerup', stopDragging);
   timelineViewport.addEventListener('pointercancel', stopDragging);
+  timelineViewport.addEventListener('pointerleave', (event) => {
+    if (isDragging && event.pointerType === 'mouse') stopDragging(event);
+  });
+
+  // Empêche le navigateur de saisir/faire voler les images.
+  timelineViewport.querySelectorAll('img').forEach((image) => {
+    image.draggable = false;
+    image.addEventListener('dragstart', (event) => event.preventDefault());
+  });
+
+  timelineViewport.addEventListener('dragstart', (event) => event.preventDefault());
 
   const transition = document.querySelector('.timeline-transition');
   const transitionImage = document.querySelector('.timeline-transition-image');
@@ -64,18 +93,31 @@ if (timelineViewport) {
 
   document.querySelectorAll('.timeline-node').forEach((node) => {
     node.addEventListener('click', (event) => {
-      if (Math.abs(timelineViewport.scrollLeft - startScrollLeft) > 8) {
+      // Un vrai glissement ne doit pas ouvrir une page ; un simple clic, oui.
+      if (didDrag) {
+        event.preventDefault();
+        didDrag = false;
+        return;
+      }
+
+      const destination = node.getAttribute('href');
+      if (!destination) {
         event.preventDefault();
         return;
       }
+
       if (reduceMotion || !transition || !transitionImage) return;
 
       event.preventDefault();
       const image = node.querySelector('img');
-      const destination = node.getAttribute('href');
-      transitionImage.style.backgroundImage = image ? `url("${image.getAttribute('src')}")` : 'none';
+      transitionImage.style.backgroundImage = image
+        ? `url("${image.getAttribute('src')}")`
+        : 'none';
       transition.classList.add('active');
-      window.setTimeout(() => { window.location.href = destination; }, 650);
+
+      window.setTimeout(() => {
+        window.location.href = destination;
+      }, 650);
     });
   });
 }
