@@ -71,6 +71,159 @@ a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
   box-shadow:var(--shadow);
   transition:.28s ease;
 }
+.archetype-history{
+    max-width:900px;
+    margin:70px auto 30px;
+}
+
+.history-header{
+    margin-bottom:28px;
+    text-align:center;
+}
+
+.history-eyebrow{
+    display:block;
+    margin-bottom:8px;
+    color:#9caee8;
+    font-size:0.78rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+}
+
+.history-header h2{
+    margin:0;
+    font-size:2.2rem;
+}
+
+.history-chapters{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.history-chapter{
+    border:1px solid rgba(166, 188, 255, 0.2);
+    border-radius:16px;
+    background:rgba(9, 14, 35, 0.82);
+    overflow:hidden;
+}
+
+.history-chapter summary{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:22px 24px;
+    cursor:pointer;
+    list-style:none;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.history-chapter summary::-webkit-details-marker{
+    display:none;
+}
+
+.history-chapter summary:hover{
+    background:rgba(110, 139, 255, 0.08);
+}
+
+.history-chapter summary::after{
+    content:"+";
+    margin-left:auto;
+    color:#aebdff;
+    font-size:1.5rem;
+    line-height:1;
+    transition:transform 0.2s ease;
+}
+
+.history-chapter[open] summary::after{
+    transform:rotate(45deg);
+}
+
+.chapter-label{
+    color:#9caee8;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    white-space:nowrap;
+}
+
+.chapter-title{
+    color:#f3f5ff;
+    font-size:1.05rem;
+    font-weight:600;
+}
+
+.chapter-content{
+    padding:5px 24px 26px;
+    border-top:1px solid rgba(166, 188, 255, 0.12);
+}
+
+.chapter-content p{
+    margin:20px 0 0;
+    color:#d3d8eb;
+    font-size:1.02rem;
+    line-height:1.85;
+}
+
+.chapter-coming-soon{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:22px 24px;
+    opacity:0.6;
+    cursor:not-allowed;
+}
+
+.chapter-coming-soon > div{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.coming-soon-badge{
+    padding:6px 11px;
+    border:1px solid rgba(166, 188, 255, 0.25);
+    border-radius:999px;
+    color:#aeb7d8;
+    font-size:0.72rem;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+}
+
+@media (max-width:650px){
+    .archetype-history{
+        margin:45px 15px 25px;
+    }
+
+    .history-chapter summary,
+    .chapter-coming-soon{
+        align-items:flex-start;
+        padding:19px;
+    }
+
+    .history-chapter summary{
+        gap:10px;
+        flex-direction:column;
+    }
+
+    .history-chapter summary::after{
+        position:absolute;
+        right:34px;
+    }
+
+    .chapter-coming-soon > div{
+        align-items:flex-start;
+        flex-direction:column;
+        gap:7px;
+    }
+
+    .chapter-content{
+        padding:3px 19px 22px;
+    }
+}
 .hero-image img{
     width:100%;
     height:auto;
