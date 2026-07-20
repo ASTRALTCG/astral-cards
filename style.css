@@ -826,3 +826,26 @@ body.viewer-open{overflow:hidden}
 @media(max-width:410px){.gallery-grid{grid-template-columns:1fr 1fr}.starter-deck{padding:18px}.viewer-card{width:min(78vw,300px)}}
 @media(hover:none),(pointer:coarse){.gallery-card-button:hover{transform:none}.viewer-card{transition:none}.viewer-shine{display:none}}
 @media(prefers-reduced-motion:reduce){.card-viewer,.viewer-card-inner,.viewer-card,.gallery-card-button{transition:none}}
+
+
+/* ===== ACCORDÉON DES STARTER DECKS ===== */
+.starter-decks{gap:18px}
+.starter-deck{padding:0;overflow:hidden;transition:border-color .25s ease,box-shadow .25s ease}
+.starter-deck.is-open{border-color:rgba(145,168,255,.38);box-shadow:var(--shadow),0 0 34px rgba(112,94,255,.10)}
+.starter-deck-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:25px clamp(24px,4vw,42px);border:0;background:transparent;color:var(--text);font:inherit;text-align:left;cursor:pointer;transition:background .25s ease}
+.starter-deck-toggle:hover{background:rgba(145,168,255,.07)}
+.starter-deck-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:-4px}
+.starter-deck-title{display:flex;flex-direction:column;gap:5px}
+.starter-deck-title .kicker{margin:0}
+.starter-deck-name{font-size:clamp(1.65rem,3.4vw,2.55rem);font-weight:850;line-height:1.1}
+.starter-deck-arrow{display:grid;place-items:center;flex:0 0 46px;width:46px;height:46px;border:1px solid rgba(145,168,255,.24);border-radius:50%;background:rgba(255,255,255,.04);font-size:2rem;line-height:1;transition:transform .35s ease,background .25s ease,border-color .25s ease}
+.starter-deck.is-open .starter-deck-arrow{transform:rotate(180deg);background:rgba(145,168,255,.13);border-color:rgba(145,168,255,.48)}
+.starter-deck-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .42s cubic-bezier(.2,.75,.2,1)}
+.starter-deck.is-open .starter-deck-panel{grid-template-rows:1fr}
+.starter-deck-panel-inner{min-height:0;overflow:hidden}
+.starter-deck-panel-inner>.gallery-grid,.starter-deck-panel-inner>.deck-empty{margin-inline:clamp(24px,4vw,42px)}
+.starter-deck-panel-inner>.gallery-grid{padding-top:8px}
+.starter-deck-panel-inner>.deck-empty{padding:8px 0 30px}
+.starter-deck.is-open .starter-deck-panel-inner{padding-bottom:clamp(24px,4vw,42px)}
+@media(max-width:600px){.starter-deck-toggle{padding:20px 18px}.starter-deck-arrow{flex-basis:40px;width:40px;height:40px}.starter-deck-panel-inner>.gallery-grid,.starter-deck-panel-inner>.deck-empty{margin-inline:18px}}
+@media(prefers-reduced-motion:reduce){.starter-deck,.starter-deck-arrow,.starter-deck-panel{transition:none}}
