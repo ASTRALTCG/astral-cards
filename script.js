@@ -140,7 +140,11 @@ if (timelineViewport) {
     const archetype = deck?.dataset.archetype || '';
     const fileName = card.dataset.file?.trim() || `${name}.png`;
     const frontPath = `images/cartes/${fileName}`;
-    const backFile = card.dataset.back?.trim() || 'dos-carte.png';
+   const backFile =
+    card.dataset.back?.trim()
+    || (type === 'Navigateur'
+        ? `${name}_Astral.png`
+        : 'dos-carte.png');
     const backPath = `images/cartes/${backFile}`;
 
     card.dataset.archetype = archetype;
