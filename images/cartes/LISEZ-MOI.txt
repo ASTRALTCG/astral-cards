@@ -1,0 +1,22 @@
+GALERIE ASTRAL CARDS
+
+1. Placez les images recto dans ce dossier au format PNG.
+2. Le nom du fichier doit correspondre exactement à data-name.
+3. Ajoutez le dos officiel sous le nom : dos-carte.png
+
+Exemple :
+<article class="gallery-card" data-name="Wolffy" data-type="Sbire"></article>
+
+Image attendue :
+images/cartes/Wolffy.png
+
+Types acceptés :
+- Sbire
+- Navigateur
+- Environnement
+- Pouvoir
+- Cosmique
+- Spéciale
+
+L’archétype est déterminé automatiquement par le bloc Starter Deck dans lequel vous collez la carte.
+Vous pouvez aussi forcer un autre fichier avec data-file="mon-image.png" ou un autre dos avec data-back="mon-dos.png".
