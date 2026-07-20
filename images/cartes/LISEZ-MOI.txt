@@ -1,0 +1,18 @@
+GALERIE ASTRAL CARDS
+
+Placez ici :
+- les rectos des cartes, au format PNG par défaut ;
+- le dos commun sous le nom : dos-carte.png
+
+Dans galerie.html, ajoutez une carte dans le Starter Deck correspondant :
+
+<article class="gallery-card" data-name="nom-exact-du-fichier" data-type="Navigateur"></article>
+
+Exemple : si l'image s'appelle "Zvatas.png" :
+<article class="gallery-card" data-name="Zvatas" data-type="Navigateur"></article>
+
+Types acceptés :
+Navigateur, Environnement, Pouvoir, Cosmique, Spéciale
+
+Pour un fichier JPG ou WEBP, ajoutez data-extension :
+<article class="gallery-card" data-name="Zvatas" data-extension="webp" data-type="Navigateur"></article>

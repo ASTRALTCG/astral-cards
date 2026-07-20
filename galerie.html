@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <title>Astral Cards — Galerie</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050816">
+  <meta name="description" content="Découvrez une sélection de cartes des Starter Decks d’Astral Cards.">
+  <link rel="icon" type="image/png" href="logo-astral-cards.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="gallery-page">
+<div class="space-bg" aria-hidden="true"><div class="nebula"></div><div class="stars stars-a"></div><div class="stars stars-b"></div></div>
+
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="Astral Cards — Accueil">
+    <img src="logo-astral-cards.png" alt="Astral Cards">
+  </a>
+  <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">
+    <span></span><span></span><span></span>
+    <span class="sr-only">Ouvrir le menu</span>
+  </button>
+  <nav id="main-nav" class="main-nav">
+    <a href="index.html">Accueil</a>
+    <a href="le-jeu.html">Le jeu</a>
+    <a href="nouveautes.html">Nouveautés</a>
+    <a href="regles.html">Règles</a>
+    <a href="lore.html">Lore</a>
+    <a href="galerie.html" aria-current="page">Galerie</a>
+    <a href="faq.html">FAQ</a>
+    <a class="nav-cta" href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Discord</a>
+  </nav>
+</header>
+
+<main>
+  <section class="page-hero gallery-hero reveal">
+    <div class="page-hero-inner">
+      <p class="kicker">LES CARTES D’ASTRAL CARDS</p>
+      <h1>Galerie</h1>
+      <p>Explorez une sélection de cartes issues des quatre Starter Decks. Cliquez sur une carte pour l’observer, l’incliner et la retourner.</p>
+    </div>
+  </section>
+
+  <section class="section gallery-section reveal">
+    <div class="gallery-toolbar" aria-label="Filtres de la galerie">
+      <div class="gallery-filter-row" role="group" aria-label="Filtrer par type de carte">
+        <button class="gallery-filter is-active" type="button" data-filter="all">Toutes</button>
+        <button class="gallery-filter" type="button" data-filter="Navigateur">Navigateur</button>
+        <button class="gallery-filter" type="button" data-filter="Environnement">Environnement</button>
+        <button class="gallery-filter" type="button" data-filter="Pouvoir">Pouvoir</button>
+        <button class="gallery-filter" type="button" data-filter="Cosmique">Cosmique</button>
+        <button class="gallery-filter" type="button" data-filter="Spéciale">Spéciale</button>
+      </div>
+      <label class="gallery-search">
+        <span class="sr-only">Rechercher une carte</span>
+        <input id="gallery-search" type="search" placeholder="Rechercher une carte…" autocomplete="off">
+      </label>
+    </div>
+
+    <p class="gallery-results" aria-live="polite"></p>
+
+    <!-- AJOUTER LES CARTES DANS LE STARTER DECK CORRESPONDANT.
+         Le nom doit correspondre exactement au nom du fichier dans images/cartes/, sans .png.
+         Exemple : <article class="gallery-card" data-name="Zvatas" data-type="Navigateur"></article>
+         Pour un fichier WEBP/JPG : ajoutez data-extension="webp" ou data-extension="jpg". -->
+
+    <div class="starter-decks">
+      <section class="starter-deck" data-archetype="Démononuageux">
+        <header class="starter-deck-header">
+          <p class="kicker">STARTER DECK</p>
+          <h2>Démononuageux</h2>
+        </header>
+        <div class="gallery-grid">
+          <!-- Collez ici les cartes Démononuageux. -->
+        </div>
+        <p class="deck-empty">Aucune carte publiée dans cette sélection pour le moment.</p>
+      </section>
+
+      <section class="starter-deck" data-archetype="Sceau Brisé">
+        <header class="starter-deck-header">
+          <p class="kicker">STARTER DECK</p>
+          <h2>Le Sceau Brisé</h2>
+        </header>
+        <div class="gallery-grid">
+          <!-- Collez ici les cartes du Sceau Brisé. -->
+        </div>
+        <p class="deck-empty">Aucune carte publiée dans cette sélection pour le moment.</p>
+      </section>
+
+      <section class="starter-deck" data-archetype="Ordre de l’Épine">
+        <header class="starter-deck-header">
+          <p class="kicker">STARTER DECK</p>
+          <h2>L’Ordre de l’Épine</h2>
+        </header>
+        <div class="gallery-grid">
+          <!-- Collez ici les cartes de l’Ordre de l’Épine. -->
+        </div>
+        <p class="deck-empty">Aucune carte publiée dans cette sélection pour le moment.</p>
+      </section>
+
+      <section class="starter-deck" data-archetype="Guerriers Bêtes">
+        <header class="starter-deck-header">
+          <p class="kicker">STARTER DECK</p>
+          <h2>Guerriers Bêtes</h2>
+        </header>
+        <div class="gallery-grid">
+          <!-- Collez ici les cartes Guerriers Bêtes. -->
+        </div>
+        <p class="deck-empty">Aucune carte publiée dans cette sélection pour le moment.</p>
+      </section>
+    </div>
+  </section>
+</main>
+
+<div class="card-viewer" hidden aria-hidden="true">
+  <button class="card-viewer-backdrop" type="button" aria-label="Fermer la carte"></button>
+  <div class="card-viewer-dialog" role="dialog" aria-modal="true" aria-labelledby="viewer-card-name">
+    <button class="card-viewer-close" type="button" aria-label="Fermer">×</button>
+    <div class="viewer-stage">
+      <div class="viewer-tilt">
+        <div class="viewer-card">
+          <div class="viewer-face viewer-front"><img src="" alt=""></div>
+          <div class="viewer-face viewer-back">
+            <img src="images/cartes/dos-carte.png" alt="Dos de la carte">
+            <div class="viewer-back-fallback" aria-hidden="true">
+              <img src="logo-astral-cards.png" alt="">
+              <span>Dos de carte</span>
+            </div>
+          </div>
+        </div>
+        <span class="viewer-shine" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="viewer-info">
+      <div>
+        <p class="viewer-archetype"></p>
+        <h2 id="viewer-card-name"></h2>
+        <p class="viewer-type"></p>
+      </div>
+      <button class="viewer-flip" type="button" aria-pressed="false">↻ Retourner la carte</button>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <img src="logo-astral-cards.png" alt="">
+    <div>
+      <strong>Astral Cards</strong>
+      <p>Jeu de cartes stratégique indépendant en développement.</p>
+    </div>
+    <a href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Rejoindre le Discord</a>
+  </div>
+  <p class="copyright">© 2026 Astral Cards. Tous droits réservés.</p>
+</footer>
+<script src="script.js"></script>
+<script src="galerie.js"></script>
+</body>
+</html>
