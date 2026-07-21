@@ -47,7 +47,13 @@ a{color:inherit}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:none}
 @media(max-width:900px){.menu-button{display:block}.main-nav{display:none;position:absolute;top:70px;left:18px;right:18px;flex-direction:column;align-items:stretch;gap:0;padding:12px;background:#0a1022;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.main-nav.open{display:flex}.main-nav a{padding:12px 14px}.pillars,.split,.content-grid,.rules-grid{grid-template-columns:1fr}.content-card.wide{grid-column:auto}.split{gap:28px}.cta-strip{flex-direction:column;align-items:flex-start}.news-item{grid-template-columns:1fr}.news-meta{border-right:0;border-bottom:1px solid var(--line);padding-bottom:20px;align-items:flex-start}.lore-block,.lore-block.reverse{grid-template-columns:1fr}.lore-block.reverse .large-sigil{order:0}.footer-inner{grid-template-columns:1fr;text-align:center;justify-items:center}}
 @media(max-width:600px){.site-header{min-height:68px}.brand img{width:125px}.hero{min-height:calc(100vh - 68px);padding-top:55px}.hero:before{width:560px;height:560px}.hero-orbit{width:380px;height:380px}.hero h1{font-size:1.45rem}.section{padding:78px 0}.page-hero{padding-top:90px}.news-item,.content-card,.lore-block{padding:24px}.footer-inner img{width:125px}}
-
+@media(max-width:600px){
+    .lore-global-banner{
+        height:230px;
+        margin:18px 18px 0;
+        border-radius:14px;
+    }
+}
 
 /* ===== LORE NAVIGATION ===== */
 .lore-choice-grid{
