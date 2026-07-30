@@ -161,7 +161,110 @@ const QUESTIONS = [
     "correct": 2,
     "explanation": "La couleur violette est associée aux cartes Pouvoir. Imir étant un Sbire, c’était la véritable erreur.",
     "image": "images/quizz/Imir_lassassin_fidèle_de_lépine_quizz.png"
-  }
+  },
+{
+  question: "Mon adversaire déclare une attaque. Quelles sont les trois étapes, dans le bon ordre ?",
+  image: null,
+  answers: [
+    "L'annonce, l'inclinaison et la résolution.",
+    "L'inclinaison, l'annonce et la résolution.",
+    "La résolution, l'annonce et l'inclinaison.",
+    "La résolution, l'inclinaison et l'annonce."
+  ],
+  correct: 0,
+  explanation: "Une attaque se déroule toujours dans cet ordre : annonce de la cible, inclinaison du Sbire attaquant puis résolution de l'attaque. C'est lors de la résolution que l'adversaire peut notamment réagir avec des effets appropriés."
+},
+
+{
+  question: "Imaginons que les deux joueurs possèdent 11 Étoiles. Le joueur A active un effet qui lui fait gagner 1 Étoile, puis le joueur B répond avec un effet qui lui fait également gagner 1 Étoile. Qui remporte la partie ?",
+  image: null,
+  answers: [
+    "Match nul.",
+    "Aucun.",
+    "Le joueur A.",
+    "Le joueur B."
+  ],
+  correct: 3,
+  explanation: "Les effets se résolvent dans l'ordre inverse de leur activation. L'effet du joueur B est résolu en premier, il atteint immédiatement 12 Étoiles et la partie s'arrête instantanément."
+},
+
+{
+  question: "Quel est le nom de cette carte ?",
+  image: "images/quizz/immunite_bestiale_quizz.png",
+  answers: [
+    "Bouclier des Guerriers-Bêtes",
+    "Protection animale",
+    "L'Immunité bestiale",
+    "Sphère protectrice des animaux"
+  ],
+  correct: 2,
+  explanation: "L'Immunité bestiale est une carte Cosmique - Pouvoir - Black-Hole appartenant au Starter Deck des Guerriers-Bêtes."
+},
+
+{
+  question: "Naturellement, où vont les cartes après avoir été activées ou détruites ?",
+  image: null,
+  answers: [
+    "Au Vortex.",
+    "Au Néant.",
+    "Dans le Deck.",
+    "Dans la Main de leur propriétaire."
+  ],
+  correct: 0,
+  explanation: "Par défaut, les cartes activées ou détruites sont envoyées dans le Vortex. Si un effet précise une autre destination, c'est cet effet qui prévaut."
+},
+
+{
+  question: "Dans mon Deck, sans compter le Navigateur et l'Environnement, combien ai-je de cartes si j'y ai ajouté 2 cartes Spéciales ?",
+  image: null,
+  answers: [
+    "34 cartes",
+    "31 cartes",
+    "37 cartes",
+    "36 cartes"
+  ],
+  correct: 3,
+  explanation: "15 Sbires + 15 Pouvoirs + 4 Cosmiques + 2 Spéciales = 36 cartes. Le Navigateur et l'Environnement ne font pas partie du Deck."
+},
+
+{
+  question: "En début de partie, les dés désignent le joueur 1, et c'est vous. Combien de cartes piochez-vous lors de votre première Phase de Pioche ?",
+  image: null,
+  answers: [
+    "1 carte.",
+    "2 cartes.",
+    "Tout dépend du résultat des dés.",
+    "Je ne pioche aucune carte."
+  ],
+  correct: 3,
+  explanation: "Lors du tout premier tour de la partie, le joueur 1 ne pioche pas. Le joueur 2 pioche 1 carte, puis à partir du tour 2 global, chaque joueur pioche 2 cartes."
+},
+
+{
+  question: "Qu'est-ce qui cloche avec cette carte d'un point de vue gameplay ?",
+  image: "images/quizz/Lavatar_des_flammes_quizz.png",
+  answers: [
+    "Ses statistiques.",
+    "Sa faculté.",
+    "Son coût d'Energy.",
+    "Son effet."
+  ],
+  correct: 1,
+  explanation: "La faculté Absolue empêche la carte d'être détruite et de quitter le Terrain, sauf si son propre effet l'autorise. Or aucun effet ne le permet, ce qui la rend techniquement impossible à retirer du Terrain."
+},
+
+{
+  question: "Une carte me demande d'ajouter une carte spécifique depuis mon Deck à ma Main. Dois-je la révéler à mon adversaire avant de l'ajouter ?",
+  image: null,
+  answers: [
+    "Oui.",
+    "Non.",
+    "Tout dépend de la carte.",
+    "Tout dépend du tour en cours."
+  ],
+  correct: 0,
+  explanation: "Lorsqu'un effet demande d'ajouter une carte spécifique depuis le Deck, celle-ci doit être révélée afin de vérifier qu'elle correspond bien aux critères indiqués."
+}
 ];
 
 const startScreen = document.getElementById("quiz-start");
