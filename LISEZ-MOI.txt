@@ -1,12 +1,13 @@
-# Site Astral Cards
+MISE À JOUR QUIZZ — ASTRAL CARDS
 
-Fichiers prêts pour GitHub Pages.
+IMPORTANT : ouvrez votre dossier actuel « astral-cards », puis copiez directement
+TOUT le contenu de ce ZIP à l'intérieur.
 
-## Mise en ligne
-1. Ouvrir le dépôt GitHub `astral-cards`.
-2. Cliquer sur **Add file** puis **Upload files**.
-3. Glisser tous les fichiers et le dossier `assets` dans GitHub.
-4. Valider avec **Commit changes**.
-5. Attendre environ une minute puis actualiser le site.
+Le dossier « images » de ce ZIP ne remplace pas votre dossier images existant :
+il ajoute uniquement le sous-dossier « images/quizz ».
 
-Adresse : https://astraltcg.github.io/astral-cards/
+Quand Windows demande :
+- « Fusionner les dossiers ? » → Oui
+- « Remplacer les fichiers HTML existants ? » → Oui
+
+Ne copiez pas ce dossier patch à côté du site et ne créez pas un second dossier astral-cards.

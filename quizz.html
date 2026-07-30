@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<title>Quizz — Astral Cards</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050816">
+<meta name="description" content="Testez vos connaissances sur les règles et les cartes d’Astral Cards.">
+<link rel="icon" type="image/png" href="logo-astral-cards.png">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="quizz.css">
+</head>
+<body class="subpage quiz-page">
+<div class="space-bg" aria-hidden="true"><div class="nebula"></div><div class="stars stars-a"></div><div class="stars stars-b"></div></div>
+<header class="site-header">
+  <a class="brand" href="index.html" aria-label="Astral Cards — Accueil"><img src="logo-astral-cards.png" alt="Astral Cards"></a>
+  <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span><span class="sr-only">Ouvrir le menu</span></button>
+  <nav id="main-nav" class="main-nav">
+    <a href="index.html">Accueil</a>
+    <a href="le-jeu.html">Le jeu</a>
+    <a href="nouveautes.html">Nouveautés</a>
+    <a href="regles.html">Règles</a>
+    <a href="quizz.html" aria-current="page">Quizz</a>
+    <a href="lore.html">Lore</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="faq.html">FAQ</a>
+    <a class="nav-cta" href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Discord</a>
+  </nav>
+</header>
+<main class="quiz-main">
+  <section class="quiz-shell" aria-live="polite">
+    <div id="quiz-start" class="quiz-screen quiz-start-screen">
+      <p class="kicker">TESTEZ VOS CONNAISSANCES</p>
+      <h1>Le Quizz d’ASTRAL CARDS</h1>
+      <p>Répondez à <strong>10 questions aléatoires</strong> parmi la sélection actuelle. Chaque question propose quatre choix et une seule bonne réponse.</p>
+      <div class="quiz-rules">
+        <span>10 questions</span><span>1 point par bonne réponse</span><span>Aucune sauvegarde</span>
+      </div>
+      <button id="start-quiz" class="button button-primary" type="button">Commencer</button>
+    </div>
+
+    <div id="quiz-game" class="quiz-screen" hidden>
+      <div class="quiz-topbar">
+        <span id="question-counter">Question 1 / 10</span>
+        <span id="score-counter">Score : 0</span>
+      </div>
+      <div class="quiz-progress" aria-hidden="true"><div id="progress-bar"></div></div>
+      <article class="quiz-card">
+        <div id="question-image-wrap" class="quiz-image-wrap" hidden>
+          <img id="question-image" src="" alt="Illustration liée à la question">
+        </div>
+        <h2 id="question-text"></h2>
+        <div id="answers" class="quiz-answers"></div>
+        <div id="feedback" class="quiz-feedback" hidden>
+          <p id="feedback-title" class="feedback-title"></p>
+          <p id="explanation"></p>
+        </div>
+        <button id="next-question" class="button button-primary quiz-next" type="button" hidden>Question suivante</button>
+      </article>
+    </div>
+
+    <div id="quiz-result" class="quiz-screen quiz-result-screen" hidden>
+      <p class="kicker">RÉSULTAT FINAL</p>
+      <div id="final-score" class="final-score">0/10</div>
+      <h2 id="final-rank"></h2>
+      <p id="final-message"></p>
+      <button id="restart-quiz" class="button button-primary" type="button">Recommencer</button>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="footer-inner"><img src="logo-astral-cards.png" alt=""><div><strong>Astral Cards</strong><p>Jeu de cartes stratégique indépendant en développement.</p></div><a href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Rejoindre le Discord</a></div>
+  <p class="copyright">© 2026 Astral Cards. Tous droits réservés.</p>
+</footer>
+<script src="script.js"></script>
+<script src="quizz.js"></script>
+</body>
+</html>
