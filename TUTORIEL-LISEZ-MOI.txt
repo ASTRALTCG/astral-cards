@@ -1,0 +1,33 @@
+ASTRAL CARDS — TUTORIEL 1
+
+Le site complet est inclus. Le nouvel onglet Tutoriel se trouve à droite du menu.
+Pour un essai local, ouvrez tutoriel.html dans un navigateur récent.
+Pour mettre à jour votre site existant, remplacez les fichiers modifiés et ajoutez les fichiers tutoriel ainsi que le dossier tutoriel-assets.
+
+FONCTIONNEMENT
+69 étapes, aucune avance automatique. Les actions du Joueur 2 attendent aussi un clic sur Suivant.
+10 actions guidées : pioche de la Main de départ, pioche de Geckoto, pioches des tours 2 et 3, invocation de Geckoto, pose du Black-Hole, Falco, activation du Black-Hole, étoile de Geckoto, invocation de Cruauté des mers.
+Les cartes visibles peuvent être agrandies. Les cartes face cachée restent masquées. La Main adverse n’est jamais affichée.
+Précédent permet de revoir une étape avec son état exact ; Recommencer réinitialise le chapitre.
+Le bouton Plein écran est proposé lorsque le navigateur le permet.
+Le chapitre 2 est indiqué à venir, sans lien vers un chapitre inexistant.
+
+SCÉNARIO
+Le scénario et les textes se trouvent dans tutoriel-engine.js.
+Les associations des images se trouvent dans tutoriel-cards.js.
+L’affichage est géré par tutoriel.js et tutoriel.css.
+Les deux tapis utilisent exclusivement la version sans numéros ; les emplacements suivent le tapis de référence numéroté.
+
+COHÉRENCE
+Les cinq premières cartes sont la Main de départ, sans pioche supplémentaire au tour 1 du Joueur 1.
+Vairon recherche Kaïros, conformément au texte de la carte fournie.
+Au tour 3, Cruauté des mers est toujours présente, déjà redressée.
+Cataclysme des nuages est l’Environnement du Joueur 1 ; Le domaine sauvage celui du Joueur 2.
+
+VÉRIFICATIONS
+Syntaxe JavaScript, intégrité des images et liens, cibles cliquables, états des 69 étapes, réactions, piles, fin de chapitre et réinitialisation vérifiés automatiquement.
+Le calcul d’ajustement des deux tapis et de la Main a été contrôlé sur plusieurs tailles d’écran. Pas de vérification visuelle dans un navigateur effectuée dans cet environnement.
+
+MISE À JOUR 2
+Vairon utilise directement le fichier original Vairon.png et apparaît agrandi dès son invocation.
+Chaque pioche du Joueur 1 attend obligatoirement un clic sur son Deck illuminé. Les cartes rejoignent la Main uniquement après ce clic.

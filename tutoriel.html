@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutoriel 1 — Astral Cards</title><meta name="description" content="Apprenez à jouer à Astral Cards dans un tutoriel interactif, étape par étape.">
+<link rel="icon" href="logo-astral-cards.png"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="tutoriel.css?v=2"></head>
+<body class="tutorial-page"><header class="site-header">
+  <a class="brand" href="index.html" aria-label="Astral Cards — Accueil"><img src="logo-astral-cards.png" alt="Astral Cards"></a>
+  <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav"><span></span><span></span><span></span><span class="sr-only">Ouvrir le menu</span></button>
+  <nav id="main-nav" class="main-nav">
+    <a href="index.html">Accueil</a>
+    <a href="le-jeu.html">Le jeu</a>
+    <a href="nouveautes.html">Nouveautés</a>
+    <a href="regles.html">Règles</a>
+    <a href="quizz.html">Quizz</a>
+    <a href="lore.html">Lore</a>
+    <a href="galerie.html">Galerie</a>
+    <a href="faq.html">FAQ</a>
+    <a class="nav-cta" href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Discord</a>
+    <a href="tutoriel.html" aria-current="page">Tutoriel</a>
+  </nav>
+</header>
+<main>
+<section id="tutorial-start" class="tutorial-start">
+ <div class="chapter-cover"><img src="tutoriel-assets/zvatas-forme-1.webp" alt="Zvatas, votre Navigateur" width="744" height="1040"></div>
+ <div class="chapter-intro"><p class="kicker">APPRENDRE À JOUER</p><h1>Tutoriel : 1</h1><h2>Vos premiers tours</h2>
+ <p>Prenez en main les Démononuageux face aux Bêtes Guerriers. Apprenez à invoquer vos Sbires, à réagir aux actions adverses et à conquérir vos premières étoiles.</p>
+ <p class="chapter-note">Un parcours guidé, à votre rythme. Cliquez sur les cartes indiquées et avancez avec « Suivant ».</p>
+ <button type="button" id="start-tutorial" class="t-primary">Démarrer</button><p class="chapter-next">Chapitre 2 · À venir</p></div>
+</section>
+<section id="tutorial-game" class="tutorial-game" hidden aria-label="Tutoriel interactif">
+ <div class="tutorial-toolbar"><div><strong>Tutoriel 1</strong><span id="step-counter"></span></div><div class="toolbar-buttons"><button type="button" id="fullscreen">Plein écran</button><button type="button" id="exit-tutorial">Quitter</button></div></div>
+ <div class="tutorial-layout">
+  <section class="table-area" aria-label="Les deux Terrains et votre Main">
+   <div class="player-status opponent-status" id="status-2"></div>
+   <div class="table-fit" id="table-fit"><div class="table-stack" id="table-stack"><div id="mat-2" class="playmat opponent" aria-label="Terrain du Joueur 2"></div><div id="mat-1" class="playmat" aria-label="Votre Terrain"></div></div></div>
+   <div class="player-status" id="status-1"></div>
+   <div class="hand-row"><span class="hand-label">VOTRE MAIN</span><div id="hand" class="hand" aria-label="Votre Main"></div></div>
+  </section>
+  <aside class="guide" aria-label="Explication de l’étape">
+   <div class="guide-top"><span id="turn-label"></span><span id="phase-label"></span></div>
+   <progress id="tutorial-progress" max="1" value="0" aria-label="Progression du chapitre"></progress>
+   <div class="guide-scroll">
+    <div id="focus-wrap" class="focus-wrap" hidden><button type="button" id="focus-card" aria-label="Agrandir la carte"><img id="focus-image" alt=""></button><div id="stat-legend" class="stat-legend" hidden><span>↖ Energy : 1</span><span>↗ Puissance : 1 · PV : 1</span></div><span class="zoom-hint">Cliquez pour agrandir</span></div>
+    <div id="revealed-cards" class="revealed-cards" hidden aria-label="Les cinq cartes révélées"></div>
+    <article aria-live="polite" aria-atomic="true"><p id="step-kind" class="step-kind"></p><h2 id="step-title" tabindex="-1"></h2><p id="step-text"></p></article>
+   </div>
+   <div class="guide-controls"><p id="action-hint" hidden>La carte à jouer est illuminée.</p><div class="step-buttons"><button type="button" id="previous-step" aria-label="Étape précédente">Précédent</button><button type="button" id="next-step" class="t-primary">Suivant</button></div><button type="button" id="restart-tutorial" hidden>Recommencer le chapitre</button><p id="chapter-two" hidden>Chapitre 2 · À venir</p></div>
+  </aside>
+ </div>
+</section>
+<noscript><p class="noscript">Activez JavaScript dans votre navigateur pour démarrer le tutoriel.</p></noscript>
+</main>
+<dialog id="card-dialog" class="card-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><h2 id="dialog-title">Carte</h2><button type="button" id="close-card" aria-label="Fermer l’agrandissement">Fermer ×</button></div><img id="dialog-image" alt=""></dialog>
+<script src="script.js"></script><script src="tutoriel-cards.js?v=2"></script><script src="tutoriel-engine.js?v=2"></script><script src="tutoriel.js?v=2"></script>
+</body></html>
