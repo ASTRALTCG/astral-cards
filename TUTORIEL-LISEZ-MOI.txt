@@ -31,3 +31,10 @@ Le calcul d’ajustement des deux tapis et de la Main a été contrôlé sur plu
 MISE À JOUR 2
 Vairon utilise directement le fichier original Vairon.png et apparaît agrandi dès son invocation.
 Chaque pioche du Joueur 1 attend obligatoirement un clic sur son Deck illuminé. Les cartes rejoignent la Main uniquement après ce clic.
+
+MISE À JOUR DU 13 SEPTEMBRE 2026
+Explications de pioche allégées : plus de listes de noms de cartes piochées.
+Onglet Tutoriel présent dans chaque menu, y compris Nouveautés et les Règles.
+Copiez le contenu de ce dossier dans votre dossier existant, en acceptant le remplacement des fichiers. Ne supprimez pas votre dossier de travail GitHub Desktop.
+
+Les cartes Cosmiques et Spéciales face cachée du Joueur 2 ne sont plus nommées dans les explications : seuls leur emplacement et leur orientation sont indiqués.

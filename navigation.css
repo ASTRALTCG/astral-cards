@@ -1,0 +1,21 @@
+/* Navigation commune, y compris pour la page autonome des règles. */
+.site-header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:78px;padding:10px clamp(20px,5vw,76px);background:rgba(5,8,22,.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.12);box-sizing:border-box}
+.site-header .brand{flex-shrink:0}
+.site-header .brand img{display:block;width:150px;height:auto}
+.site-header .main-nav{display:flex;align-items:center;gap:clamp(12px,1.7vw,25px)}
+.site-header .main-nav a{text-decoration:none;color:#aab3cb;font-weight:700;font-size:.93rem;transition:color .2s;white-space:nowrap}
+.site-header .main-nav a:hover,.site-header .main-nav a[aria-current="page"]{color:#fff}
+.site-header .main-nav .nav-cta{border:1px solid rgba(232,237,255,.25);padding:9px 16px;border-radius:999px;color:#fff;background:rgba(255,255,255,.04)}
+.site-header .menu-button{display:none;background:none;border:0;width:42px;height:42px;padding:9px;cursor:pointer;flex-shrink:0}
+.site-header .menu-button span:not(.sr-only){display:block;height:2px;background:#fff;margin:5px 0}
+.site-header .sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0)}
+.site-header a:focus-visible,.site-header button:focus-visible{outline:2px solid #c7b3ff;outline-offset:4px}
+@media(min-width:1101px) and (max-width:1300px){.site-header{padding-inline:20px}.site-header .main-nav{gap:14px}.site-header .brand img{width:125px}}
+@media(max-width:1100px){
+  .site-header .menu-button{display:block}
+  .site-header .main-nav{display:none;position:absolute;top:100%;left:18px;right:18px;flex-direction:column;align-items:stretch;gap:0;padding:12px;background:#0a1022;border:1px solid rgba(255,255,255,.12);border-radius:16px;box-shadow:0 28px 90px rgba(0,0,0,.42);max-height:calc(100dvh - 110px);overflow-y:auto}
+  .site-header .main-nav.open{display:flex}
+  .site-header .main-nav a{padding:12px 14px}
+}
+@media(max-width:600px){.site-header{min-height:68px}.site-header .brand img{width:125px}}
+@media(prefers-reduced-motion:reduce){.site-header .main-nav a{transition:none}}
