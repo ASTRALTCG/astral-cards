@@ -6,11 +6,11 @@
     dragon:'Dragon brumeux', cyclone:'Le cyclone', storm:'Démon des tempêtes', eye:"L'oeil protecteur",
     hand:'La grande main', rox:'Roxxor', nav:'Zvatas forme 1', env:'Cataclysme des nuages',
     pillage:'Pillage bénéfique', urkan:'Urkan', vairon:'Vairon', sovereign:'Vairon souverrain',
-    assimilation:'Assimilation des Energies', env2:'Le domaine sauvage'
+    assimilation:'Assimilation des Energies', env2:'Le domaine sauvage', larva:'La larve', wolf:"Wollfy de l'épée", swordEye:"L'oeil de l'épée", light:'La lumière après les nuages', dompteur:'Dompteur', elphoros:'Elphoros'
   };
   const clone = value => JSON.parse(JSON.stringify(value));
   const player = () => ({energy:0,max:0,stars:0,actions:0,hand:[],zones:{},deck:false});
-  function build() {
+  function buildChapter1() {
     let state = {turn:0,active:1,phase:'Découverte',players:{1:player(),2:player()},revealed:[]};
     const steps=[];
     const p = n => state.players[n];
@@ -41,7 +41,7 @@
     step('Pas de pioche pour le premier joueur', 'Vous avez déjà vos cinq cartes de départ. Au tout premier tour, le joueur qui commence ne pioche pas : il accédera aux différents modes avant son adversaire. Vous disposez de deux actions principales pendant votre tour.', {},()=>{state.phase='Phase de jeu';});
     step('Lire un Sbire : Geckoto', 'En haut à gauche : son coût d’invocation, 1 Energy. En haut à droite : sa Puissance, 1. Juste en dessous : ses PV, 1. Cette carte peut donc être invoquée avec votre Energy actuelle.', {focus:C.gecko,stats:true});
     step('À vous : invoquez Geckoto', 'Cliquez sur Geckoto, qui clignote dans votre Main. Son invocation coûte 1 Energy et utilise votre première action principale.', {target:{player:1,name:C.gecko,location:'hand'},action:'Invoquer Geckoto'});
-    step('Un Sbire arrive incliné', 'Geckoto rejoint votre Terrain, incliné à 90°. Un Sbire invoqué depuis la Main de cette manière ne peut pas attaquer ce tour. Votre Energy est maintenant à 0 / 1.', {},()=>{move(1,C.gecko,7,{tapped:true});p(1).energy=0;p(1).actions=1;});
+    step('Un Sbire arrive incliné', 'Geckoto rejoint votre Terrain incliné. Un Sbire invoqué depuis la Main de cette manière ne peut pas attaquer ce tour. Votre Energy est maintenant à 0 / 1.', {},()=>{move(1,C.gecko,7,{tapped:true});p(1).energy=0;p(1).actions=1;});
     step('Apparition : un effet immédiat', 'L’effet « Apparition » de Geckoto s’active dès son invocation : « Piochez 1 carte ». Cette pioche provient de son effet, elle n’utilise pas une nouvelle action principale.', {focus:C.gecko});
     step('À vous : piochez avec Geckoto', 'Cliquez sur votre Deck illuminé pour piocher la carte accordée par l’effet Apparition de Geckoto.', {target:{player:1,name:'Deck',location:'board'},action:'Piocher 1 carte avec Geckoto',requireDeck:true});
     step('Une carte rejoint votre Main', 'Vous avez pioché une carte grâce à l’effet de Geckoto. Vous avez utilisé une seule de vos deux actions principales.', {},()=>draw(1,[C.cyclone]));
@@ -94,7 +94,65 @@
     step('Tutoriel 1 terminé', 'Vous avez découvert la mise en place, l’Energy, les invocations, les réactions, le combat et les étoiles. Besoin de revoir une étape ? Recommencez ce chapitre. La suite de l’apprentissage vous attendra au chapitre 2 !', {complete:true});
     return steps;
   }
-  const api={build,C};
+
+  function buildChapter2() {
+    let state = {turn:3,active:1,phase:'Début du tour',players:{1:player(),2:player()},revealed:[]};
+    const steps=[];
+    const p = n => state.players[n];
+    function put(n,z,name,options={}) { (p(n).zones[z] ||= []).push({name,back:false,tapped:false,...options}); }
+    function find(n,name){ for(const z of Object.values(p(n).zones)){const c=z.find(c=>c.name===name);if(c)return c;} return null; }
+    function remove(n,name) {
+      const h=p(n).hand.indexOf(name); if(h>=0) p(n).hand.splice(h,1);
+      for(const z of Object.values(p(n).zones)) {const i=z.findIndex(c=>c.name===name);if(i>=0){z.splice(i,1);return;}}
+    }
+    function move(n,name,z,options={}) {remove(n,name);put(n,z,name,options);}
+    function draw(n,names) {p(n).hand.push(...names);}
+    function step(title,text,opts={},change) {if(change)change();steps.push({title,text,...opts,state:clone(state)});}
+
+    // Situation de départ du chapitre 2.
+    p(1).energy=2;p(1).max=2;p(1).stars=0;p(1).actions=0;p(1).deck=true;
+    draw(1,[C.light,C.hand,C.dragon]);
+    put(1,6,C.nav,{hp:5,clouds:0});
+    put(1,6,C.env,{back:true});
+    // Le sommet de la pile est La larve afin que le clic sur la pile soit guidé sans afficher les zones techniques.
+    put(1,1,C.wolf,{back:true,tapped:true});put(1,1,C.swordEye,{back:true,tapped:true});put(1,1,C.larva,{back:true,tapped:true});
+    put(1,7,C.sea,{tapped:true});
+
+    p(2).energy=3;p(2).max=3;p(2).stars=0;p(2).actions=0;p(2).deck=true;
+    put(2,6,C.dompteur,{hp:5});
+    put(2,2,C.env2,{tapped:true});
+    put(2,5,C.elphoros,{hp:3,tapped:true});
+
+    step('Chapitre 2 · Le Navigateur', 'Dans ce chapitre, vous allez apprendre à révéler votre Navigateur, utiliser son effet et comprendre ce qu’il peut faire au combat. Le tour est à vous.');
+    step('Phase d’Energy', 'Votre maximum d’Energy augmente et votre réserve se recharge entièrement.', {},()=>{state.phase='Energy';p(1).max=3;p(1).energy=3;});
+    step('Phase de pioche', 'Cliquez sur votre Deck illuminé pour effectuer votre pioche du tour.', {target:{player:1,name:'Deck',location:'board'},action:'Piocher',requireDeck:true},()=>{state.phase='Pioche';});
+    step('Votre pioche', 'Deux cartes rejoignent votre Main. Prenez le temps de regarder votre nouvelle Main avant de continuer.', {},()=>draw(1,[C.eye,C.storm]));
+    step('Phase de redressement', 'La carte déjà inclinée sur votre Terrain se redresse et redevient prête à agir.', {},()=>{state.phase='Redressement';const c=find(1,C.sea);if(c)c.tapped=false;});
+    step('Phase d’Ascension', 'Vous avez maintenant atteint 3 Energy. Il est temps de révéler votre Navigateur. Cliquez sur la carte qui le recouvre au centre de votre Terrain.', {target:{player:1,name:C.env,location:'board'},action:'Révéler votre Navigateur'},()=>{state.phase='Ascension';});
+    step('Votre Navigateur est révélé', 'Votre Environnement rejoint son emplacement dédié et votre Navigateur apparaît. En général, un Navigateur possède 1 point de Puissance, 5 PV et une seconde face destinée au mode Astral, que nous verrons plus tard.', {focus:C.nav},()=>{move(1,C.env,2,{tapped:true});const nav=find(1,C.nav);if(nav){nav.clouds=3;nav.hp=5;}});
+    step('Ses compteurs', 'Lorsqu’il est révélé, placez 3 compteurs Nuage sur votre Navigateur. Son effet pourra en retirer un lorsqu’un Sbire Démononuageux est invoqué afin de le redresser immédiatement. Cet effet ne peut être utilisé qu’une fois par tour, et la carte ainsi redressée ne pourra plus être redressée par un autre effet ce tour-ci.', {focus:C.nav});
+    step('Invoquez un Sbire', 'Cliquez sur le Sbire illuminé dans votre Main pour l’invoquer. Il utilise toute votre Energy disponible.', {target:{player:1,name:C.dragon,location:'hand'},action:'Invoquer le Sbire'});
+    step('Activez l’effet du Navigateur', 'Le Sbire arrive incliné sur votre Terrain. Cliquez maintenant sur votre Navigateur pour utiliser son effet.', {target:{player:1,name:C.nav,location:'board'},action:'Activer son effet'},()=>{move(1,C.dragon,8,{tapped:true});p(1).energy=0;p(1).actions=1;});
+    step('Effet résolu', 'Un compteur est retiré et le Sbire invoqué se redresse automatiquement. Il est désormais prêt au combat.', {},()=>{const nav=find(1,C.nav);if(nav)nav.clouds=2;const d=find(1,C.dragon);if(d)d.tapped=false;});
+    step('Attaques du Navigateur', 'Un Navigateur peut attaquer. S’il détruit un Sbire au combat, il génère 1 étoile, comme vos Sbires. Si le Terrain adverse est vide, il ne peut pas attaquer directement le Navigateur adverse ; il peut toutefois s’incliner pour générer 1 étoile.');
+    step('Votre dernière action principale', 'Jouez la carte illuminée. Son effet va vous permettre d’invoquer une carte depuis votre Deck Spécial.', {target:{player:1,name:C.hand,location:'hand'},action:'Jouer la carte'});
+    step('Choisissez dans votre Deck Spécial', 'Cliquez sur votre pile de cartes Spéciales illuminée pour voir les cartes disponibles.', {target:{player:1,name:C.larva,location:'board'},action:'Ouvrir le Deck Spécial'},()=>{remove(1,C.hand);p(1).actions=2;});
+    step('Choisissez la carte à invoquer', 'Les cartes disponibles s’affichent. Cliquez sur la carte illuminée pour l’invoquer grâce à l’effet.', {target:{player:1,name:C.larva,location:'revealed'},action:'Invoquer cette carte',reveal:true},()=>{state.revealed=[C.larva,C.swordEye,C.wolf];});
+    step('Invocation spéciale', 'Un Sbire invoqué grâce à un effet est une invocation spéciale : vous ne payez pas son coût d’Energy et il arrive verticalement, prêt au combat, sauf si l’effet indique le contraire.', {},()=>{state.revealed=[];remove(1,C.larva);put(1,5,C.larva);});
+    step('Passez à l’attaque', 'Commencez par attaquer le Sbire adverse avec votre premier attaquant. Cliquez sur votre carte illuminée.', {target:{player:1,name:C.dragon,location:'board'},action:'Attaquer'});
+    step('Choisissez la cible', 'Votre attaquant est incliné. Cliquez maintenant sur le Sbire adverse pour le prendre pour cible.', {target:{player:2,name:C.elphoros,location:'board'},action:'Cibler le Sbire'},()=>{const d=find(1,C.dragon);if(d)d.tapped=true;});
+    step('Dégâts infligés', 'Votre attaquant possède 2 de Puissance. Les dégâts sont soustraits aux PV : le Sbire adverse n’a plus qu’1 PV.', {},()=>{const e=find(2,C.elphoros);if(e)e.hp=1;});
+    step('Attaquez avec votre Navigateur', 'Le Sbire adverse est presque vaincu. Cliquez sur votre Navigateur pour lancer une seconde attaque.', {target:{player:1,name:C.nav,location:'board'},action:'Attaquer avec le Navigateur'});
+    step('Choisissez la cible', 'Votre Navigateur est incliné. Cliquez sur le Sbire adverse pour terminer le combat.', {target:{player:2,name:C.elphoros,location:'board'},action:'Cibler le Sbire'},()=>{const nav=find(1,C.nav);if(nav)nav.tapped=true;});
+    step('Une étoile remportée', 'Le Sbire adverse est détruit et rejoint le Vortex. Votre Navigateur l’ayant détruit au combat, vous gagnez 1 étoile.', {},()=>{move(2,C.elphoros,9);p(1).stars=1;});
+    step('Le champ est libre', 'Votre dernier Sbire est encore prêt au combat. Cliquez dessus pour attaquer.', {target:{player:1,name:C.larva,location:'board'},action:'Attaquer'});
+    step('Ciblez le Navigateur adverse', 'Cette fois, le champ est libre. Cliquez sur le Navigateur adverse pour lui infliger les dégâts.', {target:{player:2,name:C.dompteur,location:'board'},action:'Cibler le Navigateur'},()=>{const l=find(1,C.larva);if(l)l.tapped=true;});
+    step('Dégâts sur le Navigateur', 'Le Navigateur adverse perd 1 PV. Vous venez de voir comment révéler, utiliser et faire combattre votre propre Navigateur.', {},()=>{const n=find(2,C.dompteur);if(n)n.hp=4;});
+    step('Chapitre 2 terminé', 'Bravo ! Vous savez maintenant exploiter l’effet de votre Navigateur, l’utiliser au combat et combiner ses possibilités avec vos invocations.', {complete:true});
+    return steps;
+  }
+  function build(chapter=1){ return Number(chapter)===2 ? buildChapter2() : buildChapter1(); }
+  const api={build,buildChapter1,buildChapter2,C};
   if(typeof module!=='undefined' && module.exports) module.exports=api;
   else root.AstralTutorial=api;
 })(typeof window!=='undefined'?window:globalThis);

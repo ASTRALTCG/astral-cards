@@ -1,4 +1,13 @@
 const TUTORIAL_CARDS = {
+  "La lumière après les nuages": {
+    "name": "La lumière après les nuages",
+    "src": "tutoriel-assets/la-lumiere-apres-les-nuages.png"
+  },
+  "Dompteur": {
+    "name": "Dompteur",
+    "src": "tutoriel-assets/Dompteur.png"
+  },
+
   "La larve": {
     "name": "La larve",
     "src": "tutoriel-assets/la-larve.webp"
@@ -29,7 +38,7 @@ const TUTORIAL_CARDS = {
   },
   "Cruauté des mers": {
     "name": "Cruauté des mers",
-    "src": "tutoriel-assets/cruaute-des-mers.webp"
+    "src": "tutoriel-assets/la cruaute-des-mers.webp"
   },
   "Zvatas forme 1": {
     "name": "Zvatas forme 1",

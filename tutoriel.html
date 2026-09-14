@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutoriel 1 — Astral Cards</title><meta name="description" content="Apprenez à jouer à Astral Cards dans un tutoriel interactif, étape par étape.">
+<title>Tutoriels — Astral Cards</title><meta name="description" content="Apprenez à jouer à Astral Cards dans un tutoriel interactif, étape par étape.">
 <link rel="icon" href="logo-astral-cards.png"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="tutoriel.css?v=2"><link rel="stylesheet" href="navigation.css?v=20260913">
 </head>
 <body class="tutorial-page"><header class="site-header">
@@ -21,15 +21,29 @@
   </nav>
 </header>
 <main>
-<section id="tutorial-start" class="tutorial-start">
- <div class="chapter-cover"><img src="tutoriel-assets/zvatas-forme-1.webp" alt="Zvatas, votre Navigateur" width="744" height="1040"></div>
- <div class="chapter-intro"><p class="kicker">APPRENDRE À JOUER</p><h1>Tutoriel : 1</h1><h2>Vos premiers tours</h2>
- <p>Prenez en main les Démononuageux face aux Bêtes Guerriers. Apprenez à invoquer vos Sbires, à réagir aux actions adverses et à conquérir vos premières étoiles.</p>
- <p class="chapter-note">Un parcours guidé, à votre rythme. Cliquez sur les cartes indiquées et avancez avec « Suivant ».</p>
- <button type="button" id="start-tutorial" class="t-primary">Démarrer</button><p class="chapter-next">Chapitre 2 · À venir</p></div>
+<section id="tutorial-start" class="tutorial-start tutorial-chapters">
+  <div class="chapter-heading">
+    <p class="kicker">APPRENDRE À JOUER</p>
+    <h1>Tutoriel Astral Cards</h1>
+    <p>Choisissez un chapitre et avancez à votre rythme. Les éléments à cliquer s’illuminent en doré.</p>
+  </div>
+  <div class="chapter-grid">
+    <article class="chapter-tile">
+      <div class="chapter-art"><img class="fan-back" src="tutoriel-assets/back.webp" alt=""><img class="fan-back second" src="tutoriel-assets/back.webp" alt=""><img class="chapter-character" src="tutoriel-assets/geckoto.webp" alt="Geckoto"></div>
+      <p class="chapter-number">CHAPITRE 1</p><h2>Vos premiers tours</h2>
+      <p>Découvrez la mise en place, l’Energy, les invocations, les réactions, le combat et les étoiles.</p>
+      <button type="button" class="t-primary chapter-start" data-chapter="1">Démarrer le chapitre 1</button>
+    </article>
+    <article class="chapter-tile">
+      <div class="chapter-art"><img class="fan-back" src="tutoriel-assets/back.webp" alt=""><img class="fan-back second" src="tutoriel-assets/back.webp" alt=""><img class="chapter-character" src="tutoriel-assets/zvatas-forme-1.webp" alt="Zvatas"></div>
+      <p class="chapter-number">CHAPITRE 2</p><h2>Maîtriser son Navigateur</h2>
+      <p>Révélez votre Navigateur, utilisez son effet, invoquez par effet et apprenez à combattre avec lui.</p>
+      <button type="button" class="t-primary chapter-start" data-chapter="2">Démarrer le chapitre 2</button>
+    </article>
+  </div>
 </section>
 <section id="tutorial-game" class="tutorial-game" hidden aria-label="Tutoriel interactif">
- <div class="tutorial-toolbar"><div><strong>Tutoriel 1</strong><span id="step-counter"></span></div><div class="toolbar-buttons"><button type="button" id="fullscreen">Plein écran</button><button type="button" id="exit-tutorial">Quitter</button></div></div>
+ <div class="tutorial-toolbar"><div><strong id="tutorial-title">Tutoriel</strong><span id="step-counter"></span></div><div class="toolbar-buttons"><button type="button" id="fullscreen">Plein écran</button><button type="button" id="exit-tutorial">Quitter</button></div></div>
  <div class="tutorial-layout">
   <section class="table-area" aria-label="Les deux Terrains et votre Main">
    <div class="player-status opponent-status" id="status-2"></div>
@@ -45,7 +59,7 @@
     <div id="revealed-cards" class="revealed-cards" hidden aria-label="Les cinq cartes révélées"></div>
     <article aria-live="polite" aria-atomic="true"><p id="step-kind" class="step-kind"></p><h2 id="step-title" tabindex="-1"></h2><p id="step-text"></p></article>
    </div>
-   <div class="guide-controls"><p id="action-hint" hidden>La carte à jouer est illuminée.</p><div class="step-buttons"><button type="button" id="previous-step" aria-label="Étape précédente">Précédent</button><button type="button" id="next-step" class="t-primary">Suivant</button></div><button type="button" id="restart-tutorial" hidden>Recommencer le chapitre</button><p id="chapter-two" hidden>Chapitre 2 · À venir</p></div>
+   <div class="guide-controls"><p id="action-hint" hidden>La carte à jouer est illuminée.</p><div class="step-buttons"><button type="button" id="previous-step" aria-label="Étape précédente">Précédent</button><button type="button" id="next-step" class="t-primary">Suivant</button></div><button type="button" id="restart-tutorial" hidden>Recommencer le chapitre</button></div>
   </aside>
  </div>
 </section>
