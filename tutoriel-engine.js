@@ -6,7 +6,7 @@
     dragon:'Dragon brumeux', cyclone:'Le cyclone', storm:'Démon des tempêtes', eye:"L'oeil protecteur",
     hand:'La grande main', rox:'Roxxor', nav:'Zvatas forme 1', env:'Cataclysme des nuages',
     pillage:'Pillage bénéfique', urkan:'Urkan', vairon:'Vairon', sovereign:'Vairon souverrain',
-    assimilation:'Assimilation des Energies', env2:'Le domaine sauvage', larva:'La larve', wolf:"Wollfy de l'épée", swordEye:"L'oeil de l'épée", light:'La lumière après les nuages', dompteur:'Dompteur', elphoros:'Elphoros'
+    assimilation:'Assimilation des Energies', env2:'Le domaine sauvage', larva:'La larve', wolf:"Wollfy de l'épée", swordEye:"L'oeil de l'épée", light:'La lumière après les nuages', dompteur:'Dompteur', elphoros:'Elphoros', small:'Du plus petit au plus monstrueux', rakesh:"Ra'Kesh", immunity:"L'immunité bestiale", tryhydre:'Tryhydre'
   };
   const clone = value => JSON.parse(JSON.stringify(value));
   const player = () => ({energy:0,max:0,stars:0,actions:0,hand:[],zones:{},deck:false});
@@ -112,14 +112,14 @@
     // Situation de départ du chapitre 2.
     p(1).energy=2;p(1).max=2;p(1).stars=0;p(1).actions=0;p(1).deck=true;
     draw(1,[C.light,C.hand,C.dragon]);
-    put(1,6,C.nav,{hp:5,clouds:0});
+    put(1,6,C.nav,{power:1,hp:5,clouds:0});
     put(1,6,C.env,{back:true});
     // Le sommet de la pile est La larve afin que le clic sur la pile soit guidé sans afficher les zones techniques.
     put(1,1,C.wolf,{back:true,tapped:true});put(1,1,C.swordEye,{back:true,tapped:true});put(1,1,C.larva,{back:true,tapped:true});
-    put(1,7,C.sea,{tapped:true});
+    put(1,7,C.sea,{power:1,hp:1,tapped:true});
 
     p(2).energy=3;p(2).max=3;p(2).stars=0;p(2).actions=0;p(2).deck=true;
-    put(2,6,C.dompteur,{hp:5});
+    put(2,6,C.dompteur,{power:1,hp:5});
     put(2,2,C.env2,{tapped:true});
     put(2,5,C.elphoros,{hp:3,tapped:true});
 
@@ -132,15 +132,15 @@
     step('Votre Navigateur est révélé', 'Votre Environnement rejoint son emplacement dédié et votre Navigateur apparaît. En général, un Navigateur possède 1 point de Puissance, 5 PV et une seconde face destinée au mode Astral, que nous verrons plus tard.', {focus:C.nav},()=>{move(1,C.env,2,{tapped:true});const nav=find(1,C.nav);if(nav){nav.clouds=3;nav.hp=5;}});
     step('Ses compteurs', 'Lorsqu’il est révélé, placez 3 compteurs Nuage sur votre Navigateur. Son effet pourra en retirer un lorsqu’un Sbire Démononuageux est invoqué afin de le redresser immédiatement. Cet effet ne peut être utilisé qu’une fois par tour, et la carte ainsi redressée ne pourra plus être redressée par un autre effet ce tour-ci.', {focus:C.nav});
     step('Invoquez un Sbire', 'Cliquez sur le Sbire illuminé dans votre Main pour l’invoquer. Il utilise toute votre Energy disponible.', {target:{player:1,name:C.dragon,location:'hand'},action:'Invoquer le Sbire'});
-    step('Activez l’effet du Navigateur', 'Le Sbire arrive incliné sur votre Terrain. Cliquez maintenant sur votre Navigateur pour utiliser son effet.', {target:{player:1,name:C.nav,location:'board'},action:'Activer son effet'},()=>{move(1,C.dragon,8,{tapped:true,hp:3});p(1).energy=0;p(1).actions=1;});
+    step('Activez l’effet du Navigateur', 'Le Sbire arrive incliné sur votre Terrain. Cliquez maintenant sur votre Navigateur pour utiliser son effet.', {target:{player:1,name:C.nav,location:'board'},action:'Activer son effet'},()=>{move(1,C.dragon,8,{tapped:true,power:2,hp:5});p(1).energy=0;p(1).actions=1;});
     step('Effet résolu', 'Un compteur est retiré et le Sbire invoqué se redresse automatiquement. Il est désormais prêt au combat.', {},()=>{const nav=find(1,C.nav);if(nav)nav.clouds=2;const d=find(1,C.dragon);if(d)d.tapped=false;});
     step('L’effet de votre Environnement', 'Votre Environnement possède lui aussi un effet passif. Lorsqu’un de vos Sbires Démononuageux est redressé par un effet, vous pouvez augmenter ses PV de 1. S’il possède déjà 4 PV ou plus, vous pouvez lui donner 1 point de Puissance à la place.', {focus:C.env});
-    step('Un PV supplémentaire', 'Le Sbire que vous venez de redresser possède 3 PV. L’effet passif de votre Environnement s’applique : il gagne donc 1 PV et passe à 4 PV.', {focus:C.dragon},()=>{const d=find(1,C.dragon);if(d)d.hp=4;});
+    step('Choisissez le bonus du Dragon brumeux', 'Le Dragon brumeux possède 2 de Puissance et 5 PV de base. Comme il possède déjà 4 PV ou plus, Cataclysme des nuages vous laisse choisir : augmentez sa Puissance de 1 ou ses PV de 1.', {focus:C.dragon,statChoice:true});
     step('Attaques du Navigateur', 'Un Navigateur peut attaquer. S’il détruit un Sbire au combat, il génère 1 étoile, comme vos Sbires. Si le Terrain adverse est vide, il ne peut pas attaquer directement le Navigateur adverse ; il peut toutefois s’incliner pour générer 1 étoile.');
     step('Votre dernière action principale', 'Jouez la carte illuminée. Son effet va vous permettre d’invoquer une carte depuis votre Deck Spécial.', {target:{player:1,name:C.hand,location:'hand'},action:'Jouer la carte'});
     step('Choisissez dans votre Deck Spécial', 'Cliquez sur votre pile de cartes Spéciales illuminée pour voir les cartes disponibles.', {target:{player:1,name:C.larva,location:'board'},action:'Ouvrir le Deck Spécial'},()=>{remove(1,C.hand);p(1).actions=2;});
     step('Choisissez la carte à invoquer', 'Les cartes disponibles s’affichent. Cliquez sur la carte illuminée pour l’invoquer grâce à l’effet.', {target:{player:1,name:C.larva,location:'revealed'},action:'Invoquer cette carte',reveal:true},()=>{state.revealed=[C.larva,C.swordEye,C.wolf];});
-    step('Invocation spéciale', 'Un Sbire invoqué grâce à un effet est une invocation spéciale : vous ne payez pas son coût d’Energy et il arrive verticalement, prêt au combat, sauf si l’effet indique le contraire.', {},()=>{state.revealed=[];remove(1,C.larva);put(1,5,C.larva);});
+    step('Invocation spéciale', 'Un Sbire invoqué grâce à un effet est une invocation spéciale : vous ne payez pas son coût d’Energy et il arrive verticalement, prêt au combat, sauf si l’effet indique le contraire.', {},()=>{state.revealed=[];remove(1,C.larva);put(1,5,C.larva,{power:1,hp:2});});
     step('Passez à l’attaque', 'Commencez par attaquer le Sbire adverse avec votre premier attaquant. Cliquez sur votre carte illuminée.', {target:{player:1,name:C.dragon,location:'board'},action:'Attaquer'});
     step('Choisissez la cible', 'Votre attaquant est incliné. Cliquez maintenant sur le Sbire adverse pour le prendre pour cible.', {target:{player:2,name:C.elphoros,location:'board'},action:'Cibler le Sbire'},()=>{const d=find(1,C.dragon);if(d)d.tapped=true;});
     step('Dégâts infligés', 'Votre attaquant possède 2 de Puissance. Les dégâts sont soustraits aux PV : le Sbire adverse n’a plus qu’1 PV.', {},()=>{const e=find(2,C.elphoros);if(e)e.hp=1;});
@@ -153,8 +153,60 @@
     step('Chapitre 2 terminé', 'Bravo ! Vous savez maintenant exploiter l’effet de votre Navigateur, l’utiliser au combat et combiner ses possibilités avec vos invocations.', {complete:true});
     return steps;
   }
-  function build(chapter=1){ return Number(chapter)===2 ? buildChapter2() : buildChapter1(); }
-  const api={build,buildChapter1,buildChapter2,C};
+  function buildChapter3() {
+    let state = {turn:5,active:1,phase:'Phase de jeu',players:{1:player(),2:player()},revealed:[]};
+    const steps=[];
+    const p = n => state.players[n];
+    function put(n,z,name,options={}) { (p(n).zones[z] ||= []).push({name,back:false,tapped:false,...options}); }
+    function find(n,name){ for(const z of Object.values(p(n).zones)){const c=z.find(c=>c.name===name);if(c)return c;} return null; }
+    function remove(n,name) { const h=p(n).hand.indexOf(name); if(h>=0){p(n).hand.splice(h,1);return;} for(const z of Object.values(p(n).zones)){const i=z.findIndex(c=>c.name===name);if(i>=0){z.splice(i,1);return;}} }
+    function move(n,name,z,options={}) {remove(n,name);put(n,z,name,options);}
+    function step(title,text,opts={},change) {if(change)change();steps.push({title,text,...opts,state:clone(state)});}
+
+    p(1).energy=5;p(1).max=5;p(1).stars=2;p(1).actions=0;p(1).deck=true;
+    p(1).hand=[C.tryhydre,C.light,C.small,C.falco];
+    put(1,6,C.nav,{power:1,hp:5,clouds:3}); put(1,2,C.env); put(1,7,C.storm,{power:5,hp:5});
+    p(2).energy=5;p(2).max=5;p(2).stars=0;p(2).actions=0;p(2).deck=true;
+    put(2,6,C.dompteur,{power:1,hp:5}); put(2,2,C.env2,{tapped:true}); put(2,7,C.rakesh,{power:6,hp:6,tapped:true}); put(2,12,C.immunity,{back:true});
+
+    step('Chapitre 3 · Les Cartes Cosmiques','Les cartes Cosmiques sont des cartes semblables aux cartes de base. Lors de la Phase d’Ascension du tour 5, elles rejoignent votre Deck principal. Ici, une figure déjà dans votre Main : ce sera plus explicite pour le tutoriel.',{focus:C.tryhydre});
+    step('Une puissance encore hors de portée','La Tryhydre est une carte extrêmement puissante, mais elle coûte 6 Energy. Vous n’en possédez que 5. Heureusement, Astral Cards regorge de rebondissements !',{focus:C.tryhydre});
+    step('Jouez votre tour librement','Une fois les différentes phases terminées, vous pouvez organiser vos actions dans l’ordre qui vous semble le plus intéressant. Commençons par attaquer.');
+    step('Attaquez avec le Démon des tempêtes','Cliquez sur le Démon des tempêtes pour déclarer une attaque.',{target:{player:1,name:C.storm,location:'board'},action:'Attaquer'});
+    step('Choisissez votre cible','Votre Démon des tempêtes s’incline. Cliquez sur Ra’Kesh pour le prendre pour cible.',{target:{player:2,name:C.rakesh,location:'board'},action:"Cibler Ra'Kesh"},()=>{const c=find(1,C.storm);if(c)c.tapped=true;});
+    step('Revirement de situation !','Le Joueur 2 active sa carte face cachée : L’immunité bestiale. Son effet annule l’attaque.',{focus:C.immunity},()=>{const c=find(2,C.immunity);if(c)c.back=false;});
+    step('Déclenchement de Falco','Falco peut se déclencher depuis votre Main lorsqu’un adversaire active une carte Pouvoir. Son effet permet d’annuler cette activation.',{focus:C.falco});
+    step('Réagissez avec Falco','Cliquez sur Falco dans votre Main pour utiliser son Déclenchement.',{target:{player:1,name:C.falco,location:'hand'},action:'Activer Falco'});
+    step('Falco entre en résolution','Falco se place face recto sur votre Terrain. Les cartes Cosmiques restent sensibles aux mêmes règles et interactions que les cartes de base.',{},()=>move(1,C.falco,11));
+    step('L’attaque est sauvée','L’immunité bestiale est annulée et rejoint le Vortex adverse. Falco possède Néantin : après la résolution de son effet, il rejoint votre Néant. L’attaque du Démon des tempêtes peut donc continuer.',{},()=>{move(1,C.falco,3);move(2,C.immunity,9);});
+    step('Ra’Kesh encaisse les dégâts','Le Démon des tempêtes possède 5 de Puissance. Ra’Kesh avait 6 PV : il lui reste donc 1 PV.',{},()=>{const c=find(2,C.rakesh);if(c)c.hp=1;});
+    step('Terminons ce vilain Ra’Kesh !','Cliquez sur votre Navigateur pour attaquer.',{target:{player:1,name:C.nav,location:'board'},action:'Attaquer avec Zvatas'});
+    step('Ciblez Ra’Kesh','Votre Navigateur s’incline. Cliquez sur Ra’Kesh pour terminer le combat.',{target:{player:2,name:C.rakesh,location:'board'},action:"Cibler Ra'Kesh"},()=>{const c=find(1,C.nav);if(c)c.tapped=true;});
+    step('Ra’Kesh est détruit','Ra’Kesh rejoint le Vortex adverse. Votre Navigateur l’ayant détruit au combat, vous gagnez 1 étoile.',{},()=>{move(2,C.rakesh,9);p(1).stars=3;});
+    step('Du plus petit au plus monstrueux','Bien ! Maintenant, utilisons Du plus petit au plus monstrueux.',{focus:C.small});
+    step('Activez la carte Pouvoir','Cliquez sur Du plus petit au plus monstrueux dans votre Main.',{target:{player:1,name:C.small,location:'hand'},action:'Jouer la carte'});
+    step('Préparez l’invocation spéciale','La carte est jouée face recto dans votre zone de Pouvoir. Elle permet d’envoyer un Sbire Démononuageux de votre Terrain au Néant. Si vous le faites, vous pouvez invoquer depuis votre Main un Sbire Démononuageux dont le coût d’Energy est inférieur, égal ou supérieur de 1 à celui envoyé.',{focus:C.small},()=>{move(1,C.small,12);p(1).actions=1;});
+    step('Le calcul est parfait','Le Démon des tempêtes coûte 5 Energy et la Tryhydre en coûte 6. Envoyer le Démon des tempêtes au Néant vous permettra donc d’invoquer la Tryhydre.');
+    step('Envoyez le Démon des tempêtes au Néant','Cliquez sur le Démon des tempêtes.',{target:{player:1,name:C.storm,location:'board'},action:'Envoyer au Néant'});
+    step('Choisissez la Tryhydre','Le Démon des tempêtes rejoint votre Néant. Cliquez maintenant sur la Tryhydre dans votre Main.',{target:{player:1,name:C.tryhydre,location:'hand'},action:'Invoquer la Tryhydre'},()=>move(1,C.storm,3,{power:5,hp:5,tapped:true}));
+    step('Invocation spéciale réussie','La Tryhydre arrive face recto et verticalement sur votre Terrain, prête au combat. Son coût de 6 Energy n’a pas été payé : elle a été invoquée grâce à l’effet de votre carte Pouvoir.',{},()=>move(1,C.tryhydre,7,{power:4,hp:6}));
+    step('Bravo ! L’adversaire est dans la panade !','Cliquez sur la Tryhydre pour attaquer.',{target:{player:1,name:C.tryhydre,location:'board'},action:'Attaquer'});
+    step('Attaquez le Navigateur adverse','La Tryhydre s’incline. Cliquez sur le Dompteur.',{target:{player:2,name:C.dompteur,location:'board'},action:'Cibler le Dompteur'},()=>{const c=find(1,C.tryhydre);if(c)c.tapped=true;});
+    step('Le Dompteur est touché','Le Navigateur adverse perd 1 PV.',{},()=>{const c=find(2,C.dompteur);if(c)c.hp=4;});
+    step('Il vous reste encore une action','L’invocation spéciale de la Tryhydre grâce à votre carte Pouvoir ne compte pas comme une action principale supplémentaire. Vous n’avez activé qu’une seule carte : il vous reste donc encore une action principale.');
+    step('La lumière après les nuages','Cliquez sur La lumière après les nuages.',{target:{player:1,name:C.light,location:'hand'},action:'Jouer la carte'});
+    step('Un second souffle','Son effet permet de redresser un Sbire Démononuageux.',{focus:C.light},()=>{move(1,C.light,13);p(1).actions=2;});
+    step('Redressez la Tryhydre','Cliquez sur la Tryhydre pour la redresser.',{target:{player:1,name:C.tryhydre,location:'board'},action:'Redresser la Tryhydre'});
+    step('Cataclysme des nuages s’active !','La Tryhydre vient de se redresser. Comme elle possède 4 PV ou plus, votre Environnement s’active : choisissez d’augmenter sa Puissance de 1 ou ses PV de 1.',{focus:C.tryhydre,statChoice:true,statChoiceCard:C.tryhydre},()=>{const c=find(1,C.tryhydre);if(c)c.tapped=false;});
+    step('Prête à attaquer de nouveau','La Tryhydre se redresse verticalement et bénéficie du bonus que vous venez de choisir.',{},()=>{const c=find(1,C.tryhydre);if(c)c.tapped=false;});
+    step('Attaquez encore !','Cliquez sur la Tryhydre pour lancer une nouvelle attaque.',{target:{player:1,name:C.tryhydre,location:'board'},action:'Attaquer'});
+    step('Ciblez encore le Dompteur','La Tryhydre s’incline. Cliquez sur le Navigateur adverse.',{target:{player:2,name:C.dompteur,location:'board'},action:'Cibler le Dompteur'},()=>{const c=find(1,C.tryhydre);if(c)c.tapped=true;});
+    step('Une seconde blessure','Le Dompteur perd encore 1 PV.',{},()=>{const c=find(2,C.dompteur);if(c)c.hp=3;});
+    step('Chapitre 3 terminé','Gardez à l’esprit que vos cartes Cosmiques sont puissantes et généralement difficiles ou complexes à invoquer ou à jouer, mais qu’elles ont le même statut que les autres cartes. Un effet qui parle d’un Sbire concerne donc aussi un Sbire Cosmique.',{complete:true});
+    return steps;
+  }
+  function build(chapter=1){ chapter=Number(chapter); return chapter===3 ? buildChapter3() : chapter===2 ? buildChapter2() : buildChapter1(); }
+  const api={build,buildChapter1,buildChapter2,buildChapter3,C};
   if(typeof module!=='undefined' && module.exports) module.exports=api;
   else root.AstralTutorial=api;
 })(typeof window!=='undefined'?window:globalThis);

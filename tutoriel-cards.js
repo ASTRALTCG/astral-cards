@@ -1,4 +1,12 @@
 const TUTORIAL_CARDS = {
+  "Du plus petit au plus monstrueux": {
+    "name": "Du plus petit au plus monstrueux",
+    "src": "tutoriel-assets/du-plus-petit-au-plus.png"
+  },
+  "Ra'Kesh": {
+    "name": "Ra'Kesh",
+    "src": "tutoriel-assets/ra-kesh.png"
+  },
   "La lumière après les nuages": {
     "name": "La lumière après les nuages",
     "src": "tutoriel-assets/la-lumiere-apres-les-nuages.png"

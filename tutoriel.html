@@ -24,22 +24,32 @@
 <section id="tutorial-start" class="tutorial-start tutorial-chapters">
   <div class="chapter-heading">
     <p class="kicker">APPRENDRE À JOUER</p>
-    <h1>Tutoriel Astral Cards</h1>
-    <p>Choisissez un chapitre et avancez à votre rythme. Les éléments à cliquer s’illuminent en doré.</p>
+    <h1>Choisissez votre chapitre</h1>
+    <p>Faites tourner l’orbe et plongez directement dans la leçon de votre choix.</p>
   </div>
-  <div class="chapter-grid">
-    <article class="chapter-tile">
-      <div class="chapter-art"><img class="fan-back" src="tutoriel-assets/back.webp" alt=""><img class="fan-back second" src="tutoriel-assets/back.webp" alt=""><img class="chapter-character" src="tutoriel-assets/geckoto.webp" alt="Geckoto"></div>
-      <p class="chapter-number">CHAPITRE 1</p><h2>Vos premiers tours</h2>
-      <p>Découvrez la mise en place, l’Energy, les invocations, les réactions, le combat et les étoiles.</p>
-      <button type="button" class="t-primary chapter-start" data-chapter="1">Démarrer le chapitre 1</button>
+
+  <div class="chapter-orbit" aria-label="Sélection des chapitres">
+    <div class="orbit-rings" aria-hidden="true"><span></span><span></span><span></span></div>
+    <button type="button" class="orbit-node is-active" data-select-chapter="1" style="--angle:-128deg" aria-label="Afficher le chapitre 1"><b>01</b><span>Premiers tours</span></button>
+    <button type="button" class="orbit-node" data-select-chapter="2" style="--angle:-52deg" aria-label="Afficher le chapitre 2"><b>02</b><span>Navigateur</span></button>
+    <button type="button" class="orbit-node" data-select-chapter="3" style="--angle:0deg" aria-label="Afficher le chapitre 3"><b>03</b><span>Cosmiques</span></button>
+
+    <article class="chapter-preview" aria-live="polite">
+      <div class="preview-glow" aria-hidden="true"></div>
+      <div class="preview-cards" aria-hidden="true">
+        <img class="preview-back preview-back-a" src="tutoriel-assets/back.webp" alt="">
+        <img class="preview-back preview-back-b" src="tutoriel-assets/back.webp" alt="">
+        <img id="chapter-preview-image" class="preview-front" src="tutoriel-assets/geckoto.webp" alt="Geckoto">
+      </div>
+      <div class="preview-copy">
+        <p id="chapter-preview-number" class="chapter-number">CHAPITRE 01</p>
+        <h2 id="chapter-preview-title">Vos premiers tours</h2>
+        <p id="chapter-preview-text">Découvrez la mise en place, l’Energy, les invocations, les réactions, le combat et les étoiles.</p>
+        <button id="chapter-launch" type="button" class="t-primary chapter-launch" data-chapter="1"><span>Démarrer</span><i aria-hidden="true">→</i></button>
+      </div>
     </article>
-    <article class="chapter-tile">
-      <div class="chapter-art"><img class="fan-back" src="tutoriel-assets/back.webp" alt=""><img class="fan-back second" src="tutoriel-assets/back.webp" alt=""><img class="chapter-character" src="tutoriel-assets/zvatas-forme-1.webp" alt="Zvatas"></div>
-      <p class="chapter-number">CHAPITRE 2</p><h2>Maîtriser son Navigateur</h2>
-      <p>Révélez votre Navigateur, utilisez son effet, invoquez par effet et apprenez à combattre avec lui.</p>
-      <button type="button" class="t-primary chapter-start" data-chapter="2">Démarrer le chapitre 2</button>
-    </article>
+
+    <div class="orbit-hint" aria-hidden="true"><span>◀</span> SURVOLEZ UN CHAPITRE <span>▶</span></div>
   </div>
 </section>
 <section id="tutorial-game" class="tutorial-game" hidden aria-label="Tutoriel interactif">
@@ -56,7 +66,7 @@
    <progress id="tutorial-progress" max="1" value="0" aria-label="Progression du chapitre"></progress>
    <div class="guide-scroll">
     <div id="focus-wrap" class="focus-wrap" hidden><button type="button" id="focus-card" aria-label="Agrandir la carte"><img id="focus-image" alt=""></button><div id="stat-legend" class="stat-legend" hidden><span>↖ Energy : 1</span><span>↗ Puissance : 1 · PV : 1</span></div><span class="zoom-hint">Cliquez pour agrandir</span></div>
-    <div id="revealed-cards" class="revealed-cards" hidden aria-label="Les cinq cartes révélées"></div>
+    <div id="stat-choice" class="stat-choice" hidden><button type="button" id="choose-power" class="choice-power">⚔ +1 Puissance</button><button type="button" id="choose-hp" class="choice-hp">♥ +1 PV</button></div><div id="revealed-cards" class="revealed-cards" hidden aria-label="Les cinq cartes révélées"></div>
     <article aria-live="polite" aria-atomic="true"><p id="step-kind" class="step-kind"></p><h2 id="step-title" tabindex="-1"></h2><p id="step-text"></p></article>
    </div>
    <div class="guide-controls"><p id="action-hint" hidden>La carte à jouer est illuminée.</p><div class="step-buttons"><button type="button" id="previous-step" aria-label="Étape précédente">Précédent</button><button type="button" id="next-step" class="t-primary">Suivant</button></div><button type="button" id="restart-tutorial" hidden>Recommencer le chapitre</button></div>
@@ -66,5 +76,5 @@
 <noscript><p class="noscript">Activez JavaScript dans votre navigateur pour démarrer le tutoriel.</p></noscript>
 </main>
 <dialog id="card-dialog" class="card-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><h2 id="dialog-title">Carte</h2><button type="button" id="close-card" aria-label="Fermer l’agrandissement">Fermer ×</button></div><img id="dialog-image" alt=""></dialog>
-<script src="script.js"></script><script src="tutoriel-cards.js?v=2"></script><script src="tutoriel-engine.js?v=20260913-2"></script><script src="tutoriel.js?v=2"></script>
+<script src="script.js"></script><script src="tutoriel-cards.js?v=3"></script><script src="tutoriel-engine.js?v=20260915-3"></script><script src="tutoriel.js?v=3"></script>
 </body></html>
