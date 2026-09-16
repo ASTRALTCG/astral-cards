@@ -14,43 +14,53 @@
 </head>
 <body class="home">
 <div class="space-bg" aria-hidden="true"><div class="nebula"></div><div class="stars stars-a"></div><div class="stars stars-b"></div></div>
-
-<header class="site-header">
-  <a class="brand" href="index.html" aria-label="Astral Cards — Accueil">
-    <img src="logo-astral-cards.png" alt="Astral Cards">
-  </a>
-  <button class="menu-button" type="button" aria-expanded="false" aria-controls="main-nav">
-    <span></span><span></span><span></span>
-    <span class="sr-only">Ouvrir le menu</span>
-  </button>
-  <nav id="main-nav" class="main-nav">
-    <a href="index.html">Accueil</a>
-    <a href="le-jeu.html">Le jeu</a>
-    <a href="nouveautes.html">Nouveautés</a>
-    <a href="regles.html">Règles</a>
-    <a href="quizz.html">Quizz</a>
-    <a href="lore.html">Lore</a>
-    <a href="galerie.html">Galerie</a>
-    <a href="faq.html">FAQ</a>
-    <a class="nav-cta" href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Discord</a>
-    <a href="tutoriel.html">Tutoriel</a>
-  </nav>
-</header>
-
 <main>
-  <section class="hero">
-    <div class="hero-orbit" aria-hidden="true"></div>
-    <div class="hero-content reveal">
+  <section class="hero astral-gateway" id="astral-gateway">
+    <div class="gateway-depth gateway-depth-a" aria-hidden="true"></div>
+    <div class="gateway-depth gateway-depth-b" aria-hidden="true"></div>
+    <div class="gateway-field" aria-hidden="true"></div>
+
+    <div class="gateway-core reveal">
       <p class="kicker">JEU DE CARTES STRATÉGIQUE INDÉPENDANT</p>
       <img class="hero-logo" src="logo-astral-cards.png" alt="Astral Cards">
       <h1>Choisissez votre Navigateur,<br>gagnez en puissance et venez conquérir les étoiles!</h1>
-      <p class="hero-copy">Construisez votre stratégie, maîtrisez vos actions et prenez l’avantage dans une confrontation épique !</p>
-      <div class="actions">
-        <a class="button button-primary" href="le-jeu.html">Découvrir Astral Cards</a>
-        <a class="button button-ghost" href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Rejoindre le Discord</a>
-      </div>
+      <p class="hero-copy">Explorez l'univers d'Astral Cards. Chaque fragment vous ouvre une destination.</p>
+      <div class="gateway-hint"><span></span> Déplacez-vous dans l'univers <span></span></div>
     </div>
-    <a class="scroll-cue" href="#discover" aria-label="Découvrir la suite">↓</a>
+
+    <nav class="gateway-map" aria-label="Explorer Astral Cards">
+      <a class="gateway-node node-game" href="le-jeu.html" data-label="LE JEU" data-index="01" style="--orbit-i:0">
+        <span class="node-spark"></span><span class="node-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 5l6.2 18.8L57 30l-18.8 6.2L32 55l-6.2-18.8L7 30l18.8-6.2z"/><circle cx="32" cy="30" r="5"/></svg></span><strong>Le Jeu</strong><small>Découvrez Astral Cards</small>
+      </a>
+      <a class="gateway-node node-news" href="nouveautes.html" data-label="NOUVEAUTÉS" data-index="02" style="--orbit-i:1">
+        <span class="node-spark"></span><span class="node-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6L54 32 32 58 10 32z"/><path d="M32 16l12 16-12 16-12-16z"/><path d="M7 18h11M46 46h11"/></svg></span><strong>Nouveautés</strong><small>Suivez le développement</small>
+      </a>
+      <a class="gateway-node node-rules" href="regles.html" data-label="RÈGLES" data-index="03" style="--orbit-i:2">
+        <span class="node-spark"></span><span class="node-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 11h28a8 8 0 018 8v34H20a8 8 0 01-8-8V13a2 2 0 012-2z"/><path d="M20 18h21M20 27h21M20 36h14"/><path d="M20 53V11"/></svg></span><strong>Règles</strong><small>Maîtrisez le jeu</small>
+      </a>
+      <a class="gateway-node node-tutorial" href="tutoriel.html" data-label="TUTORIEL" data-index="04" style="--orbit-i:3">
+        <span class="node-spark"></span><span class="node-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M12 15h40v34H12z"/><path d="M26 23l18 9-18 9z"/><path d="M20 55h24"/></svg></span><strong>Tutoriel</strong><small>Apprenez en jouant</small>
+      </a>
+      <a class="gateway-node node-lore" href="lore.html" data-label="LORE" data-index="05" style="--orbit-i:4">
+        <span class="node-spark"></span><span class="node-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M43 8c-15 3-24 18-18 31 4 9 14 14 25 11-7 7-18 10-28 5C8 49 3 31 11 18 18 7 31 3 43 8z"/><path d="M47 16l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg></span><strong>Lore</strong><small>Traversez les mondes</small>
+      </a>
+      <a class="gateway-node node-gallery" href="galerie.html" data-label="GALERIE" data-index="06" style="--orbit-i:5">
+        <span class="node-spark"></span><span class="node-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 10h28l12 22-12 22H18L6 32z"/><path d="M18 39l9-10 8 7 7-9 10 12z"/><circle cx="23" cy="22" r="4"/></svg></span><strong>Galerie</strong><small>Explorez les cartes</small>
+      </a>
+      <a class="gateway-node node-quiz" href="quizz.html" data-label="QUIZZ" data-index="07" style="--orbit-i:6">
+        <span class="node-spark"></span><span class="node-icon"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 23c1-10 22-12 25-1 3 11-12 11-12 21"/><circle cx="33" cy="51" r="3"/><path d="M32 5l3 6 7 1-5 5 1 7"/></svg></span><strong>Quizz</strong><small>Testez vos connaissances</small>
+      </a>
+    
+      <a class="gateway-node node-social" href="#" data-scroll-target="reseaux-sociaux" data-label="RÉSEAUX" data-index="08" style="--orbit-i:7">
+        <span class="node-spark"></span><span class="node-icon">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="18" cy="32" r="7"/><circle cx="45" cy="17" r="7"/><circle cx="46" cy="47" r="7"/>
+            <path d="M24 29l14-8M24 35l15 8"/>
+          </svg>
+        </span><strong>Réseaux</strong><small>Suivez Astral Cards</small>
+      </a>
+</nav>
+<a class="scroll-cue" href="#discover" aria-label="Découvrir la suite">↓</a>
   </section>
 
   <section id="discover" class="section section-dark reveal">
@@ -109,14 +119,18 @@
     </div>
   </section>
 
-  <section class="section community reveal">
+  <section class="section community reveal" id="reseaux-sociaux">
     <p class="kicker">REJOIGNEZ L’AVENTURE</p>
     <h2>Votre avis compte.<br>L’aventure commence avec vous.</h2>
     <p>Suivez le développement, échangez avec la communauté et participez aux prochaines phases de test.</p>
-    <a class="button button-primary" href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener">Accéder au Discord</a>
-    <a class="button button-primary" href="https://www.twitch.tv/astral_keytchup" target="_blank" rel="noopener">Accéder au Twitch</a>
-    <a class="button button-primary" href="https://www.youtube.com/@AstralCardsGame" target="_blank" rel="noopener">Accéder à YOUTUBE</a>
-    <a class="button button-primary" href="https://www.tiktok.com/@astral.cards.tcg?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener">Accéder à TIKTOK</a>
+    <div class="social-icons" aria-label="Réseaux sociaux Astral Cards">
+      <a class="social-icon social-discord" href="https://discord.gg/nCucMwCjuN" target="_blank" rel="noopener" aria-label="Discord" title="Discord"><svg viewBox="0 0 24 24"><path d="M19.5 5.3A16 16 0 0 0 15.6 4l-.5 1.1a14 14 0 0 0-6.2 0L8.4 4a16 16 0 0 0-3.9 1.3C2 9 1.3 12.5 1.6 16a16 16 0 0 0 4.8 2.4l1.2-1.7a10 10 0 0 1-1.9-.9l.5-.4a13.8 13.8 0 0 0 11.6 0l.5.4c-.6.4-1.2.7-1.9.9l1.2 1.7a16 16 0 0 0 4.8-2.4c.4-4.1-.7-7.6-2.9-10.7ZM8.7 14.2c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg></a>
+<a class="social-icon social-twitch" href="https://www.twitch.tv/astral_keytchup" target="_blank" rel="noopener" aria-label="Twitch" title="Twitch"><svg viewBox="0 0 24 24"><path d="M4 2h18v13l-5 5h-4l-3 3v-3H4V2Zm2 2v14h5v2l2-2h4l3-3V4H6Zm5 3h2v6h-2V7Zm5 0h2v6h-2V7Z"/></svg></a>
+<a class="social-icon social-youtube" href="https://www.youtube.com/@AstralCardsGame" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.7 15.2V8.8L15.8 12l-6.1 3.2Z"/></svg></a>
+<a class="social-icon social-tiktok" href="https://www.tiktok.com/@astral.cards.tcg?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24"><path d="M15.5 2h3a5.5 5.5 0 0 0 4 3.7v3a8.5 8.5 0 0 1-4-1.1v7.2a7 7 0 1 1-6-6.9v3.1a4 4 0 1 0 3 3.8V2Z"/></svg></a>
+<a class="social-icon social-facebook" href="https://www.facebook.com/AstralCardsTCG" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24"><path d="M14 8h3V4.5c-.5-.1-2-.2-3.4-.2-3 0-5 1.8-5 5.2V12H5v4h3.6v8H13v-8h3.6l.6-4H13V9.9c0-1.2.3-1.9 1-1.9Z"/></svg></a>
+<a class="social-icon social-instagram" href="https://www.instagram.com/asl_cards/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm11.5 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg></a>
+    </div>
   </section>
 </main>
 

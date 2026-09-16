@@ -284,3 +284,73 @@ if (timelineViewport) {
   updateCounts();
   applyFilters();
 })();
+
+// Accueil — carte astrale immersive, indépendante de la roue du Tutoriel
+(() => {
+  const gateway = document.querySelector('#astral-gateway');
+  if (!gateway) return;
+  const core = gateway.querySelector('.gateway-core');
+  const field = gateway.querySelector('.gateway-field');
+  const depthA = gateway.querySelector('.gateway-depth-a');
+  const depthB = gateway.querySelector('.gateway-depth-b');
+  const nodes = [...gateway.querySelectorAll('.gateway-node')];
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduceMotion && matchMedia('(pointer:fine)').matches) {
+    gateway.addEventListener('pointermove', (e) => {
+      const r = gateway.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      core.style.transform = `translate3d(${x * -10}px,${y * -8}px,20px)`;
+      field.style.transform = `translate3d(${x * 22}px,${y * 18}px,0) scale(1.03)`;
+      if (depthA) depthA.style.transform = `translate(calc(-50% + ${x * 13}px),calc(-50% + ${y * 10}px)) rotate(-13deg)`;
+      if (depthB) depthB.style.transform = `translate(calc(-50% + ${x * -17}px),calc(-50% + ${y * -13}px)) rotate(19deg)`;
+      nodes.forEach((node, i) => {
+        const d = i % 2 ? 1 : -1;
+        node.style.setProperty('--node-x', `${x * (9 + i * 1.3) * d}px`);
+        node.style.setProperty('--node-y', `${y * (7 + i) * d}px`);
+      });
+    });
+    gateway.addEventListener('pointerleave', () => {
+      core.style.transform = ''; field.style.transform = '';
+      if (depthA) depthA.style.transform = '';
+      if (depthB) depthB.style.transform = '';
+      nodes.forEach(n => { n.style.setProperty('--node-x','0px'); n.style.setProperty('--node-y','0px'); });
+    });
+  }
+
+  nodes.forEach(node => node.addEventListener('click', (e) => {
+    // Les ancres internes (ex. Réseaux) restent de simples scrolls :
+    // aucune transition "saut astral", aucun flou, aucun état persistant.
+    if (node.hasAttribute('data-scroll-target')) return;
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || node.target === '_blank' || reduceMotion) return;
+    e.preventDefault();
+    const href = node.href;
+    gateway.classList.add('is-navigating');
+    setTimeout(() => { window.location.href = href; }, 460);
+  }));
+  window.addEventListener('pageshow', () => gateway.classList.remove('is-navigating'));
+})();
+
+
+/* Astral social simple scroll */
+document.addEventListener("DOMContentLoaded", () => {
+  const gateway = document.getElementById("astral-gateway");
+  const socialJump = document.querySelector('[data-scroll-target="reseaux-sociaux"]');
+  const socialSection = document.getElementById("reseaux-sociaux");
+
+  if (socialJump && socialSection) {
+    socialJump.addEventListener("click", (event) => {
+      event.preventDefault();
+      gateway?.classList.remove("is-navigating");
+      socialSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  // Garde-fou : l'accueil doit toujours redevenir pleinement visible en remontant.
+  window.addEventListener("scroll", () => {
+    if (window.scrollY < window.innerHeight * 0.55) {
+      gateway?.classList.remove("is-navigating");
+    }
+  }, { passive: true });
+});
