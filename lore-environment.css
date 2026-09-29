@@ -1,0 +1,46 @@
+/* Décors de lecture des quatre Navigateurs. */
+.lore-has-environment .lore-environment {
+  background: #06080c;
+  pointer-events: none;
+}
+.lore-has-environment .lore-environment::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  background: var(--lore-backdrop) center top / cover no-repeat;
+}
+.lore-has-environment .lore-environment-motion {
+  position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none;
+}
+.lore-has-environment .lore-environment::after {
+  content: ""; position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(180deg,rgba(5,8,14,var(--decor-shade,.28)),rgba(5,8,14,.38) 48%,rgba(5,8,14,.56));
+}
+.lore-environment-rebecca { --lore-backdrop: url('images/lore-epine/chemin-sanglant.png'); }
+.lore-environment-demono { --lore-backdrop: url('images/lore-demono/environnement.png'); }
+.lore-environment-aenoria { --lore-backdrop: url('images/lore-aenoria/environnement.png'); --decor-shade: .38; }
+.lore-environment-harmony { --lore-backdrop: url('images/lore-harmony/environnement.png'); --decor-shade: .48; }
+@media(prefers-reduced-motion: reduce) {
+  .lore-has-environment .lore-environment-motion { visibility: hidden; }
+}
+
+.lore-has-environment .archetype-sheet {
+  background:rgba(8,12,20,.65);
+  border-color:rgba(184,186,204,.22);
+  box-shadow:0 24px 70px rgba(0,0,0,.35);
+}
+.lore-has-environment .archetype-banner {
+  background:linear-gradient(135deg,rgba(23,27,37,.48),rgba(8,12,20,.5));
+}
+.lore-has-environment .history-chapter {
+  background:rgba(8,12,21,.91);
+}
+.lore-has-environment .character-area {
+  background:linear-gradient(180deg,rgba(8,12,20,.05),rgba(8,12,20,.38));
+}
+.lore-has-environment .lore-archetype-heading-text,
+.lore-has-environment .breadcrumbs { text-shadow:0 2px 14px #000; }
+@media(max-width:600px) {
+  .lore-has-environment .lore-environment::before {
+    background-position:50% center;
+  }
+  .lore-has-environment .archetype-sheet { background:rgba(8,12,20,.72); }
+}

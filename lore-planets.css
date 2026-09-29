@@ -1,0 +1,84 @@
+/* Surfaces des quatre mondes — carte et globe de traversée uniquement. */
+.lore-depth-v4 .planet-terrain {
+  position:absolute; inset:0; border-radius:50%; z-index:1;
+  background-size:100% 100%; pointer-events:none;
+}
+.lore-depth-v4 .planet-lightning, .lore-depth-v4 .planet-ring { display:none; pointer-events:none; }
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet] .planet-sphere::before { opacity:.08; }
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet] .planet-dust { opacity:.1; }
+
+/* Ænoria : quatre régions organiques, séparées sans découpage géométrique. */
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="aenoria"] .planet-terrain { background-image:url('images/lore-planets/aenoria.svg?v=20260921-10'); }
+.lore-depth-v4 .world-planet[data-planet="aenoria"] .planet-sphere {
+  filter:saturate(.92); opacity:1; background:#355654;
+}
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="aenoria"] .planet-sphere::after {
+  background:radial-gradient(circle at 58% 58%,transparent 25%,#02101b15 46%,#01061288 70%,#01040eee 98%),radial-gradient(ellipse at 17% 20%,#020716ed 12%,#020716ba 34%,#07141b50 49%,transparent 72%);
+  box-shadow:inset -1px -2px 3px #d3e8e87d,inset 2px 2px 8px #010511c9;
+}
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="aenoria"] .planet-clouds { opacity:.17; }
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="aenoria"] .planet-aurora { opacity:.12; }
+
+/* Démono : bandes gazeuses, remous et lueurs d'orage localisées. */
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="demono"] .planet-terrain {
+  background-image:url('images/lore-planets/demono.svg'); transform:rotate(15deg) scale(1.1);
+}
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="demono"] .planet-clouds {
+  opacity:.5; filter:contrast(1.6); animation:demonoGas 24s ease-in-out infinite alternate;
+}
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="demono"] .planet-aurora {
+  background:radial-gradient(ellipse at 31% 39%,#b9bce849,transparent 19%),radial-gradient(ellipse at 62% 56%,#bab2dc3b,transparent 22%);
+  filter:blur(4px); opacity:.55;
+}
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="demono"] .planet-lightning {
+  display:block; position:absolute; inset:0; z-index:5; opacity:0;
+  background:url('images/lore-planets/lightning.svg') center/100% 100%;
+  filter:drop-shadow(0 0 3px #c2b9ff); animation:demonoStorm 9s linear infinite;
+}
+@keyframes demonoGas {
+  from { transform:rotate(10deg) translate(-3%,1%) scale(1.05); }
+  to { transform:rotate(23deg) translate(4%,-2%) scale(1.13); }
+}
+@keyframes demonoStorm {
+  0%,27%,34%,68%,75%,100% { opacity:0; }
+  29% { opacity:.7; } 32% { opacity:.12; }
+  70% { opacity:.48; } 73% { opacity:.08; }
+}
+
+/* Vespera : océans, terres et nappes de brouillard, sans géographie dévoilée. */
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="vespera"] .planet-terrain { background-image:url('images/lore-planets/vespera.svg'); }
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="vespera"] .planet-clouds {
+  opacity:.52; filter:contrast(1.55) brightness(1.2); mix-blend-mode:screen; animation-duration:36s;
+}
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="vespera"] .planet-aurora {
+  background:linear-gradient(153deg,transparent 16%,#d0e2e44d 23%,transparent 30%,#cad9e455 42%,transparent 53%,#bacfda38 65%,transparent 75%);
+  opacity:.56; filter:blur(5px); transform:rotate(-16deg);
+}
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="vespera"] .planet-sphere::after {
+  background:radial-gradient(ellipse at 12% 84%,#020712e8 14%,#0207129c 38%,#08142625 61%,transparent 78%);
+  box-shadow:inset -2px 1px 4px #aeced177,inset 0 0 14px #11203366;
+}
+
+/* Harmony : globe opalin et anneau incliné avec occultation derrière le globe. */
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="harmony"] .planet-sphere {
+  overflow:visible; background:#c7bba4; opacity:1; filter:none;
+  box-shadow:inset 0 0 5px #fcf4d0aa,0 0 13px #e5d2a84d,0 0 28px #d5c0ee24;
+}
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="harmony"] .planet-terrain { background-image:url('images/lore-planets/harmony.svg'); }
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="harmony"] .planet-clouds,
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="harmony"] .planet-aurora,
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="harmony"] .planet-dust { inset:0; clip-path:circle(50%); transform:none; animation:none; }
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="harmony"] .planet-sphere::before { display:none; }
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="harmony"] .planet-sphere::after {
+  background:radial-gradient(ellipse at 83% 18%,#28233eaa,transparent 71%);
+  box-shadow:inset 1px -2px 3px #fff1cba3;
+}
+.lore-depth-v4 :is(.world-planet,.planet-dialog)[data-planet="harmony"] .planet-ring {
+  display:block; position:absolute; z-index:8; width:250%; height:156.25%; left:-75%; top:-28.125%;
+  background:url('images/lore-planets/harmony-ring.svg') center/contain no-repeat;
+  filter:drop-shadow(0 0 2px #ddd0b93d);
+}
+@media(prefers-reduced-motion:reduce) {
+  .lore-depth-v4 .planet-lightning { display:none !important; }
+  .lore-depth-v4 .planet-clouds { animation:none !important; }
+}

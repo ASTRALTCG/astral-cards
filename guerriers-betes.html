@@ -11,9 +11,11 @@
 <link rel="stylesheet" href="style.css">
 
 <link rel="stylesheet" href="navigation.css?v=20260913">
+<link rel="stylesheet" href="lore-fiches.css?v=20260921-10">
+<link rel="stylesheet" href="lore-environment.css?v=20260922-12">
 </head>
-<body>
-<div class="space-bg" aria-hidden="true"><div class="nebula"></div><div class="stars stars-a"></div><div class="stars stars-b"></div></div>
+<body class="lore-navigator-sheet lore-has-environment lore-environment-aenoria">
+<div class="space-bg lore-environment" aria-hidden="true"></div>
 
 <header class="site-header">
   <a class="brand" href="index.html" aria-label="Astral Cards — Accueil">
@@ -38,98 +40,180 @@
 </header>
 
 <main class="subpage">
-  <section class="page-hero reveal">
-    <p class="kicker">FICHE D’ARCHÉTYPE</p>
+  <section class="page-hero reveal lore-archetype-heading">
+    <!-- Logo de l’archétype. -->
+    <div class="archetype-emblem lore-archetype-logo"><img src="images/lore-aenoria/logo.png" alt="Logo de l’archétype" width="1254" height="1254"></div>
+    <div class="lore-archetype-heading-text">
+      <p class="kicker">FICHE D’ARCHÉTYPE</p>
     <h1>Les Guerriers-Bêtes</h1>
-    <p>Des combattants liés aux instincts primordiaux, à la force sauvage et aux traditions de leur peuple.</p>
+    </div>
   </section>
   <section class="section page-content reveal">
     
         <div class="breadcrumbs"><a href="lore.html">Lore</a><span>›</span><a href="lore-archetypes.html">Archétypes</a><span>›</span><strong>Les Guerriers-Bêtes</strong></div>
+        <div class="lore-decor-controls"><button class="lore-decor-toggle" type="button" aria-pressed="false" hidden>Mettre le décor en pause</button></div>
         <article class="archetype-sheet">
           <div class="archetype-banner">
-            <div class="archetype-emblem">◈</div>
+            <!-- Portrait du Navigateur. -->
+            <div class="archetype-emblem lore-navigator-portrait lore-face" style="--face-width:300%;--face-left:-100%;--face-top:-15%"><img src="images/lore-aenoria/dompteur.png" alt="Portrait : Le Dompteur" width="1024" height="1024"></div>
             <div>
-              <p class="kicker">ARCHÉTYPE</p>
-              <h2>Les Guerriers-Bêtes</h2>
-              <p>Des combattants liés aux instincts primordiaux, à la force sauvage et aux traditions de leur peuple.</p>
+              <p class="kicker">NAVIGATEUR</p>
+              <h2>Le Dompteur</h2>
             </div>
           </div>
 
-          <div class="sheet-grid">
-            <section>
-              <h3>Origines</h3>
-              <p>Ajoutez ici l’origine de l’archétype, sa naissance et les événements qui ont façonné son identité.</p>
-            </section>
-            <section>
-              <h3>Objectifs</h3>
-              <p>Expliquez ses ambitions, ses besoins, ses ennemis et ce qu’il cherche à accomplir.</p>
-            </section>
-            <section>
-              <h3>Organisation</h3>
-              <p>Présentez sa hiérarchie, ses groupes internes, ses traditions et son fonctionnement.</p>
-            </section>
-            <section>
-              <h3>Particularités</h3>
-              <p>Décrivez ses pouvoirs, son apparence, ses méthodes de combat ou ses traits uniques.</p>
-            </section>
-          </div>
+  <section class="archetype-history" aria-label="Chapitres">
 
-          <section class="character-area">
-            <p class="kicker">PERSONNAGES IMPORTANTS</p>
-            <h2>Figures de l’archétype</h2>
-            <p>Cette section pourra accueillir les personnages majeurs et leurs illustrations.</p>
+    <div class="lore-opening">
+      <p class="lore-opening-quote"><em>« Les mondes changent. Les peuples demeurent. Les histoires, elles, ne demandent qu’à être racontées. »</em></p>
+      <p class="lore-opening-world"><em>Aujourd’hui, tournons-nous vers les terres de Ænoria.</em></p>
+    </div>
+
+    <h3 class="lore-volume-title">Tome 1 : <span>L’Équilibre</span></h3>
+    <div class="history-chapters">
+      <details class="history-chapter lore-prologue">
+        <summary><span class="chapter-title">Prologue</span></summary>
+        <div class="chapter-content lore-reading"><p><em>« Les plus grandes guerres ne naissent pas de la haine. Elles naissent lorsque ceux qui protégeaient la paix cessent d’y croire. »</em></p>
+<p>Bien avant que les anciens ne gravent leurs premiers récits dans la pierre, les terres d’Ænoria étaient déjà partagées entre quatre grands clans.</p>
+<p>Au nord régnaient les Clans des Glaces, où la neige ensevelissait les montagnes depuis des temps immémoriaux. Là-bas, la patience valait davantage que la colère, et l’honneur survivait à la mort.</p>
+<p>À l’est brûlaient les Terres des Flammes, où les volcans façonnaient autant les paysages que le caractère de leur peuple. La puissance y était admirée, et la victoire représentait la plus grande des vertus.</p>
+<p>Au sud s’étendaient les Sables Éternels, où seules la ruse, l’endurance et la discipline permettaient de survivre sous un soleil impitoyable.</p>
+<p>À l’ouest, les Forêts Primordiales recouvraient des vallées que nul n’avait jamais entièrement explorées. Les anciens racontaient que les arbres eux-mêmes observaient les générations se succéder.</p>
+<p>Chaque clan possédait son chef.</p>
+<p>Chaque chef protégeait son territoire.</p>
+<p>Chaque territoire possédait ses propres traditions.</p>
+<p>Les conflits existaient.</p>
+<p>Les alliances aussi.</p>
+<p>Mais jamais aucune guerre n’avait consumé Ænoria tout entière.</p>
+<p>Car au-dessus des quatre clans demeurait une autorité que personne ne contestait.</p>
+<p><strong>Le Dompteur.</strong></p>
+<p>Les récits les plus anciens parlaient déjà de lui.</p>
+<p>Pour certains, il était un sage.</p>
+<p>Pour d’autres, un souverain sans royaume.</p>
+<p>Quelques légendes affirmaient que, lorsqu’un Dompteur disparaissait, les quatre chefs reconnaissaient d’eux-mêmes celui qui lui succéderait.</p>
+<p>Nul ne savait ce qui guidait leur choix.</p>
+<p>Nul ne connaissait l’origine de cette tradition.</p>
+<p>Il en avait toujours été ainsi.</p>
+<p>Et personne n’avait jamais songé à remettre cet équilibre en question.</p>
+<p>Du moins…</p>
+<p>Jusqu’à ce que les ambitions des quatre clans commencent à grandir…</p></div>
+      </details>
+      <details class="history-chapter lore-chapter-one">
+        <summary><span class="chapter-title"><span class="chapter-label">Chapitre 1 :</span> Le Grand Conseil</span></summary>
+        <div class="chapter-content lore-reading"><p>Les premiers à apparaître furent les guerriers des Forêts Ancestrales.</p>
+<p>Leurs pas étaient silencieux. Drapés d’armures façonnées dans le bois ancien et la pierre, ils avançaient en une seule colonne, comme guidés par le souffle même de la forêt.</p>
+<p>À leur tête marchait Valgheim, Gardien de la Forêt.</p>
+<p>Sa haute silhouette dominait les siens. Son allure, à la fois calme et imposante, inspirait naturellement le respect. Une lourde masse reposait sur son épaule, mais jamais il ne la portait comme une simple arme. Elle semblait être le prolongement naturel de sa fonction.</p>
+<p>Valgheim ne régnait pas seulement en maître sur la forêt.</p>
+<p>Il en était le protecteur incontesté.</p>
+<p>Depuis de nombreuses saisons, son clan veillait sur les Forêts Ancestrales, refusant que quiconque profane les terres sacrées léguées par leurs ancêtres. On racontait que certains arbres avaient vu naître les premiers chefs d’Ænoria, bien avant que les quatre clans ne soient officiellement reconnus.</p>
+<p>Lorsque Valgheim pénétra dans le sanctuaire du Grand Conseil, il posa lentement son regard sur l’Arbre des Origines.</p>
+<p>Il inclina respectueusement la tête.</p>
+<p>Puis seulement, il rejoignit la place réservée au Clan de la Forêt, attendant en silence l’arrivée des autres chefs.</p>
+<p>Quelques instants plus tard, les vents du nord soufflèrent sur le sanctuaire.</p>
+<p>Le froid s’installa brusquement, plongeant le Grand Conseil dans une atmosphère glaciale.</p>
+<p>Les guerriers des Clans des Glaces venaient d’arriver.</p>
+<p>Leurs armures d’acier pâle semblaient avoir été forgées dans les profondeurs mêmes des glaciers. Aucun d’eux ne prononçait un mot. Ils avançaient d’un même pas, parfaitement synchronisés, comme s’ils ne formaient qu’un seul et même guerrier.</p>
+<p>À leur tête marchait Kaïros, le Tigre Blanc.</p>
+<p>Son pelage immaculé contrastait avec les épaisses fourrures qui recouvraient ses épaules. Son regard, d’un bleu aussi froid que les terres qu’il dirigeait, balayait silencieusement les environs. Aucun détail ne semblait lui échapper.</p>
+<p>Sa seule présence suffisait à imposer le silence.</p>
+<p>Kaïros ne gouvernait pas le Clan des Glaces par la peur.</p>
+<p>Il le dirigeait par l’exemple.</p>
+<p>Dans les terres du Nord, aucun guerrier n’était dispensé des épreuves imposées aux autres, pas même leur chef. Kaïros partageait les mêmes entraînements, affrontait les mêmes tempêtes et supportait les mêmes privations que les siens. C’est ainsi qu’il avait gagné leur respect.</p>
+<p>Lorsque le Tigre Blanc pénétra dans le sanctuaire du Grand Conseil, il croisa le regard de Valgheim.</p>
+<p>Les deux chefs échangèrent un discret signe de tête.</p>
+<p>Aucun mot ne fut prononcé.</p>
+<p>Ils n’en avaient pas besoin.</p>
+<p>Kaïros rejoignit ensuite la place réservée au Clan des Glaces, attendant à son tour l’arrivée des autres chefs.</p>
+<p>Les flammes des braseros bordant le sanctuaire s’agitèrent soudainement.</p>
+<p>Une chaleur intense balaya l’assemblée, chassant en quelques instants le froid laissé par les guerriers du Nord.</p>
+<p>Les représentants des Terres des Flammes venaient d’arriver.</p>
+<p>Leurs armures, noircies par la cendre et les forges volcaniques, semblaient encore rayonner de chaleur. Chaque pas résonnait avec assurance, comme si le sol lui-même reconnaissait leur présence.</p>
+<p>À leur tête marchait Vairon, Souverain des Flammes.</p>
+<p>Sa carrure imposante dominait son escorte. Son pelage flamboyant semblait refléter les lueurs des volcans qui avaient vu naître son peuple. Son regard, vif et assuré, ne cherchait pas à impressionner.</p>
+<p>Il savait déjà que personne n’oserait le défier.</p>
+<p>Vairon avançait sans dissimuler sa puissance.</p>
+<p>Pour lui, un chef devait être le premier à inspirer confiance… mais aussi à susciter la crainte chez ses ennemis.</p>
+<p>Depuis son accession à la tête du Clan des Flammes, son peuple n’avait cessé de prospérer. Les forges tournaient jour et nuit, les guerriers étaient plus nombreux que jamais et les frontières de son territoire n’avaient jamais été aussi solidement défendues.</p>
+<p>Lorsqu’il pénétra dans le sanctuaire du Grand Conseil, Vairon salua brièvement Valgheim et Kaïros d’un signe de tête.</p>
+<p>Le respect était présent.</p>
+<p>Mais une rivalité silencieuse persistait depuis de nombreuses saisons entre les deux frères.</p>
+<p>Sans un mot, il rejoignit la place réservée au Clan des Flammes, attendant l’arrivée du dernier chef de clan.</p>
+<p>Les derniers à rejoindre le sanctuaire furent les représentants des Sables Éternels.</p>
+<p>Le vent se leva brusquement, soulevant un épais voile de sable qui traversa les plaines du Grand Conseil.</p>
+<p>Lorsque celui-ci retomba, une imposante armée se tenait déjà aux portes du sanctuaire.</p>
+<p>À leur tête avançait Ra’Kesh, l’Empereur des Sables.</p>
+<p>Sa stature imposante n’avait d’égale que l’autorité qu’il dégageait. Une majestueuse armure dorée recouvrait son corps, marquée des cicatrices laissées par d’innombrables campagnes militaires. Son regard, dur et impitoyable, balayait l’assemblée comme s’il évaluait déjà les forces de chacun.</p>
+<p>Ra’Kesh ne cherchait pas à protéger son empire.</p>
+<p>Il voulait l’agrandir.</p>
+<p>Depuis son accession au pouvoir, les Sables Éternels n’avaient cessé de s’étendre. Village après village, oasis après oasis, son armée avait soumis toutes les tribus qui refusaient de plier le genou. Pour son peuple, chaque conquête représentait une victoire. Pour ses ennemis, elle annonçait la fin de leur liberté.</p>
+<p>On racontait qu’aucun chef de guerre n’avait remporté autant de campagnes que lui.</p>
+<p>Et Ra’Kesh comptait bien continuer d’écrire cette légende.</p>
+<p>Lorsqu’il pénétra dans le sanctuaire du Grand Conseil, il posa un regard assuré sur Valgheim, puis sur Kaïros et Vairon.</p>
+<p>Un léger sourire se dessina sur son visage.</p>
+<p>Non pas un sourire de courtoisie…</p>
+<p>Mais celui d’un conquérant persuadé que le monde finirait un jour par lui appartenir.</p>
+<p>Sans attendre davantage, il rejoignit la place réservée au Clan du Désert.</p>
+<p>Les quatre chefs étaient désormais réunis.</p>
+<p>Valgheim.</p>
+<p>Kaïros.</p>
+<p>Vairon.</p>
+<p>Ra’Kesh.</p>
+<p>Quatre chefs à la tête des peuples les plus puissants d’Ænoria.</p>
+<p>Quatre guerriers dont les noms suffisaient à imposer le respect bien au-delà de leurs propres frontières.</p>
+<p>Et pourtant…</p>
+<p>Aucun d’eux ne prit la parole.</p>
+<p>Sous les immenses branches de l’Arbre des Origines, cinq sièges entouraient la table du Grand Conseil.</p>
+<p>Quatre étaient désormais occupés.</p>
+<p>Le cinquième demeurait vide.</p>
+<p>Les regards finirent peu à peu par converger vers lui.</p>
+<p>Même Ra’Kesh, dont les armées avaient soumis tant de territoires, attendait en silence.</p>
+<p>Car aussi puissants fussent-ils…</p>
+<p>Aucun des quatre chefs ne régnait sur Ænoria.</p>
+<p>Un seul être possédait cette autorité.</p>
+<p>Un souverain auquel tous devaient obéissance.</p>
+<p>Celui dont les décisions pouvaient changer le destin des quatre clans.</p>
+<p>Celui sans qui le Grand Conseil ne pouvait commencer.</p>
+<p>Quelques secondes passèrent.</p>
+<p>Puis d’autres.</p>
+<p>Toujours rien.</p>
+<p>Le silence devint pesant.</p>
+<p>Les guerriers eux-mêmes semblaient retenir leur souffle.</p>
+<p>Puis, au loin…</p>
+<p>Un bruit.</p>
+<p>À peine perceptible.</p>
+<p>Les quatre chefs tournèrent lentement leur regard vers le chemin de pierre qui disparaissait entre les racines de l’Arbre des Origines.</p>
+<p>Quelqu’un approchait.</p>
+<p>Le souverain d’Ænoria.</p>
+<p><strong>Le Dompteur.</strong></p></div>
+      </details>
+      <div class="history-chapter chapter-coming-soon"><div><span class="chapter-title"><span class="chapter-label">Chapitre 2 :</span> À venir</span></div></div>
+      <div class="history-chapter chapter-coming-soon"><div><span class="chapter-title"><span class="chapter-label">Chapitre 3 :</span> À venir</span></div></div>
+    </div>
+
+</section>
+
+          <section class="character-area" aria-labelledby="lore-figures-title">
+            <h2 id="lore-figures-title">Visages du récit</h2>
+            <ul class="lore-figure-list">
+<li><button class="lore-figure-button" type="button" data-figure="rakesh" aria-label="Découvrir Ra’Kesh" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+    <span class="lore-figure-bubble lore-face" style="--face-width:245%;--face-left:-70%;--face-top:-5%"><img src="images/lore-aenoria/rakesh.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+    <span class="lore-figure-name">Ra’Kesh</span></button></li>
+<li><button class="lore-figure-button" type="button" data-figure="valgheim" aria-label="Découvrir Valgheim" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+    <span class="lore-figure-bubble lore-face" style="--face-width:260%;--face-left:-74%;--face-top:0%"><img src="images/lore-aenoria/valgheim.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+    <span class="lore-figure-name">Valgheim</span></button></li>
+<li><button class="lore-figure-button" type="button" data-figure="kairos" aria-label="Découvrir Kaïros" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+    <span class="lore-figure-bubble lore-face" style="--face-width:235%;--face-left:-85%;--face-top:-4%"><img src="images/lore-aenoria/kairos.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+    <span class="lore-figure-name">Kaïros</span></button></li>
+<li><button class="lore-figure-button" type="button" data-figure="vairon" aria-label="Découvrir Vairon" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+    <span class="lore-figure-bubble lore-face" style="--face-width:250%;--face-left:-64%;--face-top:-10%"><img src="images/lore-aenoria/vairon.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+    <span class="lore-figure-name">Vairon</span></button></li>
+</ul>
           </section>
         </article>
         
   </section>
-  <section class="archetype-history">
 
-    <div class="history-header">
-        <span class="history-eyebrow">Chroniques de l’archétype</span>
-        <h2>Histoire</h2>
-    </div>
-
-    <div class="history-chapters">
-
-        <details class="history-chapter">
-            <summary>
-                <span class="chapter-label">Chapitre 1</span>
-                <span class="chapter-title">Titre du chapitre à renseigner</span>
-            </summary>
-
-            <div class="chapter-content">
-                <p>
-                    Texte du premier paragraphe à renseigner.
-                </p>
-
-                <p>
-                    Texte du deuxième paragraphe à renseigner.
-                </p>
-            </div>
-        </details>
-
-        <div class="history-chapter chapter-coming-soon">
-            <div>
-                <span class="chapter-label">Chapitre 2</span>
-                <span class="chapter-title">À venir</span>
-            </div>
-
-            <span class="coming-soon-badge">À venir</span>
-        </div>
-
-        <div class="history-chapter chapter-coming-soon">
-            <div>
-                <span class="chapter-label">Chapitre 3</span>
-                <span class="chapter-title">À venir</span>
-            </div>
-
-            <span class="coming-soon-badge">À venir</span>
-        </div>
-
-    </div>
-
-</section>
 </main>
 
 <footer class="site-footer">
@@ -143,7 +227,35 @@
   </div>
   <p class="copyright">© 2026 Astral Cards. Tous droits réservés.</p>
 </footer>
+<dialog class="lore-profile-dialog" id="lore-profile-dialog" aria-labelledby="lore-profile-title" aria-describedby="lore-profile-text">
+  <div class="lore-profile-inner">
+    <button class="lore-profile-close" type="button" aria-label="Fermer la fiche" autofocus>×</button>
+    <div class="lore-profile-content"></div>
+  </div>
+</dialog>
+<template id="lore-figure-rakesh">
+    <img src="images/lore-aenoria/rakesh.png" alt="Portrait : Ra’Kesh" width="1024" height="1024" class="lore-profile-image">
+    <h2 id="lore-profile-title">Ra’Kesh</h2>
+    <p id="lore-profile-text" class="lore-profile-text"><em>« Un jour, chaque frontière d’Ænoria portera mon nom. »</em></p>
+  </template>
+<template id="lore-figure-valgheim">
+    <img src="images/lore-aenoria/valgheim.png" alt="Portrait : Valgheim" width="1024" height="1024" class="lore-profile-image">
+    <h2 id="lore-profile-title">Valgheim</h2>
+    <p id="lore-profile-text" class="lore-profile-text">Aussi ancien que les arbres qu’il protège, Valgheim veille sur les Forêts Primordiales et protège son peuple.</p>
+  </template>
+<template id="lore-figure-kairos">
+    <img src="images/lore-aenoria/kairos.png" alt="Portrait : Kaïros" width="1024" height="1024" class="lore-profile-image">
+    <h2 id="lore-profile-title">Kaïros</h2>
+    <p id="lore-profile-text" class="lore-profile-text">Dans les terres glacées du Nord, un seul nom suffit à rappeler que l’honneur possède encore un gardien : Kaïros.</p>
+  </template>
+<template id="lore-figure-vairon">
+    <img src="images/lore-aenoria/vairon.png" alt="Portrait : Vairon" width="1024" height="1024" class="lore-profile-image">
+    <h2 id="lore-profile-title">Vairon</h2>
+    <p id="lore-profile-text" class="lore-profile-text"><em>« Que les faibles craignent le feu. Moi, je le commande. »</em></p>
+  </template>
+<script src="lore-figures.js?v=20260921-10"></script>
 <script src="script.js"></script>
 
+<script src="lore-environment.js?v=20260922-12"></script>
 </body>
 </html>

@@ -1,17 +1,18 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<title>Astral Cards — Lore par archétype</title>
+<title>Astral Cards — Les mondes et leurs Navigateurs</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050816">
-<meta name="description" content="Astral Cards — Explorez les archétypes à travers leurs Navigateurs.">
+<meta name="description" content="Explorez les mondes d’Astral Cards et découvrez les histoires de leurs Navigateurs.">
 <link rel="icon" type="image/png" href="logo-astral-cards.png">
 <link rel="stylesheet" href="style.css?v=20260719-2">
-<link rel="stylesheet" href="lore-timeline.css?v=20260719-4">
+<link rel="stylesheet" href="lore-worlds.css?v=20260917-5">
+<link rel="stylesheet" href="lore-planets.css?v=20260921-10">
 <link rel="stylesheet" href="navigation.css?v=20260913">
 </head>
-<body>
+<body class="lore-worlds-page lore-system-v3 lore-depth-v4">
 <div class="space-bg" aria-hidden="true"><div class="nebula"></div><div class="stars stars-a"></div><div class="stars stars-b"></div></div>
 
 <header class="site-header">
@@ -36,65 +37,89 @@
   </nav>
 </header>
 
-<main class="subpage">
-  <section class="page-hero reveal">
-    <p class="kicker">DESTINS ET ARCHÉTYPES</p>
-    <h1>Lore par archétype</h1>
-    <p>Explorez la ligne astrale et choisissez un Navigateur pour découvrir l’histoire de son archétype.</p>
+<main class="subpage lore-explorer">
+  <section class="lore-heading" aria-labelledby="explorer-title">
+    <a class="lore-back" href="lore.html">← Retour au Lore</a>
+    <p class="kicker">LA LIGNE ASTRALE</p>
+    <h1 id="explorer-title">Les mondes d’Astral</h1>
+    <p>Des mondes à explorer. Des destins à découvrir.</p>
   </section>
 
-  <section class="section page-content reveal">
-    <div class="breadcrumbs"><a href="lore.html">Lore</a><span>›</span><strong>Lore par archétype</strong></div>
-
-    <div class="lore-timeline-shell" aria-label="Frise interactive des Navigateurs">
-      <button class="timeline-control timeline-control-left" type="button" aria-label="Faire défiler vers la gauche">‹</button>
-
-      <div class="lore-timeline-viewport" tabindex="0">
-        <div class="lore-timeline-track">
-          <div class="lore-timeline-line" aria-hidden="true"></div>
-
-          <!-- Pour ajouter un Navigateur plus tard : dupliquez un bloc .timeline-node,
-               changez le nom, l'image, le lien et la classe node-top / node-bottom. -->
-          <a class="timeline-node node-top" href="sceau-brise.html" aria-label="Découvrir l’archétype de Zyraël">
-            <span class="timeline-orbit" aria-hidden="true"></span>
-            <span class="timeline-bubble">
-              <img src="images/zyrael.png" alt="Zyraël" draggable="false">
-            </span>
-            <span class="timeline-name">Zyraël</span>
-          </a>
-
-          <a class="timeline-node node-bottom" href="demononuageux.html" aria-label="Découvrir l’archétype de Zvatas">
-            <span class="timeline-orbit" aria-hidden="true"></span>
-            <span class="timeline-bubble">
-              <img src="images/zvatas.png" alt="Zvatas" draggable="false">
-            </span>
-            <span class="timeline-name">Zvatas</span>
-          </a>
-
-          <a class="timeline-node node-top" href="guerriers-betes.html" aria-label="Découvrir l’archétype du Dompteur">
-            <span class="timeline-orbit" aria-hidden="true"></span>
-            <span class="timeline-bubble">
-              <img src="images/dompteur.png" alt="Dompteur" draggable="false">
-            </span>
-            <span class="timeline-name">Dompteur</span>
-          </a>
-
-          <a class="timeline-node node-bottom" href="ordre-epine.html" aria-label="Découvrir l’archétype de Rebecca">
-            <span class="timeline-orbit" aria-hidden="true"></span>
-            <span class="timeline-bubble">
-              <img src="images/rebecca.png" alt="Rebecca" draggable="false">
-            </span>
-            <span class="timeline-name">Rebecca</span>
-          </a>
-        </div>
+  <section class="lore-map-section" aria-label="Explorer les planètes et les Navigateurs">
+    <div class="lore-toolbar">
+      <p class="lore-invitation"><span aria-hidden="true">✧</span> Choisissez un monde pour découvrir ses Navigateurs.</p>
+      <div class="navigator-search" role="search" aria-label="Rechercher un Navigateur">
+        <label class="sr-only" for="navigator-search">Rechercher un Navigateur</label>
+        <span class="search-symbol" aria-hidden="true"></span>
+        <input id="navigator-search" type="search" placeholder="Rechercher un Navigateur…" autocomplete="off" aria-controls="navigator-results" aria-describedby="search-hint">
+        <span id="search-hint" class="sr-only">Les résultats donnent directement accès aux histoires. Utilisez Tab pour parcourir les liens ou Entrée pour ouvrir le premier résultat.</span>
+        <div id="navigator-results" class="navigator-results" hidden></div>
+        <p id="search-status" class="sr-only" role="status"></p>
       </div>
-
-      <button class="timeline-control timeline-control-right" type="button" aria-label="Faire défiler vers la droite">›</button>
     </div>
 
-    <p class="timeline-help">Faites glisser la frise ou utilisez les flèches. Survolez une bulle pour révéler son nom, puis cliquez pour entrer dans son histoire.</p>
+    <div class="lore-universe" id="lore-universe">
+      <div class="universe-viewport" id="universe-viewport" tabindex="0" role="region" aria-label="Carte des mondes" aria-describedby="map-instructions">
+        <div class="depth-sky" aria-hidden="true"></div>
+        <canvas id="universe-stars" aria-hidden="true"></canvas>
+        <div class="universe-haze" aria-hidden="true"></div>
+        <div class="universe-world" id="universe-world">
+          <div class="system-clouds" aria-hidden="true"></div>
+          <div class="depth-volume" aria-hidden="true"></div>
+          <div class="unrevealed-world" role="img" aria-label="???">
+            <span class="unrevealed-glow" aria-hidden="true"></span>
+            <span class="unrevealed-core" aria-hidden="true"></span>
+            <span class="unrevealed-name" aria-hidden="true">???</span>
+          </div>
+          <button class="world-planet" type="button" data-planet="aenoria" aria-label="Explorer Ænoria, monde du Dompteur" aria-haspopup="dialog">
+            <span class="planet-sphere" aria-hidden="true"></span>
+            <span class="planet-label"><strong>Ænoria</strong><span>Explorer ce monde <b aria-hidden="true">↗</b></span></span>
+          </button>
+          <button class="world-planet" type="button" data-planet="demono" aria-label="Explorer Démono, monde de Zvatas" aria-haspopup="dialog">
+            <span class="planet-sphere" aria-hidden="true"></span>
+            <span class="planet-label"><strong>Démono</strong><span>Explorer ce monde <b aria-hidden="true">↗</b></span></span>
+          </button>
+          <button class="world-planet" type="button" data-planet="harmony" aria-label="Explorer Harmony, monde de Zyraël" aria-haspopup="dialog">
+            <span class="planet-sphere" aria-hidden="true"></span>
+            <span class="planet-label"><strong>Harmony</strong><span>Explorer ce monde <b aria-hidden="true">↗</b></span></span>
+          </button>
+          <button class="world-planet" type="button" data-planet="vespera" aria-label="Explorer Vespera, monde de Rebecca" aria-haspopup="dialog">
+            <span class="planet-sphere" aria-hidden="true"></span>
+            <span class="planet-label"><strong>Vespera</strong><span>Explorer ce monde <b aria-hidden="true">↗</b></span></span>
+          </button>
+        </div>
+      </div>
+      <div class="universe-caption" aria-hidden="true"><span class="caption-dot"></span> L’UNIVERS VOUS ATTEND</div>
+      <div class="universe-controls" role="group" aria-label="Contrôles de la carte">
+        <button type="button" id="zoom-out" aria-label="Dézoomer" title="Dézoomer">−</button>
+        <button type="button" id="zoom-in" aria-label="Zoomer" title="Zoomer">+</button>
+        <span class="control-divider" aria-hidden="true"></span>
+        <button type="button" id="toggle-ambience" aria-label="Mettre les animations en pause" title="Mettre les animations en pause" aria-pressed="false" hidden><span aria-hidden="true">Ⅱ</span></button>
+        <button type="button" id="reset-view"><span aria-hidden="true">⌖</span> Vue d’ensemble</button>
+      </div>
+      <div class="universe-bottom-note" aria-hidden="true">Chaque monde porte ses histoires.</div>
+    </div>
+    <p id="map-instructions" class="map-instructions"><span class="desktop-instructions">Faites glisser pour explorer · Molette pour zoomer · Cliquez sur une planète</span><span class="mobile-instructions">Glissez pour explorer · Pincez pour zoomer · Touchez une planète</span><span class="sr-only">Au clavier : Tab pour choisir une planète, Entrée pour l’ouvrir. Sur la carte : flèches pour vous déplacer, + et − pour zoomer, touche Début pour revenir à la vue d’ensemble.</span></p>
+    <noscript><p>Découvrez directement les histoires des Navigateurs :</p><ul><li><a href="guerriers-betes.html">Le Dompteur — Ænoria</a></li><li><a href="demononuageux.html">Zvatas — Démono</a></li><li><a href="sceau-brise.html">Zyraël — Harmony</a></li><li><a href="ordre-epine.html">Rebecca — Vespera</a></li></ul></noscript>
   </section>
 </main>
+
+<dialog class="planet-dialog" id="planet-dialog" aria-labelledby="planet-title" aria-describedby="planet-description">
+  <div class="planet-atmosphere" aria-hidden="true"></div>
+  <div class="arrival-sphere planet-sphere" id="arrival-sphere" aria-hidden="true"></div>
+  <div class="planet-mist" aria-hidden="true"></div>
+  <button class="planet-return" id="planet-return" type="button" autofocus>← Retour aux mondes</button>
+  <div class="planet-destination">
+    <header class="planet-introduction">
+      <p class="kicker">UN MONDE, DES DESTINS</p>
+      <h2 id="planet-title"></h2>
+      <p id="planet-description">Découvrez les Navigateurs qui ont marqué l’histoire de ce monde.</p>
+      <span class="planet-rule" aria-hidden="true"></span>
+      <p class="planet-instruction">Choisissez un Navigateur pour entrer dans son histoire.</p>
+    </header>
+    <div class="planet-navigators" id="planet-navigators"></div>
+  </div>
+</dialog>
 
 <footer class="site-footer">
   <div class="footer-inner">
@@ -108,5 +133,7 @@
   <p class="copyright">© 2026 Astral Cards. Tous droits réservés.</p>
 </footer>
 <script src="script.js?v=20260719-4"></script>
+<script src="lore-worlds.js?v=20260917-7"></script>
+<script src="lore-ambience.js?v=20260917-7"></script>
 </body>
 </html>

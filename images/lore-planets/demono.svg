@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><filter id="warp" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".018 .035" numOctaves="3" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="27" xChannelSelector="R" yChannelSelector="G"/></filter><linearGradient id="gas" x2=".25" y2="1"><stop stop-color="#b3a4cb"/><stop offset=".4" stop-color="#75688e"/><stop offset="1" stop-color="#272941"/></linearGradient></defs><rect width="400" height="400" fill="url(#gas)"/>
+<g filter="url(#warp)" fill="none" stroke-linecap="round">
+<path stroke="#c5bdd6" stroke-width="32" opacity=".6" d="M-50 50Q120 140 450 30M-50 183Q150 270 450 141M-50 340Q220 372 450 294"/>
+<path stroke="#493f67" stroke-width="21" opacity=".7" d="M-40 121Q210 192 440 85M-40 269Q160 312 440 230"/>
+<path stroke="#ddd5e5" stroke-width="9" opacity=".55" d="M-30 159Q110 224 450 111M-20 303Q210 350 450 262"/>
+<ellipse cx="137" cy="166" rx="57" ry="21" stroke="#c9bedb" stroke-width="8" opacity=".6"/>
+<ellipse cx="143" cy="167" rx="31" ry="9" stroke="#5f4c80" stroke-width="9" opacity=".7"/>
+</g></svg>

@@ -1,0 +1,126 @@
+/* Mise en page pilote : uniquement la fiche de l’Ordre de l’Épine. */
+.lore-epine-pilot .archetype-sheet > .archetype-history {
+  max-width: none;
+  margin: 0;
+  padding: clamp(30px, 5vw, 52px);
+  border-bottom: 1px solid var(--line);
+}
+.lore-epine-pilot .history-header { text-align: left; }
+.lore-epine-pilot .history-header h2 { font-size: clamp(1.8rem, 3vw, 2.4rem); }
+.lore-epine-pilot .history-chapter summary { position: relative; }
+.lore-epine-pilot .character-area {
+  background: radial-gradient(ellipse at 50% 100%, rgba(127, 82, 170, .10), transparent 70%);
+}
+.lore-epine-pilot .epine-figures-intro { color: var(--muted); margin-top: 12px; }
+.lore-epine-pilot .epine-character-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 24px 18px;
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 0;
+}
+.lore-epine-pilot .epine-character {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 10px 4px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.lore-epine-pilot .epine-portrait {
+  position: relative;
+  display: block;
+  width: min(100%, 132px);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 50%;
+  border: 2px solid rgba(183, 163, 213, .55);
+  background: #0b1020;
+  box-shadow: 0 0 0 5px rgba(156, 131, 197, .06), 0 10px 26px rgba(0, 0, 0, .32);
+  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+}
+.lore-epine-pilot .epine-portrait img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  height: auto;
+}
+/* Cadrage de l’illustration existante : le cadre et le texte de carte restent hors champ. */
+.lore-epine-pilot .epine-portrait-card img { width: 190%; left: -45%; top: -31%; }
+.lore-epine-pilot .epine-portrait-rebecca img { width: 170%; left: -35%; top: -8%; }
+.lore-epine-pilot .epine-character-name { font-weight: 700; overflow-wrap: anywhere; }
+.lore-epine-pilot .epine-character:focus-visible,
+.lore-epine-pilot .epine-dialog-close:focus-visible {
+  outline: 2px solid #c1b3ff;
+  outline-offset: 5px;
+}
+.lore-epine-pilot .epine-character:focus-visible .epine-portrait {
+  border-color: #d8c6f2;
+  box-shadow: 0 0 0 5px rgba(156, 131, 197, .12), 0 0 30px rgba(154, 105, 224, .24);
+}
+@media (hover: hover) {
+  .lore-epine-pilot .epine-character:hover .epine-portrait {
+    transform: translateY(-5px);
+    border-color: #d8c6f2;
+    box-shadow: 0 0 0 5px rgba(156, 131, 197, .12), 0 0 30px rgba(154, 105, 224, .24);
+  }
+}
+.lore-epine-pilot.epine-dialog-open { overflow: hidden; }
+.lore-epine-pilot .epine-character-dialog {
+  width: min(480px, calc(100vw - 32px));
+  max-height: calc(100dvh - 40px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid rgba(183, 163, 213, .4);
+  border-radius: 24px;
+  color: var(--text);
+  background: radial-gradient(ellipse at 50% 0, rgba(125, 76, 165, .2), transparent 65%), #0c1125;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, .65);
+}
+.lore-epine-pilot .epine-character-dialog::backdrop {
+  background: rgba(3, 5, 16, .82);
+  backdrop-filter: blur(7px);
+}
+.lore-epine-pilot .epine-character-dialog[open] { animation: epine-profile-arrival .25s ease-out; }
+.lore-epine-pilot .epine-dialog-inner { position: relative; padding: 48px 32px 36px; }
+.lore-epine-pilot .epine-dialog-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .04);
+  color: var(--text);
+  font: 28px/1 sans-serif;
+  cursor: pointer;
+  z-index: 1;
+}
+.lore-epine-pilot .epine-dialog-content { text-align: center; }
+.lore-epine-pilot .epine-dialog-content .epine-portrait { width: 180px; margin: 0 auto 26px; }
+.lore-epine-pilot .epine-dialog-content h2 { margin: 8px 0 16px; font-size: clamp(1.8rem, 6vw, 2.4rem); }
+.lore-epine-pilot .epine-biography { color: var(--muted); line-height: 1.8; white-space: pre-line; }
+@keyframes epine-profile-arrival { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (max-width: 760px) {
+  .lore-epine-pilot .epine-character-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 440px) {
+  .lore-epine-pilot .epine-character-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; }
+  .lore-epine-pilot .epine-dialog-inner { padding: 52px 24px 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lore-epine-pilot .epine-portrait { transition: none; }
+  .lore-epine-pilot .epine-character-dialog[open] { animation: none; }
+}

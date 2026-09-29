@@ -11,9 +11,11 @@
 <link rel="stylesheet" href="style.css">
 
 <link rel="stylesheet" href="navigation.css?v=20260913">
+<link rel="stylesheet" href="lore-fiches.css?v=20260921-10">
+<link rel="stylesheet" href="lore-environment.css?v=20260922-12">
 </head>
-<body>
-<div class="space-bg" aria-hidden="true"><div class="nebula"></div><div class="stars stars-a"></div><div class="stars stars-b"></div></div>
+<body class="lore-navigator-sheet lore-has-environment lore-environment-rebecca">
+<div class="space-bg lore-environment" aria-hidden="true"></div>
 
 <header class="site-header">
   <a class="brand" href="index.html" aria-label="Astral Cards — Accueil">
@@ -38,98 +40,146 @@
 </header>
 
 <main class="subpage">
-  <section class="page-hero reveal">
-    <p class="kicker">FICHE D’ARCHÉTYPE</p>
+  <section class="page-hero reveal lore-archetype-heading">
+    <!-- Logo de l’Ordre de l’Épine. -->
+    <div class="archetype-emblem lore-archetype-logo"><img src="images/lore-epine/logo-epine.png" alt="Blason de l’Ordre de l’Épine" width="1254" height="1254"></div>
+    <div class="lore-archetype-heading-text">
+      <p class="kicker">FICHE D’ARCHÉTYPE</p>
     <h1>L’Ordre de l’Épine</h1>
-    <p>Un ordre guidé par ses serments, ses rites et une volonté inflexible.</p>
+    </div>
   </section>
   <section class="section page-content reveal">
     
         <div class="breadcrumbs"><a href="lore.html">Lore</a><span>›</span><a href="lore-archetypes.html">Archétypes</a><span>›</span><strong>L’Ordre de l’Épine</strong></div>
+        <div class="lore-decor-controls"><button class="lore-decor-toggle" type="button" aria-pressed="false" hidden>Mettre le décor en pause</button></div>
         <article class="archetype-sheet">
           <div class="archetype-banner">
-            <div class="archetype-emblem">✧</div>
+            <!-- Portrait de Rebecca. -->
+            <div class="archetype-emblem lore-navigator-portrait lore-face" style="--face-width:240%;--face-left:-65%;--face-top:-6%"><img src="images/lore-epine/rebecca.png" alt="Portrait de Rebecca" width="1365" height="1365"></div>
             <div>
-              <p class="kicker">ARCHÉTYPE</p>
-              <h2>L’Ordre de l’Épine</h2>
-              <p>Un ordre guidé par ses serments, ses rites et une volonté inflexible.</p>
+              <p class="kicker">NAVIGATEUR</p>
+              <h2>Rebecca</h2>
             </div>
           </div>
 
-          <div class="sheet-grid">
-            <section>
-              <h3>Origines</h3>
-              <p>Ajoutez ici l’origine de l’archétype, sa naissance et les événements qui ont façonné son identité.</p>
-            </section>
-            <section>
-              <h3>Objectifs</h3>
-              <p>Expliquez ses ambitions, ses besoins, ses ennemis et ce qu’il cherche à accomplir.</p>
-            </section>
-            <section>
-              <h3>Organisation</h3>
-              <p>Présentez sa hiérarchie, ses groupes internes, ses traditions et son fonctionnement.</p>
-            </section>
-            <section>
-              <h3>Particularités</h3>
-              <p>Décrivez ses pouvoirs, son apparence, ses méthodes de combat ou ses traits uniques.</p>
-            </section>
-          </div>
+  <section class="archetype-history" aria-label="Chapitres">
 
-          <section class="character-area">
-            <p class="kicker">PERSONNAGES IMPORTANTS</p>
-            <h2>Figures de l’archétype</h2>
-            <p>Cette section pourra accueillir les personnages majeurs et leurs illustrations.</p>
+    <div class="lore-opening">
+      <p class="lore-opening-quote"><em>« Les mondes changent. Les peuples demeurent. Les histoires, elles, ne demandent qu’à être racontées. »</em></p>
+      <p class="lore-opening-world"><em>Aujourd’hui, tournons-nous vers les terres de Vespera.</em></p>
+    </div>
+
+    <h3 class="lore-volume-title">Tome 1 : <span>L’Ascension</span></h3>
+    <div class="history-chapters">
+      <details class="history-chapter lore-prologue">
+        <summary><span class="chapter-title">Prologue</span></summary>
+        <div class="chapter-content lore-reading"><p><em>Vespera…</em> Longtemps sous le feu croisé de grandes civilisations, cette planète fut le théâtre de bien des guerres. Malgré tout, elle survécut et donna naissance à de grands hommes qui unifièrent ses peuples face au reste du monde. Refusant de fermer leurs frontières, les peuples de <em>Vespera</em> misèrent le peu de ressources que la planète avait à offrir sur le développement du commerce galactique, ce qui leur permit de retrouver un second souffle.</p>
+<p>Aujourd’hui, patrie des forts et paradis de liberté pour certains ; maison du mal, repaire de bandits ou encore siège de la terreur pour d’autres, cette planète abrite depuis des siècles l’organisation d’assassins la plus efficace et la plus meurtrière de la galaxie, connue sous le nom d’<em>Ordre de l’Épine</em>.</p>
+<p>Le nom de cet ordre était annonciateur de malheur. Il fut un temps où personne ne savait qui ils étaient, comment ils procédaient, ce qu’ils voulaient, ni même qui faisait partie de cette mystérieuse organisation. Ils ne laissaient que des corps sans vie dans leur sillage.</p>
+<p>Ce n’est que bien plus tard, lorsqu’un homme nommé <em>Achylion</em> prit la direction de l’Ordre, que l’<em>Épine</em> eut un visage. Assassin renommé, il réussit à développer la puissance invisible de l’Ordre. Espionnage, conspiration, alchimie, torture… De nouvelles voies empruntées par l’<em>Épine</em> pour permettre à ses intérêts de prospérer.</p>
+<p>Son ascension fut si fulgurante qu’il se proclama Navigateur de <em>Vespera</em>. Personne ne pouvait le nier : avec <em>Achylion</em> aux commandes, <em>Vespera</em> était officiellement crainte et redoutée. Alors, personne ne s’y opposa.</p>
+<p>Cette histoire voit le jour à <em>Valamut</em>, grande capitale de <em>Vespera</em> et siège principal de l’<em>Épine</em>, par une tragédie.</p>
+<p><em>Achylion</em> fut retrouvé sans vie dans ses appartements.</p></div>
+      </details>
+      <details class="history-chapter lore-chapter-one">
+        <summary><span class="chapter-title"><span class="chapter-label">Chapitre 1 :</span> Tragédie</span></summary>
+        <div class="chapter-content lore-reading"><p>Un peu avant l’aube et la découverte du corps d’<em>Achylion</em>, les plus grandes influences de l’Épine se réunissaient lors d’un conseil secret où devaient être rapportées des informations capitales sur l’assassinat d’un dirigeant d’une planète voisine. L’heure était venue d’agir.</p>
+<p><em>Rebecca</em>, la fille d’<em>Achylion</em>, se préparait pour cette réunion. C’était un grand jour pour elle. Son père allait lui confier le commandement de cette opération. Malgré son jeune âge, elle avait déjà plus d’assassinats à son actif que bon nombre de vétérans de l’Épine. Mais jamais encore elle n’avait pratiqué son art sur un tel dignitaire, qui plus est sur une planète disposant d’une telle force de frappe. Si l’opération échouait, les représailles seraient catastrophiques.</p>
+<p>Bon nombre de membres de l’Ordre redoutaient cette mission.</p>
+<p>Pour <em>Rebecca</em>, c’était l’occasion parfaite de prouver sa dévotion à l’Épine.</p>
+<p>Puis vint le moment tant attendu.</p>
+<p>Un moment qui allait annoncer des heures sombres et glacer d’effroi bon nombre de personnes.</p>
+<p><em>Rebecca</em>, suivie par le reste des convives déjà présents, entra dans la salle du conseil.</p>
+<p>L’assemblée fut surprise de l’absence d’<em>Achylion</em>, qui avait pour habitude d’être là bien avant l’arrivée de tous.</p>
+<p>Une fois chaque siège occupé, un seul restait vide.</p>
+<p>Le trône.</p>
+<p>Les chuchotements se firent de plus en plus nombreux.</p>
+<p>Quelle affaire retenait <em>Achylion</em> ? Pourquoi n’était-il toujours pas présent ?</p>
+<p><em>Rebecca</em> envoya deux hommes trouver son père.</p>
+<p>Ils revinrent en courant, sonnant l’alerte de toutes parts.</p>
+<p>Le roi était mort…</p>
+<p>La nouvelle sema le trouble dans les esprits.</p>
+<p>Une seule question était sur toutes les lèvres.</p>
+<p>Qui était à l’origine de cet assassinat ?</p>
+<p>Et surtout, comment avait-il réussi ?</p>
+<p>Cette journée venait de virer au cauchemar.</p>
+<p><em>Rebecca</em> se jeta de rage sur le pauvre homme, le menaçant de mort s’il ne lui racontait pas tout ce qu’il savait, tout ce qu’il avait vu. Personne n’osa tenter d’arrêter la colère de <em>Rebecca</em>.</p>
+<p>Juste avant que la pauvre victime ne perde connaissance, deux bras verts entourèrent <em>Rebecca</em> et l’arrachèrent à sa furie, laissant alors place aux larmes.</p>
+<p><em>Droghul</em>, protégé d’<em>Achylion</em> et ami de <em>Rebecca</em>, était à nouveau présent dans l’une des pires épreuves de sa vie.</p>
+<p>Elle connaissait <em>Droghul</em> depuis sa naissance. Et aussi loin qu’elle pouvait se souvenir, ils avaient toujours été très proches.</p>
+<p><em>Droghul</em> et son frère avaient été recueillis par <em>Achylion</em> alors qu’ils étaient encore très jeunes. En mission sur une planète voisine, il avait trouvé les deux jeunes gobelins errant sans but et les avait pris sous son aile.</p>
+<p>Sous sa tutelle, les deux frères furent formés à l’art du combat et de l’assassinat. Ils ne mirent pas longtemps à révéler leurs talents et finirent par gagner le respect des membres de l’Ordre.</p>
+<p>Depuis ce jour, <em>Droghul</em> vouait une loyauté absolue à l’Épine, ainsi qu’une profonde admiration pour <em>Rebecca</em>.</p>
+<p>Tous se dirigèrent vers les appartements du roi.</p>
+<p><em>Achylion</em> gisait sans vie, son épée à portée de main. Un instant aurait suffi à changer son destin.</p>
+<p>Son corps fut emmené afin d’être préparé pour la cérémonie.</p>
+<p>Pendant ce temps, <em>Rebecca</em> se tourna vers l’épée de son père.</p>
+<p>Lorsqu’elle la ramassa, une intense lumière rouge feu s’en dégagea. La foule oublia quelques instants l’assassinat de son chef devant ce spectacle.</p>
+<p>Un sourire malicieux apparut sur le visage de <em>Rebecca</em>.</p>
+<p>Il disparut aussitôt.</p>
+<p>La lumière de l’épée vira au violet. Une douleur insoutenable parcourut son corps et elle fut projetée avec une force gigantesque à l’autre bout de la pièce.</p>
+<p>Elle se releva avec difficulté et quitta les lieux en hurlant qu’elle voulait la tête de l’assassin de son père avant la nuit.</p>
+<p>En quelques heures, elle s’était réveillée assassin, fille d’une légende de l’Ordre, prête à prendre le commandement d’une mission à haute responsabilité. Elle finissait cette même journée orpheline, désignée pour reprendre la suite de son père.</p>
+<p>Depuis la nuit des temps, le titre de Navigateur se transmettait de génération en génération à <em>Vespera</em>.<br>Celui de l’Épine, en revanche, était soumis au vote.<br>Une assemblée composée des plus grands assassins de l’Ordre se réunissait afin d’élire leur leader. Elle n’avait aucune certitude quant à son ascension au pouvoir de l’Épine.</p>
+<p>Reprendre les rênes de l’Épine, elle en était capable.<br>Diriger une planète était une tout autre affaire.</p>
+<p>Un autre problème venait de s’ajouter au poids qui pesait déjà sur les épaules de <em>Rebecca</em>. En plus de retrouver l’assassin de son père et de préparer ses funérailles, elle devait également préparer son élection.</p>
+<p>Des messagers partirent à travers toute la galaxie pour annoncer l’assassinat d’<em>Achylion</em> et l’élection à venir du nouveau leader de l’Épine.</p></div>
+      </details>
+      <div class="history-chapter chapter-coming-soon"><div><span class="chapter-title"><span class="chapter-label">Chapitre 2 :</span> À venir</span></div></div>
+      <div class="history-chapter chapter-coming-soon"><div><span class="chapter-title"><span class="chapter-label">Chapitre 3 :</span> À venir</span></div></div>
+    </div>
+
+</section>
+
+          <section class="character-area" aria-labelledby="lore-figures-title">
+            <h2 id="lore-figures-title">Visages du récit</h2>
+            <ul class="lore-figure-list">
+              <li><button class="lore-figure-button" type="button" data-figure="droghul" aria-label="Découvrir Droghul" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:200%;--face-left:-66%;--face-top:-12%"><img src="images/lore-epine/droghul.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Droghul</span>
+              </button></li>
+              <li><button class="lore-figure-button" type="button" data-figure="anatar" aria-label="Découvrir Anatar" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:220%;--face-left:-60%;--face-top:0%"><img src="images/lore-epine/anatar.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Anatar</span>
+              </button></li>
+              <li><button class="lore-figure-button" type="button" data-figure="scar" aria-label="Découvrir Scar" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:230%;--face-left:-56%;--face-top:-3%"><img src="images/lore-epine/scar.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Scar</span>
+              </button></li>
+              <li><button class="lore-figure-button" type="button" data-figure="margaux" aria-label="Découvrir Margaux" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:210%;--face-left:-55%;--face-top:-7%"><img src="images/lore-epine/margaux.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Margaux</span>
+              </button></li>
+              <li><button class="lore-figure-button" type="button" data-figure="macdanella" aria-label="Découvrir Macdanella" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:210%;--face-left:-57%;--face-top:-16%"><img src="images/lore-epine/macdanella.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Macdanella</span>
+              </button></li>
+              <li><button class="lore-figure-button" type="button" data-figure="lycaon" aria-label="Découvrir Lycaon" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:300%;--face-left:-94%;--face-top:-2%"><img src="images/lore-epine/lycaon.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Lycaon</span>
+              </button></li>
+              <li><button class="lore-figure-button" type="button" data-figure="nahat" aria-label="Découvrir Nahat" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:230%;--face-left:-67%;--face-top:0%"><img src="images/lore-epine/nahat.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Nahat</span>
+              </button></li>
+              <li><button class="lore-figure-button" type="button" data-figure="nisha" aria-label="Découvrir Nisha" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:240%;--face-left:-70%;--face-top:0%"><img src="images/lore-epine/nisha.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Nisha</span>
+              </button></li>
+              <li><button class="lore-figure-button" type="button" data-figure="blue" aria-label="Découvrir Blue" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:270%;--face-left:-101%;--face-top:-31%"><img src="images/lore-epine/blue.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Blue</span>
+              </button></li>
+              <li><button class="lore-figure-button" type="button" data-figure="red" aria-label="Découvrir Red" aria-haspopup="dialog" aria-controls="lore-profile-dialog">
+                <span class="lore-figure-bubble lore-face" style="--face-width:320%;--face-left:-80%;--face-top:-52%"><img src="images/lore-epine/red.png" alt="" width="1024" height="1024" loading="lazy" decoding="async"></span>
+                <span class="lore-figure-name">Red</span>
+              </button></li>
+            </ul>
           </section>
         </article>
         
   </section>
-  <section class="archetype-history">
 
-    <div class="history-header">
-        <span class="history-eyebrow">Chroniques de l’archétype</span>
-        <h2>Histoire</h2>
-    </div>
-
-    <div class="history-chapters">
-
-        <details class="history-chapter">
-            <summary>
-                <span class="chapter-label">Chapitre 1</span>
-                <span class="chapter-title">Titre du chapitre à renseigner</span>
-            </summary>
-
-            <div class="chapter-content">
-                <p>
-                    Texte du premier paragraphe à renseigner.
-                </p>
-
-                <p>
-                    Texte du deuxième paragraphe à renseigner.
-                </p>
-            </div>
-        </details>
-
-        <div class="history-chapter chapter-coming-soon">
-            <div>
-                <span class="chapter-label">Chapitre 2</span>
-                <span class="chapter-title">À venir</span>
-            </div>
-
-            <span class="coming-soon-badge">À venir</span>
-        </div>
-
-        <div class="history-chapter chapter-coming-soon">
-            <div>
-                <span class="chapter-label">Chapitre 3</span>
-                <span class="chapter-title">À venir</span>
-            </div>
-
-            <span class="coming-soon-badge">À venir</span>
-        </div>
-
-    </div>
-
-</section>
 </main>
 
 <footer class="site-footer">
@@ -143,7 +193,65 @@
   </div>
   <p class="copyright">© 2026 Astral Cards. Tous droits réservés.</p>
 </footer>
+<dialog class="lore-profile-dialog" id="lore-profile-dialog" aria-labelledby="lore-profile-title" aria-describedby="lore-profile-text">
+  <div class="lore-profile-inner">
+    <button class="lore-profile-close" type="button" aria-label="Fermer la fiche" autofocus>×</button>
+    <div class="lore-profile-content"></div>
+  </div>
+</dialog>
+<template id="lore-figure-droghul">
+  <img class="lore-profile-image" src="images/lore-epine/droghul.png" alt="Portrait de Droghul" width="1024" height="1024">
+  <h2 id="lore-profile-title">Droghul</h2>
+  <p id="lore-profile-text" class="lore-profile-text"><em>« Mon frère… Où es-tu passé ? »</em></p>
+</template>
+<template id="lore-figure-anatar">
+  <img class="lore-profile-image" src="images/lore-epine/anatar.png" alt="Portrait d’Anatar" width="1024" height="1024">
+  <h2 id="lore-profile-title">Anatar</h2>
+  <p id="lore-profile-text" class="lore-profile-text">Peu de membres de l’Ordre peuvent se vanter d’avoir obtenu le titre de Commandant.<br>On compte sur les doigts d’une main ceux qui ont obtenu celui de Commandant Suprême.</p>
+</template>
+<template id="lore-figure-scar">
+  <img class="lore-profile-image" src="images/lore-epine/scar.png" alt="Portrait de Scar" width="1024" height="1024">
+  <h2 id="lore-profile-title">Scar</h2>
+  <p id="lore-profile-text" class="lore-profile-text">Abandonné et rejeté, Scar prouva qu’il existait bien d’autres moyens qu’un coup de dague bien placé pour être un bon assassin.</p>
+</template>
+<template id="lore-figure-margaux">
+  <img class="lore-profile-image" src="images/lore-epine/margaux.png" alt="Portrait de Margaux" width="1024" height="1024">
+  <h2 id="lore-profile-title">Margaux</h2>
+  <p id="lore-profile-text" class="lore-profile-text">À force de grandir dans l’ombre d’un autre, on laisse les ténèbres façonner son âme.</p>
+</template>
+<template id="lore-figure-macdanella">
+  <img class="lore-profile-image" src="images/lore-epine/macdanella.png" alt="Portrait de Macdanella" width="1024" height="1024">
+  <h2 id="lore-profile-title">Macdanella</h2>
+  <p id="lore-profile-text" class="lore-profile-text"><em>« Mère, vous avez assez pris d’âmes dans ce monde. Laissez-moi prendre le relais. »</em></p>
+</template>
+<template id="lore-figure-lycaon">
+  <img class="lore-profile-image" src="images/lore-epine/lycaon.png" alt="Portrait de Lycaon" width="1024" height="1024">
+  <h2 id="lore-profile-title">Lycaon</h2>
+  <p id="lore-profile-text" class="lore-profile-text">Certains imposent leur présence par les mots. Lycaon n’a jamais eu besoin que d’une lame.</p>
+</template>
+<template id="lore-figure-nahat">
+  <img class="lore-profile-image" src="images/lore-epine/nahat.png" alt="Portrait de Nahat" width="1024" height="1024">
+  <h2 id="lore-profile-title">Nahat</h2>
+  <p id="lore-profile-text" class="lore-profile-text"><em>« Moi aussi ! Un jour, j’aurai mon nom gravé dans l’Épine. »</em></p>
+</template>
+<template id="lore-figure-nisha">
+  <img class="lore-profile-image" src="images/lore-epine/nisha.png" alt="Portrait de Nisha" width="1024" height="1024">
+  <h2 id="lore-profile-title">Nisha</h2>
+  <p id="lore-profile-text" class="lore-profile-text"><em>« Je vous suivrai jusqu’au plus profond des abysses. »</em></p>
+</template>
+<template id="lore-figure-blue">
+  <img class="lore-profile-image" src="images/lore-epine/blue.png" alt="Portrait de Blue" width="1024" height="1024">
+  <h2 id="lore-profile-title">Blue</h2>
+  <p id="lore-profile-text" class="lore-profile-text">Ne pas savoir à quel moment un assassin va frapper est déjà source de stress. Ne pas savoir à quel moment deux assassins vont frapper, c’est un cauchemar…</p>
+</template>
+<template id="lore-figure-red">
+  <img class="lore-profile-image" src="images/lore-epine/red.png" alt="Portrait de Red" width="1024" height="1024">
+  <h2 id="lore-profile-title">Red</h2>
+  <p id="lore-profile-text" class="lore-profile-text">Ne pas savoir à quel moment un assassin va frapper est déjà source de stress. Ne pas savoir à quel moment deux assassins vont frapper, c’est un cauchemar…</p>
+</template>
 <script src="script.js"></script>
+<script src="lore-figures.js?v=20260921-10"></script>
 
+<script src="lore-environment.js?v=20260922-12"></script>
 </body>
 </html>

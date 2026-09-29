@@ -1,0 +1,243 @@
+/* Mise en page limitée aux quatre fiches Lore. */
+.lore-navigator-sheet .lore-volume-title {
+  margin: 0 0 26px;
+  color: #eee5d3;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.35rem, 3vw, 1.8rem);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  text-wrap: balance;
+}
+.lore-navigator-sheet .lore-volume-title span { font-weight: 700; }
+.lore-navigator-sheet .chapter-title { line-height: 1.5; }
+.lore-navigator-sheet .chapter-title .chapter-label {
+  font: inherit;
+  color: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.lore-navigator-sheet .lore-scene-break {
+  width: 80px;
+  margin: 36px auto;
+  border: 0;
+  border-top: 1px solid rgba(203, 182, 146, .45);
+}
+.lore-navigator-sheet .lore-decor-controls { display: flex; justify-content: flex-end; margin: -8px 0 16px; }
+.lore-navigator-sheet .lore-decor-toggle {
+  border: 1px solid rgba(225, 219, 237, .2);
+  border-radius: 20px;
+  padding: 8px 14px;
+  font: inherit;
+  font-size: .8rem;
+  color: #d8d5df;
+  background: rgba(8, 12, 21, .85);
+  cursor: pointer;
+}
+.lore-navigator-sheet .lore-decor-toggle:focus-visible { outline: 2px solid #c1b3ff; outline-offset: 4px; }
+.lore-navigator-sheet .lore-decor-toggle:disabled { opacity: .65; cursor: default; }
+@media (max-width: 650px) {
+  .lore-navigator-sheet .history-chapter summary { padding-right: 58px; }
+}
+.lore-navigator-sheet .archetype-sheet > .archetype-history {
+  max-width: none;
+  margin: 0;
+  padding: clamp(30px, 5vw, 52px);
+  border-bottom: 1px solid var(--line);
+}
+.lore-navigator-sheet .history-chapter summary { position: relative; }
+.lore-navigator-sheet .character-area {
+  background: radial-gradient(ellipse at 50% 100%, rgba(127, 82, 170, .10), transparent 70%);
+}
+.lore-navigator-sheet .lore-figure-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 24px 18px;
+  list-style: none;
+  margin: 34px 0 0;
+  padding: 0;
+}
+.lore-navigator-sheet .lore-figure-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding: 10px 4px;
+}
+.lore-navigator-sheet .lore-figure-bubble {
+  display: block;
+  width: min(100%, 132px);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(183, 163, 213, .32);
+  background: radial-gradient(circle at 40% 30%, rgba(133, 113, 181, .08), transparent 70%), #0b1020;
+  box-shadow: 0 0 0 5px rgba(156, 131, 197, .04), 0 10px 26px rgba(0, 0, 0, .22);
+}
+.lore-navigator-sheet .lore-figure-status { color: var(--muted); font-size: .95rem; }
+@media (max-width: 760px) {
+  .lore-navigator-sheet .lore-figure-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 440px) {
+  .lore-navigator-sheet .lore-figure-list { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 14px; }
+}
+
+/* Deux emplacements distincts : logo de l’archétype puis portrait du Navigateur. */
+.lore-navigator-sheet .lore-archetype-heading {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  align-items: center;
+  gap: 36px;
+}
+.lore-navigator-sheet .lore-archetype-heading-text { min-width: 0; }
+.lore-navigator-sheet .lore-archetype-heading h1 { margin-bottom: 0; }
+@media (max-width: 900px) {
+  .lore-navigator-sheet .lore-archetype-heading {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+/* Ouverture commune et lecture des récits. */
+.lore-navigator-sheet .lore-opening {
+  max-width: 680px;
+  margin: 0 auto 38px;
+  padding: 4px 0 30px;
+  text-align: center;
+  border-bottom: 1px solid var(--line);
+}
+.lore-navigator-sheet .lore-opening-quote {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.08rem, 2.2vw, 1.3rem);
+  line-height: 1.8;
+  color: #e0daef;
+  text-wrap: pretty;
+}
+.lore-navigator-sheet .lore-opening-world {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: .98rem;
+  line-height: 1.7;
+}
+.lore-navigator-sheet .lore-reading { padding: 12px clamp(20px, 4vw, 42px) 34px; }
+.lore-navigator-sheet .lore-reading p {
+  max-width: 66ch;
+  margin: 24px auto 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.06rem, 1.5vw, 1.16rem);
+  line-height: 1.95;
+  text-align: left;
+  overflow-wrap: break-word;
+  color: #dce0ee;
+}
+.lore-navigator-sheet .lore-reading em { color: #eee7fa; }
+.lore-navigator-sheet .lore-archetype-logo img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+/* Cadrage visuel des originaux, avec réglages indépendants pour chaque visage. */
+.lore-navigator-sheet .lore-face { position: relative; overflow: hidden; isolation: isolate; }
+.lore-navigator-sheet .lore-face img {
+  position: absolute;
+  display: block;
+  width: var(--face-width, 200%);
+  height: auto;
+  max-width: none;
+  left: var(--face-left, -50%);
+  top: var(--face-top, 0%);
+}
+.lore-navigator-sheet .lore-figure-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 10px 4px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.lore-navigator-sheet .lore-figure-name { font-weight: 700; overflow-wrap: anywhere; }
+.lore-navigator-sheet .lore-figure-button .lore-figure-bubble {
+  border-color: rgba(183, 163, 213, .55);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.lore-navigator-sheet .lore-figure-button:focus-visible,
+.lore-navigator-sheet .lore-profile-close:focus-visible {
+  outline: 2px solid #c1b3ff;
+  outline-offset: 5px;
+}
+.lore-navigator-sheet .lore-figure-button:focus-visible .lore-figure-bubble {
+  border-color: #d8c6f2;
+  box-shadow: 0 0 0 5px rgba(156, 131, 197, .12), 0 0 30px rgba(154, 105, 224, .24);
+}
+@media (hover: hover) {
+  .lore-navigator-sheet .lore-figure-button:hover .lore-figure-bubble {
+    transform: translateY(-4px);
+    border-color: #d8c6f2;
+    box-shadow: 0 0 0 5px rgba(156, 131, 197, .12), 0 0 30px rgba(154, 105, 224, .24);
+  }
+}
+.lore-navigator-sheet.lore-profile-open { overflow: hidden; }
+.lore-navigator-sheet .lore-profile-dialog {
+  width: min(500px, calc(100vw - 32px));
+  max-height: calc(100vh - 40px);
+  max-height: calc(100dvh - 40px);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  border: 1px solid rgba(183, 163, 213, .4);
+  border-radius: 24px;
+  color: var(--text);
+  background: radial-gradient(ellipse at 50% 0, rgba(125, 76, 165, .2), transparent 65%), #0c1125;
+  box-shadow: 0 30px 100px rgba(0, 0, 0, .65);
+}
+.lore-navigator-sheet .lore-profile-dialog::backdrop {
+  background: rgba(3, 5, 16, .82);
+  backdrop-filter: blur(7px);
+}
+.lore-navigator-sheet .lore-profile-dialog[open] { animation: lore-profile-arrival .25s ease-out; }
+.lore-navigator-sheet .lore-profile-inner { position: relative; padding: 54px 32px 36px; }
+.lore-navigator-sheet .lore-profile-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .04);
+  color: var(--text);
+  font: 28px/1 sans-serif;
+  cursor: pointer;
+  z-index: 1;
+}
+.lore-navigator-sheet .lore-profile-content { text-align: center; }
+.lore-navigator-sheet .lore-profile-image {
+  display: block;
+  width: min(100%, 240px);
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  border-radius: 16px;
+  margin: 0 auto 24px;
+}
+.lore-navigator-sheet .lore-profile-content h2 { margin: 0 0 16px; font-size: clamp(1.8rem, 6vw, 2.4rem); }
+.lore-navigator-sheet .lore-profile-text { color: #dce0ee; line-height: 1.85; margin: 0; }
+.lore-navigator-sheet .lore-profile-text em { font-family: Georgia, 'Times New Roman', serif; font-size: 1.1rem; }
+@keyframes lore-profile-arrival { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: none; } }
+@media (max-width: 440px) {
+  .lore-navigator-sheet .lore-profile-inner { padding: 54px 24px 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lore-navigator-sheet .lore-figure-button .lore-figure-bubble { transition: none; }
+  .lore-navigator-sheet .lore-profile-dialog[open] { animation: none; }
+}

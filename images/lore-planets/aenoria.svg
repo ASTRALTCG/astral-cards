@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400"><defs><filter id="terrain"><feTurbulence type="fractalNoise" baseFrequency=".023" numOctaves="4" seed="28"/><feColorMatrix type="saturate" values="0"/><feBlend in="SourceGraphic" mode="soft-light"/></filter><filter id="warp" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency=".018 .035" numOctaves="3" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="27" xChannelSelector="R" yChannelSelector="G"/></filter></defs><rect width="400" height="400" fill="#213f49"/>
+<g filter="url(#terrain)"><g filter="url(#warp)">
+<path fill="#487b55" d="M0 0H178C225 42 252 109 215 185L190 214C133 225 57 203 0 169Z"/>
+<path fill="#c4a273" d="M178 0H400V178C345 220 278 233 215 218L190 214 215 185C252 109 225 42 178 0Z"/>
+<path fill="#b7d7de" d="M0 169C57 203 133 225 190 214C162 282 157 341 208 400H0Z"/>
+<path fill="#4b3338" d="M190 214C278 233 345 220 400 178V400H208C157 341 162 282 190 214Z"/>
+<g fill="none" stroke="#f18b46" stroke-width="3" opacity=".8"><path d="M266 236l-14 31 17 20-18 32 29 24-6 38"/><path d="M269 287l41 2 20 32 36 8M252 267l-21 8M280 343l39 24"/></g>
+<path fill="#e3eded" opacity=".7" d="M12 301l45-34 22 26 38-40 32 45-21 18-42-14-25 16-19-8Z"/>
+</g></g></svg>
