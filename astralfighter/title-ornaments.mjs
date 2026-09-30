@@ -1,0 +1,59 @@
+// Cosmetic only: progression and title ownership remain in achievements.mjs.
+export const TITLE_ORNAMENTS={
+ 'Dragonnet rouge':{id:'dragon',description:'Un cadre écarlate dont les ailes de dragon se déploient.',animated:true},
+ 'Maître Corkbeau':{id:'raven',description:'Un cadre d’obsidienne aux reflets argentés, couronné d’ailes de corbeau.',animated:true},
+ 'L’Éternel':{id:'frost',description:'La glace envahit le cadre, reste figée 1,5 seconde puis dégèle doucement, sur un cycle de 10 secondes.',animated:true},
+ 'Le revenant':{id:'revenant',description:'Un écrin d’os ancien, un crâne et des flammes nécromantiques vertes.',animated:true},
+ 'Chaud bouillant':{id:'inferno',description:'Un cadre incandescent, parcouru de flammes vivantes et de braises.',animated:true},
+ 'Artisan':{id:'artisan',frame:null,description:'Cadre doré, enclume et marteau animé de l’atelier.',void:false,animated:true},
+ 'Aventurier remarquable':{id:'emerald',frame:null,description:'Un écrin d’émeraude aux reflets lumineux.',void:false,animated:true},
+ 'Chasseur de prime':{id:'bounty',frame:null,description:'Cadre de diamant. Un avis de recherche se plante dans le cadre pendant 2,5 secondes après 10 secondes de repos.',void:false,animated:true},
+ 'Navigateur':{id:'navigator',frame:null,description:'Le cadre se transforme en constellation : fragments stellaires et anneaux en orbite.',void:false,animated:true},
+ 'ASTRAL':{id:'astral',frame:null,description:'Cadre noir aux reflets discrets. Le trou noir grandit à chaque aspiration. À la troisième, il explose en lumière puis se reforme.',void:false,animated:true},
+ 'Acheteur compulsif':{id:'buyer',frame:null,description:'Un cadre doré sous une pluie de pièces d’or.',void:false,animated:true},
+ "Nah i'd win":{id:'liquid',frame:null,description:'Courants bleus et rouges : à la fusion, le cadre tremble et déborde d’éclairs violets pendant deux secondes.',void:false,animated:true},
+ 'Le plus fort de l’univers':{id:'universe',frame:null,description:'Couronne astrale, angles dorés sculptés, astres en orbite et courants d’énergie.',void:false,animated:true},
+ 'Combattant':{id:'stone',frame:'stone-frame',description:'Pierre sculptée et épées, côtés lisses et motifs aux proportions conservées.',void:false,animated:false},
+ 'Conquérant':{id:'metal',frame:null,description:'Une grande épée plantée dans le cadre veille sur un feu de camp animé.',void:false,animated:true},
+ 'Combattant du Néant':{id:'void',frame:'void-frame',description:'Ornement du Néant, œil fermé et légère lueur violette.',void:true,animated:false},
+ 'Conquérant du Néant':{id:'void-conqueror',frame:'void-frame',description:'Lueur du Néant, tentacules vivants et œil animé sur un cycle de 3 secondes.',void:true,animated:true},
+ 'Néantin':{id:'neantin',frame:'neantin-frame',description:'Toutes les 10 secondes, des fissures du Néant ébranlent le cadre pendant 2 secondes.',void:true,animated:true}
+};
+export const titleOrnament=title=>TITLE_ORNAMENTS[title]??null;
+export const isVoidTitle=title=>!!titleOrnament(title)?.void;
+export const titleTextClass=title=>isVoidTitle(title)?'void-title':({liquid:'liquid-title',universe:'universe-title',astral:'astral-title',dragon:'dragon-title',raven:'raven-title',frost:'frost-title',revenant:'revenant-title',inferno:'inferno-title'}[titleOrnament(title)?.id]??'');
+
+// Shared clock keeps camp and combat ornaments in phase across UI refreshes.
+export const ornamentPhase=seconds=>`-${(Date.now()%(seconds*1000))/1000}s`;
+const gems=()=>'<span class="regalia-gems"><i></i><i></i><i></i><i></i></span>';
+const shards=()=>Array.from({length:24},(_,n)=>{const side=n%4,t=10+Math.floor(n/4)*16,angle=(n*137.5)*Math.PI/180;return `<i style="--x:${side===0?0:side===1?100:t}%;--y:${side===2?0:side===3?100:t}%;--dx:${Math.round(Math.cos(angle)*40)}px;--dy:${Math.round(Math.sin(angle)*40)}px;--spin:${n%2?160:-140}deg;--tilt:${n%3*35}deg"></i>`;}).join('');
+export function titleOrnamentMarkup(o){
+ if(['dragon','raven','frost','revenant','inferno'].includes(o.id))return lootOrnamentMarkup(o.id);
+ if(o.id==='stone')return `<div class="hero-ornament stone-smooth" aria-hidden="true"><span class="stone-rail rail-top"></span><span class="stone-rail rail-right"></span><span class="stone-rail rail-bottom"></span><span class="stone-rail rail-left"></span><span class="stone-corner stone-nw"></span><span class="stone-corner stone-ne"></span><span class="stone-corner stone-se"></span><span class="stone-corner stone-sw"></span><span class="stone-stud stud-top"></span><span class="stone-stud stud-right"></span><span class="stone-stud stud-bottom"></span><span class="stone-stud stud-left"></span></div>`;
+ if(!['metal','artisan','emerald','bounty','navigator','astral','buyer'].includes(o.id))return null;
+ const phase=ornamentPhase(o.id==='bounty'?12.5:o.id==='astral'?10:12);
+ let extra='';
+ if(o.id==='metal')extra=`${reliefSword()}<span class="campfire"><i class="camp-log"></i><i class="camp-log"></i><i class="camp-flame flame-one"></i><i class="camp-flame flame-two"></i><i class="camp-flame flame-three"></i><i class="camp-ember"></i><i class="camp-ember"></i></span>`;
+ if(o.id==='artisan')extra=`<span class="artisan-forge"><svg class="artisan-anvil" viewBox="0 0 90 45" focusable="false"><path fill="#3b3644" stroke="#ebc57a" stroke-width="2" d="M4 8H66V2H83V17H67L57 27V34H73V42H20V34H35V25L24 18H15Z"/><path stroke="#fff0c1" d="M10 10H62M23 39H68"/></svg><svg class="forge-hammer artisan-hammer" viewBox="0 0 48 56" focusable="false"><path fill="#947255" stroke="#deb577" d="M22 20H29V54H22Z"/><path fill="#444251" stroke="#ffe2a1" stroke-width="2" d="M6 6H42V25H6Z"/><path stroke="#ccb9a0" d="M10 10H38"/></svg><span class="forge-sparks artisan-sparks">✦ · ✧</span></span>`;
+ if(o.id==='bounty')extra=`<span class="wanted-event"><span class="wanted-poster"><b>RECHERCHÉ</b><svg viewBox="0 0 60 55" focusable="false"><path fill="#3a2625" d="M12 50Q13 30 24 30Q12 12 23 5Q37 -2 40 12Q44 26 35 30Q49 33 50 50Z"/><path stroke="#d8bb84" stroke-width="2" d="M18 18L39 17M21 21L26 22M31 22L36 21"/></svg><span>PRIME : ★★★</span></span><svg class="wanted-dagger" viewBox="0 0 25 65" focusable="false"><path fill="#89747b" stroke="#ead2ad" d="M9 2H16V22H9Z M3 22H22V27H3Z"/><path fill="#c3d9ed" stroke="#647b99" d="M7 27H18L12 63Z"/></svg></span>`;
+ if(o.id==='navigator')extra=`<span class="astral-apotheosis"><span class="astral-halo halo-a"></span><span class="astral-halo halo-b"></span><span class="astral-nucleus">✦</span></span><span class="ascended-fragments">${shards()}</span><svg class="astral-constellation" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><path vector-effect="non-scaling-stroke" d="M0 15L12 1L50 0L86 3L100 20L99 75L85 100L50 99L11 100L0 81ZM0 15L5 48L0 81M100 20L95 48L99 75M12 1L25 5L50 0L75 6L86 3M11 100L26 94L50 99L76 94L85 100"/></svg>`;
+ if(o.id==='astral')extra=`<span class="singularity-crown" style="--nova-phase:${ornamentPhase(30)}"><span class="blackhole-form"><span class="blackhole-lens"></span><span class="blackhole-disc"></span><span class="blackhole-core"></span><span class="blackhole-disc disc-front"></span></span><span class="singularity-nova"><span class="nova-wave"></span><span class="nova-light"></span>${Array.from({length:8},(_,n)=>`<i class="nova-ray" style="--burst-angle:${n*45}deg"></i>`).join('')}</span></span><span class="singularity-infall">${Array.from({length:16},(_,n)=>{const side=n%4,t=12+Math.floor(n/4)*25;return `<i style="--start-x:${side===0?0:side===1?100:t}%;--start-y:${side===2?0:side===3?100:t}%;--fall-angle:${n*67}deg"></i>`;}).join('')}</span><span class="singularity-etch etch-left"></span><span class="singularity-etch etch-right"></span>`;
+ if(o.id==='buyer')extra=`<span class="coin-rain">${Array.from({length:12},(_,i)=>`<i class="rain-coin" style="--coin-x:${i%2?101:-1}%;--coin-y:${Math.floor(i/2)*16}%;--coin-delay:-${i*.47}s;--coin-drift:${i%2?8:-8}px">✦</i>`).join('')}</span>`;
+ return `<div class="hero-ornament regalia regalia-${o.id}" aria-hidden="true" style="--title-phase:${phase}"><span class="regalia-rim"></span>${o.id==='astral'?'':gems()}${extra}</div>`;
+}
+function lootOrnamentMarkup(id){
+ const wings=['dragon','raven'].includes(id)?`<span class="loot-wings"><i class="loot-wing wing-left"></i><i class="loot-wing wing-right"></i></span>`:'';
+ const fire=['revenant','inferno'].includes(id)?`<span class="loot-fire fire-base"></span><span class="loot-fire fire-crown"></span><span class="loot-embers">${Array.from({length:8},(_,n)=>`<i style="--ember-x:${10+n*11}%;--ember-y:100%;--ember-delay:-${n*.43}s"></i>`).join('')}</span>`:'';
+ return `<div class="hero-ornament loot-regalia loot-${id}" aria-hidden="true" style="--loot-phase:${ornamentPhase(10)}"><span class="loot-rim"></span><span class="loot-inner-rim"></span>${wings}${fire}${id==='revenant'?'<img class="revenant-skull" src="assets/ornaments/necromantic-skull.webp" alt="" draggable="false">':''}${id==='frost'?'<span class="frost-interior"></span><span class="frost-crown"></span>':''}</div>`;
+}
+export function voidOrnamentOverlay(o){
+ if(o.id==='void'||o.id==='void-conqueror')return '<span class="void-soft-glow"></span>';
+ if(o.id!=='neantin')return '';
+ return `<svg class="void-frame-cracks" viewBox="0 0 100 100" preserveAspectRatio="none" focusable="false"><path vector-effect="non-scaling-stroke" d="M0 9L7 13L2 18L6 22L0 28M7 13L13 10M100 18L93 22L97 28L91 34L100 37M93 22L89 17M0 62L8 66L4 73L10 77L0 86M8 66L13 63M100 69L92 73L95 80L87 87L100 92M92 73L86 70M20 0L24 6L31 2L35 8L42 0M63 100L68 93L74 97L78 90L86 100"/></svg>`;
+}
+
+let swordSerial=0;
+function reliefSword(){
+ const id='relief-steel-'+(++swordSerial);
+ return `<svg class="camp-sword" viewBox="0 0 45 150" focusable="false"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#3f4655"/><stop offset=".3" stop-color="#989da9"/><stop offset=".52" stop-color="#e4e5e9"/><stop offset=".56" stop-color="#8b929e"/><stop offset="1" stop-color="#343b48"/></linearGradient><linearGradient id="${id}-leather"><stop stop-color="#14131a"/><stop offset=".45" stop-color="#62565b"/><stop offset="1" stop-color="#201d28"/></linearGradient><linearGradient id="${id}-guard" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#c7bdac"/><stop offset=".35" stop-color="#817885"/><stop offset=".5" stop-color="#afa7a2"/><stop offset="1" stop-color="#393441"/></linearGradient></defs><path fill="#11131e" opacity=".8" d="M10 44H38V125L24 149L10 128Z"/><path fill="url(#${id}-leather)" stroke="#23222b" d="M17 7H27V36H17Z"/><path stroke="#b0a09e" stroke-width="1.2" opacity=".8" d="M17 10L27 14M17 17L27 21M17 24L27 28M17 31L27 35"/><path stroke="#100f16" stroke-width="1.8" d="M17 13L27 17M17 20L27 24M17 27L27 31"/><path fill="url(#${id}-guard)" stroke="#d3c8b4" stroke-width=".8" d="M16 3L19 1H25L28 4V9H16Z"/><path fill="#272731" d="M3 39L5 46H41V40Z"/><path fill="url(#${id}-guard)" stroke="#cbc0b2" stroke-width=".8" d="M3 35L14 34L17 32H28L31 35H41V42H3Z"/><path fill="#e7dfd1" opacity=".8" d="M4 35L15 34H29L32 36H40V37H31L28 35H16L14 36H4Z"/><path fill="url(#${id})" stroke="#272d3a" stroke-width="1" d="M8 43H36V124L22 146L8 124Z"/><path fill="#d0d4dc" d="M8 43L12 47V122L22 146L8 124Z"/><path fill="#525b6a" d="M32 47L36 43V124L22 146L32 122Z"/><path fill="#202633" opacity=".55" d="M12 47H32L30 50H14V120L12 122Z"/><path fill="#f2edf0" opacity=".72" d="M21.4 47H22.7L23 130L22 143L21.5 127Z"/><path fill="#d2d6e1" opacity=".2" d="M13 64L31 56V66L13 73Z M13 105L31 97V102L13 110Z"/><path stroke="#303744" stroke-width="1" opacity=".8" d="M14 54L19 53M25 74L29 71M15 86L18 85M28 111L31 108"/><path stroke="#c2c7d0" stroke-width=".5" opacity=".7" d="M14 55L19 54M25 75L29 72M15 87L18 86"/><path fill="#c99568" opacity=".18" d="M26 104L32 99V122L22 143Z"/></svg>`;
+}

@@ -1,0 +1,39 @@
+/* Extension réservée à l’accueil. Charger après navigation.css. */
+.home .site-header .main-nav{gap:clamp(10px,1.2vw,20px)}
+.home .site-header .main-nav .nav-astralfighter{
+  display:flex;align-items:center;justify-content:center;flex:0 0 64px;
+  width:64px;min-height:64px;padding:0;border-radius:12px;
+  transition:background-color .2s ease;
+}
+.home .site-header .main-nav .nav-astralfighter img{
+  display:block;width:64px;height:64px;max-width:none;object-fit:contain;
+  filter:drop-shadow(0 0 5px rgba(113,151,255,.22));
+  transition:transform .2s ease,filter .2s ease;
+}
+.home .site-header .main-nav .nav-astralfighter:hover{background:rgba(132,161,255,.07)}
+.home .site-header .main-nav .nav-astralfighter:hover img,
+.home .site-header .main-nav .nav-astralfighter:focus-visible img{
+  transform:scale(1.08);filter:drop-shadow(0 0 9px rgba(145,168,255,.5));
+}
+/* Le menu se replie avant que le logo supplémentaire puisse provoquer un débordement. */
+@media(max-width:1280px){
+  .home .site-header .menu-button{display:block}
+  .home .site-header .main-nav{
+    display:none;position:absolute;top:100%;left:18px;right:18px;
+    flex-direction:column;align-items:stretch;gap:0;padding:12px;
+    background:#0a1022;border:1px solid rgba(255,255,255,.12);
+    border-radius:16px;box-shadow:0 28px 90px rgba(0,0,0,.42);
+    max-height:calc(100dvh - 110px);overflow-y:auto;
+  }
+  .home .site-header .main-nav.open{display:flex}
+  .home .site-header .main-nav a{padding:12px 14px}
+  .home .site-header .main-nav .nav-astralfighter{
+    width:100%;min-height:76px;flex:0 0 auto;justify-content:flex-start;padding:6px 14px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .home .site-header .main-nav .nav-astralfighter,
+  .home .site-header .main-nav .nav-astralfighter img{transition:none}
+  .home .site-header .main-nav .nav-astralfighter:hover img,
+  .home .site-header .main-nav .nav-astralfighter:focus-visible img{transform:none}
+}

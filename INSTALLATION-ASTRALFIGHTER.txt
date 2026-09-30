@@ -1,0 +1,29 @@
+ASTRAL CARDS + ASTRAL FIGHTER — MISE À JOUR À AJOUTER AU SITE
+
+Ce ZIP est un complément à votre site existant, pas un remplacement de tout le site.
+
+1. Faites une copie de sécurité de votre dossier de site.
+2. Extrayez le ZIP dans un dossier temporaire.
+3. Copiez TOUT son contenu dans le dossier du site, au même niveau que votre index.html actuel.
+4. Acceptez de remplacer index.html. Fusionnez les dossiers images et astralfighter s'ils existent : ne supprimez pas leur ancien contenu au préalable.
+5. Publiez les fichiers avec votre méthode habituelle. Gardez les mêmes noms et dossiers.
+6. Rechargez l'accueil du site (Ctrl+F5 si l'ancien menu reste en cache).
+
+CONTENU
+index.html : accueil modifié ; ordre final Tutoriel → logo Astral Fighter → Discord.
+astralfighter-navigation.css : taille du logo, survol, clavier et menu replié sur petits écrans. S'applique seulement à l'accueil.
+images/astralfighter-logo.png : votre logo original.
+astralfighter/ : jeu complet, version incluant Le Forgeur, images et musiques.
+
+Le logo ouvre astralfighter/index.html dans un nouvel onglet. Le jeu se lance sans installation ni téléchargement demandé au joueur.
+Vos fichiers style.css, navigation.css, script.js, vos autres pages et vos médias restent ceux de votre site existant.
+Les logos des réseaux sociaux en bas de l'accueil sont conservés.
+
+SAUVEGARDE
+Le jeu conserve sa sauvegarde dans le navigateur pour cette adresse de site. Elle reste après fermeture et rechargement, tant que les données du navigateur sont conservées. Aucun compte ou stockage Supabase n'est ajouté.
+La sauvegarde d'un ancien ZIP local ou du site de test ChatGPT n'est pas transférée automatiquement vers votre site : l'adresse d'origine est différente.
+Le jeu inclus est la même version prototype que le dernier ZIP, avec ses codes de test actuels. Aucun changement d'équilibrage n'a été ajouté lors de cette intégration.
+
+VÉRIFICATIONS
+Ordre de navigation, liens relatifs, présence des fichiers du jeu, logo et intégrité de l'archive vérifiés.
+Le menu mobile existant est conservé. Vérification visuelle dans le navigateur non effectuée : accès au serveur local de test refusé dans cette session.
