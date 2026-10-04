@@ -1133,7 +1133,7 @@ export function resolveAction(s,action,rng=Math.random){
   const forgeWas=forgeState(b);prepareForgeStrike(['fracas','entailles'].includes(id)||id==='protectionultime'&&forgeWas==='cold');
   if(s.hero.key==='stibili'&&!['transmutation','elementaire'].includes(id)){b.accumulation++;if(['feu','glacier','ouragan'].includes(id)){b.elementalUsed??={};b.elementalUsed[id]=true;}}
   events.push({type:'skill',skill:id,to:id==='soin'?'hero':target()?.id,matriarch:!!b.matriarch,charges:shotCharges});log(SKILLS[id].name+' !');
-  if(id==='fracas'){hit(forgeWas==='hot'?1.75:1.25,false,'forge-sword');const gain=b.forgeNextFracas?2:1;b.forgeNextFracas=false;changeTension(forgeTension(b)+gain);}
+  if(id==='fracas'){hit(forgeWas==='hot'?1.75:.80,false,'forge-sword');const gain=b.forgeNextFracas?2:1;b.forgeNextFracas=false;changeTension(forgeTension(b)+gain);}
   if(id==='protectionultime'){forgeShield('Protection ultime',b.maxHp*(forgeWas==='cold'?.17:.12));if(forgeWas==='cold')hit(0,false,'forge-shield-strike',null,false,null,shieldTotal(b,b.round)*.42);const loss=b.forgeNextProtection?2:1;b.forgeNextProtection=false;changeTension(forgeTension(b)-loss);}
   if(id==='entailles'){const count=rngInt(1,3,rng),victim=target();for(let i=0;i<count&&victim?.hp>0&&b.hp>0;i++)hit(.65,false,'forge-slash',victim);}
   if(id==='magmageux'){forgeShield('Protection Magmageux',b.maxHp*.2);if(b.hp<=b.maxHp*.49){const e=target();if(e?.hp>0&&!e.burnImmune){e.burning=true;events.push({type:'forge-burn',to:e.id,label:'Brûlure · 5 % des PV max',burning:true});}else if(e)events.push({type:'status',to:e.id,label:'Immunité à la brûlure'});}}

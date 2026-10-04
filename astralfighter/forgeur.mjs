@@ -2,8 +2,8 @@
 export const FORGEUR_CLASS={name:'Le Forgeur',title:'L’acier entre deux extrêmes',role:'Tension',art:'forgeur-classic',hp:110,dmg:15,luck:14,speed:14,weapon:'epee-lourde',color:'#ff8358',lore:'Après la chute de Selkiel, le Forgeur fut appelé par Zvatas pour les gouverner tous…'};
 export const FORGEUR_PASSIVE={name:'Acier vivant',text:'Commence chaque combat avec 3 cumuls de Tension, entre 1 et 5. À 2, 3 ou 4 : état neutre. À 5, Surchauffe : dégâts +20 %, Chance de critique +15 points et dégâts reçus +15 %. À 1, Refroidissement : dégâts −20 %, probabilité de double action +15 points et bouclier de 15 % des PV max au début de chaque tour. La Tension et les états ne peuvent pas être dissipés. Les boucliers se cumulent, persistent jusqu’à absorption ou dissipation et disparaissent en fin de combat.'};
 export const FORGEUR_SKILLS={
- fracas:{name:'Fracas de l’épée',owner:'forgeur',level:1,cd:0,effect:'fracas'},
- protectionultime:{name:'Protection ultime',owner:'forgeur',level:1,cd:0,effect:'protectionultime'},
+ fracas:{name:'Fracas de l’épée',owner:'forgeur',level:1,cd:1,waitTurns:1,effect:'fracas'},
+ protectionultime:{name:'Protection ultime',owner:'forgeur',level:1,cd:1,waitTurns:1,effect:'protectionultime'},
  entailles:{name:'Entailles multiples',owner:'forgeur',level:3,cd:3,effect:'entailles'},
  magmageux:{name:'Protection Magmageux',owner:'forgeur',level:5,cd:3,effect:'magmageux'},
  regulation:{name:'Refroidissement ou Surchauffe',owner:'forgeur',level:7,cd:2,effect:'regulation'},
@@ -11,8 +11,8 @@ export const FORGEUR_SKILLS={
  aureole:{name:'Auréole de prévention',owner:'forgeur',level:13,cd:1,waitTurns:1,effect:'aureole'}
 };
 export const FORGEUR_TEXT={
- fracas:'Inflige 125 % des dégâts d’attaque, ou 175 % si le Forgeur est déjà en Surchauffe au lancement, puis gagne 1 Tension. Peut être critique et répété par la Vitesse ; chaque lancer fait évoluer la Tension. Sans récupération.',
- protectionultime:'Ajoute un bouclier égal à 12 % des PV max, puis perd 1 Tension. Si le Forgeur est déjà en Refroidissement au lancement : bouclier de 17 % à la place, puis frappe la cible pour 42 % de tous ses points de bouclier actuels. Le bouclier ne critique pas ; la frappe peut critiquer. Répétable par la Vitesse. Sans récupération.',
+ fracas:'Inflige 80 % des dégâts d’attaque, ou 175 % si le Forgeur est déjà en Surchauffe au lancement, puis gagne 1 Tension. Peut être critique et répété par la Vitesse ; chaque lancer fait évoluer la Tension. Récupération : 1 tour complet (tour 1 → tour 3).',
+ protectionultime:'Ajoute un bouclier égal à 12 % des PV max, puis perd 1 Tension. Si le Forgeur est déjà en Refroidissement au lancement : bouclier de 17 % à la place, puis frappe la cible pour 42 % de tous ses points de bouclier actuels. Le bouclier ne critique pas ; la frappe peut critiquer. Répétable par la Vitesse. Récupération : 1 tour complet (tour 1 → tour 3).',
  entailles:'Nécessite Surchauffe. Inflige 1 à 3 entailles à une même cible, chacune à 65 % des dégâts d’attaque. Chaque entaille peut être critique. Pas de répétition par la Vitesse. Récupération : 3 tours (tour 1 → tour 4).',
  magmageux:'Ajoute un bouclier de 20 % des PV max. À 49 % des PV max ou moins au lancement, applique aussi une Brûlure à la cible choisie : 5 % de ses PV max au début de chacun de ses tours, non cumulable. À 50 % ou plus, seul le bouclier est appliqué. Ne critique pas ; répétable par la Vitesse. Récupération : 3 tours.',
  regulation:'Ramène la Tension à 3. Depuis Surchauffe : ajoute un bouclier égal à 250 % des dégâts avant combat et prépare Protection ultime à retirer 2 Tensions au prochain lancer. Depuis Refroidissement : la prochaine frappe offensive inflige +20 % de dégâts et le prochain Fracas ajoute 2 Tensions. Depuis 2, 3 ou 4 : aucun bonus. Ni critique ni répétition par la Vitesse. Récupération : 2 tours.',
