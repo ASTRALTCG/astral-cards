@@ -1,4 +1,4 @@
-// AstralFighter offline distribution. Generated from the unchanged game modules.
+// AstralFighter — Forgeur: Naissance. Generated from game modules.
 (()=>{'use strict';const modules=Object.create(null);
 modules["title-ornaments.mjs"]=(()=>{
 // Cosmetic only: progression and title ownership remain in achievements.mjs.
@@ -229,9 +229,158 @@ function showPurchaseReveal({name,type,rarity,rarityName,stats,passive,companion
 
 return {showPurchaseReveal};
 })();
+modules["forgeur-story.mjs"]=(()=>{
+// Chapter data and enemy patterns. Independent of engine/save state.
+const n=(text,extra={})=>({speaker:null,text,...extra});
+const d=(speaker,text,other='forgeur',extra={})=>({speaker,text,other,...extra});
+const FORGEUR_STORY_VERSION=1;
+const FORGEUR_CAST={
+ forgeur:{name:'Le Forgeur',art:'forgeur-classic',kind:'forgeur'},
+ zvatas:{name:'Zvatas',art:'zvatas',kind:'beast'},
+ todylk:{name:'Todylk',art:'todylk',kind:'beast'},
+ ecurexplosion:{name:'L’Écurexplosion',art:'ecurexplosion',kind:'beast'},
+ roxxor:{name:'Roxxor',art:'roxxor',kind:'beast'},
+ dragonNebryss:{name:'Dragon brumeux contrôlé par Nébryss',art:'dragon-brumeux-nebryss',kind:'beast'},
+ dragonDemon:{name:'Dragon brumeux démononuageux',art:'dragon-brumeux-demon',kind:'beast'},
+ tryhydre:{name:'La Tryhydre',art:'tryhydre',kind:'beast'},
+ avatarZvatas:{name:'L’Avatar de Zvatas',art:'avatar-zvatas',kind:'beast'}
+};
+const FORGEUR_CHAPTER={title:'Chapitre 1 — Naissance',description:'Sur Démono, une nouvelle volonté éveille les braises de l’ancienne guerre. Né pour forger et commander, le Forgeur doit d’abord ramener l’ordre parmi les siens.',nextTitle:'Pour prouver ma place (et que j’existe)'};
+const FORGEUR_MISSIONS={
+ 1:{title:'Les premières braises',level:1,gearHint:'Premiers pas sur Démono',enemies:['ecurexplosion'],background:'forgeur-plains',before:[
+ n('Des siècles se sont écoulés depuis la chute de Selkiel, l’ancien Navigateur de Démono. Sous les nuages noirs, les traces de la défaite semblent ne jamais devoir s’effacer.'),
+ n('Puis Zvertune, une lune errante, s’est approchée d’un peu trop près de Démono. De cette lune est né Zvatas.'),
+ n('Lorsque Zvatas a pris le contrôle de la planète, les Démononuageux se sont réveillés, un par un. Avec eux sont revenues les colères d’une guerre perdue depuis des siècles.'),
+ n('Pour gouverner ces forces éparses, Zvatas a façonné lui-même une créature : le Forgeur. Un être capable de s’adapter au combat, de créer des armes et des armures extraordinaires, et de guider les autres.'),
+ d('zvatas','Ouvre les yeux. Voici ton nouveau monde.'),
+ n('Une lueur traverse l’acier. Le Forgeur ouvre les yeux, puis observe ses mains. Il n’a encore aucun souvenir. Pourtant, il sait déjà à quoi elles serviront.'),
+ d('forgeur','Ce monde… attend quelque chose de moi.','zvatas'),
+ d('zvatas','Après la défaite de Selkiel, Démono a perdu sa splendeur. Ses guerriers se réveillent sans ordre ni direction. Tu vas leur en donner une.'),
+ d('forgeur','Et vous, Maître ?','zvatas'),
+ d('zvatas','Nébryss est affaiblie par ses combats. J’emporte progressivement mon armée dans mon propre corps. Quand viendra l’invasion, nous serons prêts.'),
+ d('zvatas','Ici, tu rétabliras l’ordre. Forge ce dont ils ont besoin. Fais d’eux une armée.'),
+ n('Le Forgeur referme lentement les doigts. Il vient de naître, et une planète entière pèse déjà dans ses mains.'),
+ n('Sur les plaines, une silhouette l’attend : Todylk. Remis de sa défaite, le Démononuageux porte encore dans les yeux une détermination farouche.'),
+ d('todylk','C’est donc toi, le Forgeur. Il faut que tu viennes. L’Écurexplosion ravage une partie de la forêt.'),
+ d('forgeur','Il combat un ennemi ?','todylk'),
+ d('todylk','Il combat ce qu’il a perdu. Et tout ce qui se trouve à portée de ses bombes.'),
+ n('Le Forgeur lève la tête, acquiesce et suit les détonations. À la lisière, une créature lance bombe après bombe, dévorée par la haine de son ancienne défaite.'),
+ d('forgeur','Arrête. Ces terres sont les nôtres. Une autre mission t’attend.','ecurexplosion'),
+ d('ecurexplosion','Une autre mission ? Tu ne sais rien de ce qu’ils nous ont fait !'),
+ n('L’Écurexplosion saisit une nouvelle bombe. Le Forgeur abaisse son épée et se place entre lui et la forêt.')
+ ],after:[
+ n('L’Écurexplosion tombe à genoux. Le silence revient entre deux souffles rauques. Ses dernières bombes roulent dans l’herbe sans qu’il cherche à les reprendre.'),
+ d('ecurexplosion','Je n’aurais pas dû… Je suis désolé.'),
+ d('forgeur','Ce n’est rien. Après tant de siècles, tu es désemparé. Mais ce monde a encore besoin de toi.','ecurexplosion'),
+ n('Soudain, un tremblement traverse le sol.',{shake:true}),
+ n('Au loin, la surface du lac de la Mer bleutée se soulève. Roxxor sort de l’eau, envahi par la douleur et le regret. Son cri couvre le fracas des vagues.'),
+ d('forgeur','Roxxor ! Calme-toi !','roxxor'),
+ d('roxxor','J’ai perdu ! Contre Reysia… La vice-commandante de Nébryss !'),
+ d('roxxor','Je le revois à chaque instant. Je ne le supporte plus !'),
+ n('Le Forgeur accourt. Roxxor ne semble plus distinguer ceux qui viennent l’aider de ceux qu’il veut combattre.')
+ ]},
+ 2:{title:'Le poids d’une défaite',level:4,gearHint:'Au moins un équipement de niveau 1',enemies:['roxxor'],background:'forgeur-plains',before:[
+ n('Roxxor avance hors du lac, laissant derrière lui de profonds sillons. Le Forgeur tente une dernière fois de lui barrer la route sans lever son arme.'),
+ d('forgeur','Reysia n’est pas ici. Regarde autour de toi : tu es sur Démono.','roxxor'),
+ d('roxxor','Alors pourquoi ai-je encore l’impression d’être à terre ?'),
+ d('forgeur','Parce que tu n’as pas encore accepté de te relever.','roxxor'),
+ n('Roxxor rugit et se jette sur lui. Cette fois, le Forgeur doit frapper.')
+ ],after:[
+ n('Roxxor s’effondre enfin. Le Forgeur a dû frapper fort : avant la défaite, cette créature occupait un rang élevé dans l’armée.'),
+ d('forgeur','Maître Zvatas, Roxxor est évanoui. Il le restera pendant un moment.','zvatas'),
+ d('zvatas','Ce n’est pas un problème. La plus grande menace est encore à venir.'),
+ n('Le Forgeur reprend sa route. Au loin, il reconnaît Wolffy, qui s’était battu désespérément jusqu’au terme de l’ancienne guerre.'),
+ d('wolffy','On m’a dit que tu savais forger. Il me faudrait un nouveau dentier de combat.'),
+ d('forgeur','Alors tu en auras un. Je suis là pour créer du matériel à la hauteur de ceux qui le portent.','wolffy'),
+ n('Lorsque l’ouvrage est prêt, Wolffy lève une patte pour remercier le Forgeur, puis repart avec son nouvel équipement.'),
+ d('forgeur','La bénédiction de l’épée… Il la possède, mais il ne s’en rend même pas compte.',null),
+ n('Les jours passent. Le Forgeur façonne des armures, des épées et des griffes. Peu à peu, le rythme de sa forge remplace celui des explosions.'),
+ n('En explorant une caverne, il découvre un cristal violet. Sa couleur tranche avec les nuages noirs qui imprègnent Démono.'),
+ n('Il s’approche. Ce n’est pas une pierre. C’est un cœur… le cœur d’une créature de Nébryss.'),
+ n('Au contact de sa main, le cœur se met à battre. Chaque pulsation est plus forte que la précédente. L’espace se déchire autour de lui.'),
+ n('Le Forgeur bascule dans une dimension parallèle. Un horizon violet s’étend de toutes parts, traversé d’éclairs.',{background:'forgeur-nebryss'}),
+ d('forgeur','Où suis-je ? Qu’est-ce que tu as fait ?',null,{background:'forgeur-nebryss'}),
+ d('dragonNebryss','Enfin… Des siècles à moisir ici. Des siècles que j’attends un réceptacle !','forgeur',{background:'forgeur-nebryss'})
+ ]},
+ 3:{title:'Le cœur étranger',level:7,gearHint:'Arme en or et veste d’aventurier conseillées',enemies:['dragonNebryss'],background:'forgeur-nebryss',before:[
+ n('La voix du cœur résonne dans toute la dimension. Une forme immense s’enroule dans la brume violette : un Dragon brumeux, soumis à une volonté de Nébryss.'),
+ d('forgeur','Tu ne feras pas de moi ton réceptacle.','dragonNebryss'),
+ d('dragonNebryss','Tu es venu jusqu’à moi. Tu n’as plus à choisir.'),
+ n('Le Forgeur serre son arme. Les éclairs révèlent les contours du Dragon, déjà prêt à frapper deux fois.')
+ ],after:[
+ n('L’emprise de Nébryss se brise. La brume violette se déchire et laisse apparaître le Dragon brumeux démononuageux.'),
+ d('dragonDemon','Je… Qu’est-ce qui s’est passé ?'),
+ n('Un portail s’ouvre sous leurs pieds et les ramène sur Démono. Tous deux peinent encore à comprendre ce qu’ils viennent de traverser.',{background:'forgeur-plains'}),
+ d('dragonDemon','Pardonne-moi. Ce cœur…','forgeur',{background:'forgeur-plains'}),
+ d('zvatas','Forgeur ! À la place principale. Maintenant !','forgeur',{background:'forgeur-plains'}),
+ n('Le Forgeur s’élance. Après de longues minutes de course, il débouche sur les plaines bordant la place principale.',{background:'forgeur-plains'}),
+ n('La Tryhydre est là. Trois têtes se dressent au-dessus du sol : l’une des pièces maîtresses de l’ancienne armée vient de se réveiller.',{background:'forgeur-plains'}),
+ d('forgeur','Reculez tous. Je m’en charge.','tryhydre',{background:'forgeur-plains'})
+ ]},
+ 4:{title:'Trois têtes, un nouveau maître',level:10,gearHint:'Niveau 9–10 · un équipement en or et un en Diamanite',boss:true,enemies:['tryhydre'],background:'forgeur-plains',before:[
+ n('La Tryhydre balaie les plaines du regard. Ses trois têtes cherchent encore une bataille qui s’est achevée des siècles auparavant.'),
+ d('forgeur','La guerre est terminée. Écoute-moi.','tryhydre'),
+ d('tryhydre','Où est l’ennemi ? Où est mon maître ?'),
+ n('Un souffle brûlant répond à la place des mots. Le Forgeur plante ses pieds dans la terre et lève son arme.')
+ ],after:[
+ n('La Tryhydre cesse enfin de lutter. Ses têtes se tournent à gauche, puis à droite. Rien, autour d’elle, ne ressemble à ses derniers souvenirs.'),
+ d('tryhydre','Ce lieu… Pourquoi tout a-t-il changé ?'),
+ d('forgeur','Tu as perdu la guerre. Il y a des siècles.','tryhydre'),
+ n('Ses trois têtes s’abaissent lentement. La colère laisse place à une déception immense.'),
+ d('tryhydre','Et mon maître ? Où est Selkiel ?'),
+ d('forgeur','Selkiel est mort. Désormais, notre Navigateur est Maître Zvatas.','tryhydre'),
+ n('La Tryhydre scrute l’horizon sans rien apercevoir. Le Forgeur lève un doigt vers le ciel.'),
+ n('Au-dessus d’eux se tient Zvatas, immense comme une lune.'),
+ d('tryhydre','Maître… Désormais, je ne perdrai plus.','zvatas'),
+ d('zvatas','Tu n’as plus le choix. La défaite n’est plus une option.','tryhydre'),
+ n('Plusieurs semaines passent. Le calme revient sur Démono, fragile, mais réel. La forge ne s’éteint presque jamais.'),
+ d('zvatas','Forgeur. Es-tu prêt à devenir commandant ?'),
+ d('forgeur','Oui, Maître.','zvatas'),
+ d('zvatas','Tu n’as pas compris ma question.'),
+ n('Un puissant tourbillon noir apparaît sur les plaines. Il ravage les alentours, arrache l’herbe et emporte tout dans sa course.'),
+ n('Au cœur de la tempête se dessine une silhouette : l’Avatar de Zvatas. La création même de ce que le Navigateur serait en tant que soldat.'),
+ d('avatarZvatas','Alors prouve-le. Bats-moi, au péril de ton existence.'),
+ n('Le Forgeur resserre sa prise sur son épée. L’Avatar de Zvatas s’avance.'),
+ n('Fin du chapitre 1 — Naissance.'),
+ n('Chapitre 2 — Pour prouver ma place (et que j’existe). En cours de développement…')
+ ]}
+};
+// Fixed encounter budgets: never scale to the player's equipped gear.
+const FORGEUR_ENCOUNTERS={
+ ecurexplosion:{hp:155,dmg:18,level:1,rule:'Tours impairs : dépose une bombe. Tours pairs : frappe à 100 %, puis la bombe explose à 140 % des dégâts d’attaque. Aucun critique ni double action.'},
+ roxxor:{hp:370,dmg:31,level:4,rule:'Chaque tour : frappe à 125 %, sans critique ni double action. Chaque frappe qui touche le Forgeur a 15 % de chance de réduire ses dégâts de 10 % jusqu’à la fin du combat. Malus non cumulable, retirable par une purification.'},
+ dragonNebryss:{hp:560,dmg:43,level:7,rule:'Chaque tour : une frappe à 60 %, sans critique, puis une frappe à 100 % avec 50 % de chance de critique (×1,75). Aucune double action de Vitesse.'},
+ tryhydre:{hp:900,dmg:60,level:10,rule:'Chaque tour, trois têtes : attaque à 100 %, applique une brûlure (5 % des PV max au début du tour), puis gagne 7 % de dégâts d’attaque, cumulables. Aucun critique ni double action supplémentaire.'}
+};
+function forgeurStoryEnemies(stage){
+ const kind=FORGEUR_MISSIONS[stage].enemies[0],v=FORGEUR_ENCOUNTERS[kind],c=FORGEUR_CAST[kind];
+ return [{id:'enemy0',type:'dog',storyKind:kind,forgeurStory:true,name:c.name,art:c.art,level:v.level,hp:v.hp,maxHp:v.hp,dmg:v.dmg,baseDmg:v.dmg,boss:!!FORGEUR_MISSIONS[stage].boss,burning:false,powerBonus:0,rageStacks:0,bombPending:false}];
+}
+function forgeurEnemyTurn(b,e,{strike,nextAction,emit,log,rng,burn,weakness}){
+ if(!e.forgeurStory)return false;
+ const cue=(label,kind)=>emit({type:'forgeur-story-cue',to:e.id,label,kind});
+ if(e.storyKind==='ecurexplosion'){
+  if(b.round%2===1){e.bombPending=true;cue('Bombe posée · explosion au prochain tour','bomb-set');log('Une bombe attend au sol. Au prochain tour ennemi : frappe, puis explosion à 140 %.');}
+  else{strike(1,false,0);if(e.bombPending&&b.hp>0&&e.hp>0){nextAction();e.bombPending=false;cue('La bombe explose !','bomb-explode');strike(1.4,'explosion',0);}}
+ }else if(e.storyKind==='roxxor'){
+  cue('Poids du regret · 125 %','heavy');strike(1.25,'fangs',0);
+  if(b.hp>0&&rng()<.15)weakness();
+ }else if(e.storyKind==='dragonNebryss'){
+  cue('Brume de Nébryss · première frappe','dragon');strike(.6,'purple-slash',0);
+  if(b.hp>0&&e.hp>0){nextAction();cue('Seconde frappe · 50 % de critique','dragon');strike(1,'purple-slash',.5);}
+ }else if(e.storyKind==='tryhydre'){
+  cue('Première tête · morsure','head-strike');strike(1,'fangs',0);
+  if(b.hp>0&&e.hp>0){nextAction();cue('Deuxième tête · souffle brûlant','head-burn');burn();}
+  if(b.hp>0&&e.hp>0){e.rageStacks++;e.dmg=Math.round(e.baseDmg*(1+.07*e.rageStacks));emit({type:'enemy-rage',to:e.id,dmg:e.dmg,label:'Troisième tête · dégâts +'+(7*e.rageStacks)+' %'});log('La troisième tête attise sa rage : +'+(7*e.rageStacks)+' % de dégâts.');}
+ }
+ return true;
+}
+
+return {FORGEUR_CAST,FORGEUR_CHAPTER,FORGEUR_ENCOUNTERS,FORGEUR_MISSIONS,FORGEUR_STORY_VERSION,forgeurEnemyTurn,forgeurStoryEnemies};
+})();
 modules["forgeur.mjs"]=(()=>{
 // Forgeur rules. No engine imports: usable by combat, catalog and offline bundle.
-const FORGEUR_CLASS={name:'Le Forgeur',title:'L’acier entre deux extrêmes',role:'Tension',art:'forgeur-classic',hp:145,dmg:24,luck:14,speed:12,weapon:'epee-lourde',color:'#ff8358',lore:'Le Forgeur manie l’acier vivant. Il attise sa forge pour déchaîner sa puissance, puis refroidit son équipement pour résister aux coups. Son histoire sera dévoilée prochainement.'};
+const FORGEUR_CLASS={name:'Le Forgeur',title:'L’acier entre deux extrêmes',role:'Tension',art:'forgeur-classic',hp:145,dmg:24,luck:14,speed:12,weapon:'epee-lourde',color:'#ff8358',lore:'Après la chute de Selkiel, le Forgeur fut appelé par Zvatas pour les gouverner tous…'};
 const FORGEUR_PASSIVE={name:'Acier vivant',text:'Commence chaque combat avec 3 cumuls de Tension, entre 1 et 5. À 2, 3 ou 4 : état neutre. À 5, Surchauffe : dégâts +20 %, Chance de critique +15 points et dégâts reçus +15 %. À 1, Refroidissement : dégâts −20 %, probabilité de double action +15 points et bouclier de 15 % des PV max au début de chaque tour. La Tension et les états ne peuvent pas être dissipés. Les boucliers se cumulent, persistent jusqu’à absorption ou dissipation et disparaissent en fin de combat.'};
 const FORGEUR_SKILLS={
  fracas:{name:'Fracas de l’épée',owner:'forgeur',level:1,cd:0,effect:'fracas'},
@@ -1304,6 +1453,7 @@ const STIBILI_MISSIONS={
 return {STIBILI_CAST,STIBILI_CHAPTER,STIBILI_MISSIONS};
 })();
 modules["story.mjs"]=(()=>{
+const {FORGEUR_CAST,FORGEUR_CHAPTER,FORGEUR_MISSIONS}=modules["forgeur-story.mjs"];
 const {NAHAT_CAST,NAHAT_CHAPTER,NAHAT_MISSIONS}=modules["nahat-story.mjs"];
 const {DRUNN_CAST,DRUNN_CHAPTER,DRUNN_MISSIONS}=modules["drunn-story.mjs"];
 const {STIBILI_VOID_CAST,STIBILI_CHAPTER2,STIBILI_CHAPTER2_MISSIONS}=modules["stibili-chapter2.mjs"];
@@ -1315,6 +1465,7 @@ const {STIBILI_CAST,STIBILI_CHAPTER,STIBILI_MISSIONS}=modules["stibili-story.mjs
 const narrate=text=>({speaker:null,text});
 const say=(speaker,text,other='wolffy',effect='')=>({speaker,text,other,effect});
 const STORY_CAST={
+ ...FORGEUR_CAST,
  ...NAHAT_CAST,
  ...DRUNN_CAST,
  ...STIBILI_CAST,
@@ -1523,11 +1674,12 @@ const WOLFFY_MISSIONS={
 };
 function storyLines(stage,phase,key='wolffy',chapter=1){const m=storyRoute(key,chapter)?.missions[stage];if(!m)return [];return phase==='recap'?[...m.before,...(m.between??[]),...(m.interlude??[]),...m.after]:m[phase]??[];}
 
-function storyRoute(key,chapter=1){if(chapter===2&&key==='stibili')return {...STIBILI_CHAPTER2,missions:STIBILI_CHAPTER2_MISSIONS};if(chapter!==1)return null;return key==='nahat'?{...NAHAT_CHAPTER,missions:NAHAT_MISSIONS}:key==='drunn'?{...DRUNN_CHAPTER,missions:DRUNN_MISSIONS}:key==='wolffy'?{...WOLFFY_CHAPTER,nextTitle:'En plein cœur de Nébryss',missions:WOLFFY_MISSIONS}:key==='stibili'?{...STIBILI_CHAPTER,missions:STIBILI_MISSIONS}:key==='kaerune'?{...KAERUNE_CHAPTER,missions:KAERUNE_MISSIONS}:null;}
+function storyRoute(key,chapter=1){if(chapter===2&&key==='stibili')return {...STIBILI_CHAPTER2,missions:STIBILI_CHAPTER2_MISSIONS};if(chapter!==1)return null;return key==='forgeur'?{...FORGEUR_CHAPTER,missions:FORGEUR_MISSIONS}:key==='nahat'?{...NAHAT_CHAPTER,missions:NAHAT_MISSIONS}:key==='drunn'?{...DRUNN_CHAPTER,missions:DRUNN_MISSIONS}:key==='wolffy'?{...WOLFFY_CHAPTER,nextTitle:'En plein cœur de Nébryss',missions:WOLFFY_MISSIONS}:key==='stibili'?{...STIBILI_CHAPTER,missions:STIBILI_MISSIONS}:key==='kaerune'?{...KAERUNE_CHAPTER,missions:KAERUNE_MISSIONS}:null;}
 
 return {KAERUNE_CHAPTER,KAERUNE_MISSIONS,STIBILI_CHAPTER,STIBILI_MISSIONS,STORY_CAST,WOLFFY_CHAPTER,WOLFFY_MISSIONS,storyLines,storyRoute};
 })();
 modules["engine.mjs"]=(()=>{
+const {FORGEUR_STORY_VERSION,FORGEUR_MISSIONS,FORGEUR_ENCOUNTERS,forgeurStoryEnemies,forgeurEnemyTurn}=modules["forgeur-story.mjs"];
 const {FORGEUR_CLASS,FORGEUR_PASSIVE,FORGEUR_SKILLS,FORGEUR_TEXT,FORGEUR_ITEMS,forgeTension,forgeState,forgeArt,newProfile,syncProfile,companionAvailable}=modules["forgeur.mjs"];
 
 const {MAX_LEVEL,xpNeed,expeditionXp,expeditionXpRange,expeditionXpDivisors}=modules["progression.mjs"];
@@ -1774,7 +1926,7 @@ const lastBreathReady=s=>s.hero?.key==='kaerune'&&s.battle?.lastBreathTurn===s.b
 function healHero(s,amount,alreadyScaled=false){const b=s.battle;if(!b||b.hp<=0||b.unhealable)return 0;const restored=Math.max(0,Math.min(b.maxHp-b.hp,Math.round(amount*(alreadyScaled?1:(equippedItem(s,'orb')?.type==='orbe-brasier'?.6:1)))));b.hp+=restored;return restored;}
 
 // Current harmful hero states; scenario locks and skill costs are not dispellable effects.
-function cleanseHero(b){b.burning=!!b.eternalFlames;b.snakePoison=false;b.sandUntil=0;b.cobraBurnStacks=0;b.unhealable=!!(b.refusSuccess||b.distressUsed);b.riftFissures={};b.riftAttraction={};}
+function cleanseHero(b){b.roxxorWeakened=false;b.burning=!!b.eternalFlames;b.snakePoison=false;b.sandUntil=0;b.cobraBurnStacks=0;b.unhealable=!!(b.refusSuccess||b.distressUsed);b.riftFissures={};b.riftAttraction={};}
 
 function enemyDamage(s,e){return Math.max(1,Math.round((e.dmg+(e.type==='corkbeau'&&!e.storyKind?Math.min(s.battle.maxHp*.02,e.dmg*.5):0))*((e.weakenedUntil??0)>=s.battle.round?.85:1)));}
 const ENEMIES={
@@ -1858,8 +2010,21 @@ function collectResources(s,enemies,rng){
 const LABELS={flameDamage:'% de dégâts en combat',bonePower:'% des statistiques de l’invocation',hp:'PV',dmg:'Dégâts',luck:'Chance',speed:'Vitesse',dmgPercent:'% de dégâts',luckPercent:'% de Chance',speedPercent:'% de Vitesse',vitalityPercent:'% de PV max après bonus',hpPercent:'% de PV max',omen:'% de Riposte par impact subi'};
 const rngInt=(a,b,rng=Math.random)=>a+Math.floor(rng()*(b-a+1));
 
-const fresh=()=>({profile:newProfile(),forge:{unlocked:false,itemId:null},achievements:newAchievements(),version:1,progressionVersion:1,nahatStoryVersion:1,drunnStoryVersion:1,balanceVersion:BALANCE_VERSION,hero:null,gold:0,items:[],resources:{},equipped:{weapon:null,armor:null,accessory:null,accessory2:null,orb:null},cleared:0,rift:{cleared:0},missions:{forest:false},battle:null,storyScene:null,wolffyStory:{cemetery:0},stibiliChapter2:{cleared:0,voidForm:false}});
+const fresh=()=>({forgeurStoryVersion:FORGEUR_STORY_VERSION,profile:newProfile(),forge:{unlocked:false,itemId:null},achievements:newAchievements(),version:1,progressionVersion:1,nahatStoryVersion:1,drunnStoryVersion:1,balanceVersion:BALANCE_VERSION,hero:null,gold:0,items:[],resources:{},equipped:{weapon:null,armor:null,accessory:null,accessory2:null,orb:null},cleared:0,rift:{cleared:0},missions:{forest:false},battle:null,storyScene:null,wolffyStory:{cemetery:0},stibiliChapter2:{cleared:0,voidForm:false}});
 function migrateBalance(s){
+ // One release migration per adventure, including inactive duplicate Forgeurs.
+ // Profile unlock and adventure identity survive; no other companion is reset.
+ if(s.hero?.key==='forgeur'&&s.forgeurStoryVersion!==FORGEUR_STORY_VERSION){
+  const played=s.hero.level>1||s.hero.xp>0||s.gold>0||s.items?.length>0||s.cleared>0||s.battle||s.storyScene||Object.values(s.hero.allocated??{}).some(Boolean)||Object.values(s.resources??{}).some(Boolean)||s.rift?.cleared>0||['wins','spent','goldBought','crafted','astralStars','astralWeapons','astralArmors'].some(k=>(s.achievements?.[k]??0)>0)||s.achievements?.claimed?.length>0||s.achievements?.unlockedByCode?.length>0||Object.values(s.achievements?.monsterDrops??{}).some(Boolean)||s.trials?.claimed||s.forge?.unlocked;
+  if(played){
+   const identity={...(s.adventureId?{adventureId:s.adventureId}:{}),...(s.adventureNumber?{adventureNumber:s.adventureNumber}:{})};
+   const profile=s.profile??newProfile();profile.unlocks??={};profile.unlocks.forgeur=true;
+   const clean=fresh();clean.profile=profile;summon(clean,'forgeur');
+   for(const key of Object.keys(s))delete s[key];Object.assign(s,clean,identity,{forgeurResetNotice:true});
+  }else s.forgeurStoryVersion=FORGEUR_STORY_VERSION;
+  migrateBalance(s);return true;
+ }
+
  const legacyAstralAchievements=s.achievements?.version!==2;
  let traversalChanged=ensureAchievements(s);
  if(legacyAstralAchievements){for(const item of (s.items??[]).filter(isAstral)){recordAchievement(s,ITEMS[item.type].slot==='weapon'?'astralWeapons':'astralArmors');if(item.stars?.some(Boolean))recordAchievement(s,'astralStars');}}
@@ -2126,7 +2291,7 @@ const heroArt=(s,combat=!!s.battle)=>s.hero?.key==='forgeur'?(combat?forgeArt(s.
 const wolfPupDamage=(p,round)=>p.dmg*((p.furyUntil??0)>=round?1.2:1);
 const hurricaneMultiplier=s=>.8*1.1**(s.battle?.hurricaneStacks??0);
 const forestUnlocked=s=>false;
-const chapterSize=(s,chapter=1)=>s.hero?.key==='forgeur'?0:Object.keys(storyRoute(s.hero?.key,chapter)?.missions??(chapter===1?WOLFFY_MISSIONS:{})).length;
+const chapterSize=(s,chapter=1)=>Object.keys(storyRoute(s.hero?.key,chapter)?.missions??(chapter===1?WOLFFY_MISSIONS:{})).length;
 const getAchievements=s=>achievementRows(s,chapterSize(s));
 function grantExperience(s,amount){
  const old=s.hero.level;if(old>=MAX_LEVEL){s.hero.xp=0;return 0;}
@@ -2205,7 +2370,6 @@ const enemyCritChance=(e,round)=>e.riftKind==='spectralGuard'?1/3:e.storyKind===
 function startBattle(s,mode,stage=1,rng=Math.random,chapter=1){
  if(!s.hero||s.battle||s.storyScene)throw Error('Combat indisponible.');
  if(!['practice','training','world','rift','trial'].includes(mode))throw Error('Mode inconnu.');
- if(s.hero?.key==='forgeur'&&mode==='world')throw Error('L’histoire du Forgeur sera disponible prochainement.');
  if(mode==='world'&&(!chapterUnlocked(s,chapter)||!Number.isInteger(stage)||stage<1||stage>chapterSize(s,chapter)||stage!==chapterCleared(s,chapter)+1))throw Error('Combat verrouillé.');
  if(mode==='forest'&&(!forestUnlocked(s)||s.missions.forest))throw Error('Mission verrouillée ou déjà terminée.');
  if(mode==='rift'&&(!riftUnlocked(s)||!Number.isInteger(stage)||stage<1||stage>50||stage>riftCleared(s)+1||stage===50&&riftCleared(s)===50))throw Error('Étage de la Fissure verrouillé.');
@@ -2214,7 +2378,7 @@ function startBattle(s,mode,stage=1,rng=Math.random,chapter=1){
  if(expedition&&!Object.hasOwn(EXPEDITIONS,expedition))throw Error('Expédition inconnue.');
  const pending=expedition?pendingExpedition(s,expedition):null;
  const trainingLevelOffset=mode==='training'?(Number.isInteger(pending?.levelOffset)?pending.levelOffset:rngInt(-1,1,rng)):0;
- const level=mode==='practice'?s.hero.level:mode==='trial'?15:mode==='rift'?riftFloor(stage).level:mode==='training'?(expedition==='chasm'?s.hero.level+2:Math.min(MAX_LEVEL,Math.max(1,s.hero.level+trainingLevelOffset))):mode==='forest'?7:mode==='world'&&s.hero.key==='nahat'?NAHAT_MISSIONS[stage].level:mode==='world'&&s.hero.key==='drunn'?DRUNN_MISSIONS[stage].level:stage+(chapter===2?9:0);
+ const level=mode==='practice'?s.hero.level:mode==='trial'?15:mode==='rift'?riftFloor(stage).level:mode==='training'?(expedition==='chasm'?s.hero.level+2:Math.min(MAX_LEVEL,Math.max(1,s.hero.level+trainingLevelOffset))):mode==='forest'?7:mode==='world'&&s.hero.key==='forgeur'?FORGEUR_MISSIONS[stage].level:mode==='world'&&s.hero.key==='nahat'?NAHAT_MISSIONS[stage].level:mode==='world'&&s.hero.key==='drunn'?DRUNN_MISSIONS[stage].level:stage+(chapter===2?9:0);
  const encounter=mode==='training'?(pending?.type??trainingEncounter(rng,expedition)):null;
  const goldenEncounter=mode==='training'&&s.hero.level>=10&&(pending?!!pending.golden:rng()<.05);
  if(expedition)(s.expeditionEncounters??={})[expedition]={type:encounter,golden:goldenEncounter,levelOffset:trainingLevelOffset};
@@ -2226,8 +2390,8 @@ function startBattle(s,mode,stage=1,rng=Math.random,chapter=1){
  if(mode==='rift')enemies=riftEnemies(stage);
  if(mode==='trial')enemies=[trialEnemy(stage)];
  if(mode==='practice')enemies=[{id:'enemy0',type:'practice-dummy',practiceDummy:true,name:'Le mannequin d’entraînement',art:'training-dummy',level:s.hero.level,hp:stats(s).hp,maxHp:stats(s).hp,dmg:0,totalDamage:0,noReward:true}];
- const story=mode==='world'&&!!storyRoute(s.hero.key);if(story)enemies=s.hero.key==='nahat'?nahatEnemies(stage):s.hero.key==='drunn'?drunnEnemies(stage):s.hero.key==='kaerune'?kaeruneEnemies(stage):s.hero.key==='stibili'?(chapter===2?stibiliVoidEnemies(stage):stibiliEnemies(stage)):storyEnemies(stage,stage===7&&!!s.wolffyStory?.cemetery);
- if(mode==='world'&&!['drunn','nahat'].includes(s.hero.key)&&chapter===1&&stage>=4)for(const enemy of enemies){enemy.maxHp=Math.ceil(enemy.maxHp*1.2);enemy.hp=enemy.maxHp;}
+ const story=mode==='world'&&!!storyRoute(s.hero.key);if(story)enemies=s.hero.key==='forgeur'?forgeurStoryEnemies(stage):s.hero.key==='nahat'?nahatEnemies(stage):s.hero.key==='drunn'?drunnEnemies(stage):s.hero.key==='kaerune'?kaeruneEnemies(stage):s.hero.key==='stibili'?(chapter===2?stibiliVoidEnemies(stage):stibiliEnemies(stage)):storyEnemies(stage,stage===7&&!!s.wolffyStory?.cemetery);
+ if(mode==='world'&&!['drunn','nahat','forgeur'].includes(s.hero.key)&&chapter===1&&stage>=4)for(const enemy of enemies){enemy.maxHp=Math.ceil(enemy.maxHp*1.2);enemy.hp=enemy.maxHp;}
  if(chapter===2&&mode==='world'&&stage>=2){s.stibiliChapter2??={cleared:0,voidForm:false};s.stibiliChapter2.voidForm=true;}
  const v=stats(s);s.battle={goldenEncounter,goldenIntroSeen:false,expeditionRewardMultiplier:mode==='training'&&expedition==='chasm'&&!goldenEncounter?1.11:1,weaponChoiceVersion:1,plumesStacks:0,playtestBalanceVersion:1,encounterBalanceVersion:1,expeditionEntryLevel:s.hero.level,nahatWave:1,expedition,bone:null,boneUsed:false,disabledSkill:null,openingPending:story&&s.hero.key==='drunn'&&stage===3,eternalFlames:story&&s.hero.key==='drunn'&&stage===7,trainingBalanceVersion:3,stibiliBalanceVersion:2,voidBalanceVersion:1,healCharges:2,healLastTurn:0,chapter:mode==='world'?chapter:1,sealedMagic:mode==='world'&&chapter===2&&stage===1,summonBase:{hp:v.hp,dmg:v.dmg},larva:null,larvaUsed:false,pups:[],packUsed:false,packVersion:1,packReworkVersion:1,cloudStrike:false,advancedSkillsVersion:1,unhealable:false,distressUsed:false,lastBreathTurn:0,fangStacks:0,smokeUsed:false,smokeUntil:0,navigatorUsed:false,elementalUsed:{},elementalSacrificeUsed:false,durationVersion:1,buffApplied:{},riftRewardXp:mode==='rift'?(s.hero.level>=MAX_LEVEL?0:Math.round(Math.round(xpNeed(s.hero.level)*.2)*.65)):0,riftEntryLevel:s.hero.level,riftAttraction:{},riftFissures:{},trainingEncounter:encounter,id:globalThis.crypto.randomUUID(),mode,stage:mode==='forest'?7:stage,level,story,storyKey:story?s.hero.key:null,background:mode==='trial'?TRIALS[stage].background:story?storyRoute(s.hero.key,chapter).missions[stage].background??null:null,lesson:story&&s.hero.key==='kaerune'?KAERUNE_MISSIONS[stage].lesson??null:null,burning:story&&s.hero.key==='drunn'&&stage===7,storyWave:story&&s.hero.key==='wolffy'&&stage===7&&s.wolffyStory?.cemetery?2:1,enemies,hp:v.hp,maxHp:v.hp,round:1,cooldowns:{},buffs:{},power:0,powerCasts:0,accumulation:0,reinforcementCalled:false,refusUsed:false,refusSuccess:false,matriarch:false,hurricaneStacks:0,glacierUsed:false,charges:s.hero.key==='drunn'&&s.hero.level>=9?1:0,redressement:false,target:0,log:[mode==='forest'?'Quatre tours pour vaincre l’Enfant de la forêt avant son attaque fatale.':story?storyRoute(s.hero.key,chapter).missions[stage].title+' — À vous de jouer.':boss?'Drannex, le loup à deux têtes, vous barre la route.':'Le combat commence. À vous de jouer.']};
  if(accessoryOf(s,'ceinture-pierre'))grantShield(s.battle,'Ceinture ancienne · entrée',s.battle.maxHp*accessoryOf(s,'ceinture-pierre').stats.stoneShieldPercent/100);
@@ -2242,6 +2406,7 @@ function combatStats(s){
  if(active('fury')){v.dmg=Math.round(v.dmg*1.2);v.luck*=1.2;v.speed*=1.2;}
  if(acharnement(s)){v.dmg=Math.round(v.dmg*1.15);v.luck*=1.15;v.speed*=1.15;}
  if(b.refusSuccess)v.dmg*=.8;
+ if(b.roxxorWeakened)v.dmg*=.9;
  if(skillUnlocked(s,'adaptation'))v.dmg*=1+.02*(b.adaptation??0);
  if(s.hero.key==='kaerune'&&b.redressement){v.dmg=Math.round(v.dmg*1.05);v.speed*=1.03;}
  if(s.hero.key==='forgeur'){v.dmg*=forgeState(b)==='hot'?1.2:forgeState(b)==='cold'?.8:1;v.dmg*=1+.1*(b.divineSwordStacks??0);}
@@ -2340,6 +2505,7 @@ function heroEffects(s){
  if(skillUnlocked(s,'crocs'))add('crocs','⚔','Crocs nuageux',`Prochaine morsure : ${crocsPercent(s)} %. +7 points à chaque fin de tour de Wolffy.`,b.fangStacks??0);
  if(skillUnlocked(s,'elementaire'))add('elementaire','◈','Sacrifice élémentaire',b.elementalSacrificeUsed?'Déjà utilisé ce combat.':elementalMissing(s).length?'À lancer : '+elementalMissing(s).map(id=>SKILLS[id].name).join(', ')+'.':'Prêt : les trois éléments ont été utilisés.');
  if((b.sandUntil??0)>=b.round)add('sand','◌','Sable de brouillage',`20 % de risque de manquer chaque frappe de base ou de compétence offensive. ${b.sandUntil-b.round+1} tour(s) restant(s), tour actuel inclus.`);
+ if(b.roxxorWeakened)add('roxxor-regret','↓','Poids du regret','Dégâts d’attaque réduits de 10 % jusqu’à la fin du combat. Non cumulable ; une purification peut retirer ce malus.');
  if(b.sealedMagic)add('sealed','◈','Magie scellée','Vos compétences et les potions sont indisponibles. Seule l’attaque de base répond.');
  if(b.larva?.hp>0)add('larva','◈','Larve protectrice','Les attaques ciblées frappent d’abord la Larve. Les attaques de zone et les brûlures déjà subies peuvent toujours toucher Stibili.');
  for(const sh of activeShields(b,b.round))add('shield-'+sh.source,'⬡',sh.source,`Bouclier : ${sh.amount} points${sh.until==null?' jusqu’à absorption':', '+(sh.until-b.round+1)+' tour(s) restant(s)'}. Les sacrifices de PV ignorent le bouclier.`,sh.amount);
@@ -2381,6 +2547,7 @@ function enemyEffects(e,round=1){
  if(e.guardian)effects.push({id:'guardian',icon:'◈',name:'Gardien de la Traversée',text:TRIALS[e.guardian].rule});
  if(e.riftKind){effects.push({id:'rift-rule',icon:'◈',name:'Créature de la Fissure',text:RIFT_CREATURES[e.riftKind].rule});if(e.rift.ward)effects.push({id:'rift-ward',icon:'⬡',name:'Ailes protectrices',text:'Première frappe directe réduite de 50 %.'});if(e.rift.cocoon)effects.push({id:'rift-cocoon',icon:'◉',name:'Cocon',text:'Éclosion à la prochaine action de la Larve.'});if(e.rift.revived)effects.push({id:'rift-revived',icon:'◇',name:'Âme épuisée',text:'Cette entité a déjà été ressuscitée.'});}
  const add=(id,icon,name,text,stacks)=>effects.push({id,icon,name,text,...(stacks===undefined?{}:{stacks})});
+ if(e.forgeurStory){add('forgeur-enemy-rule','◆',e.name,FORGEUR_ENCOUNTERS[e.storyKind].rule);if(e.bombPending)add('bomb','●','Bombe au sol','Après la prochaine attaque de l’Écurexplosion : explosion à 140 % des dégâts.');if(e.rageStacks)add('three-heads','♨','Rage de la troisième tête',`Dégâts +${e.rageStacks*7} %.`,e.rageStacks);}
  if(e.riftKind==='saw'&&e.rift.step>0)add('saw-power','⚔','Scies grandissantes',`Prochaine frappe : ${100+10*e.rift.step} % des dégâts.`,e.rift.step);
  if(e.poisonStacks)add('poison','☠','Poison',`${e.poisonStacks} cumul(s) : perd ${e.poisonStacks*3} % de la plus élevée des statistiques dégâts/chance de Drunn au début de son tour.`,e.poisonStacks);
  if((e.weakenedUntil??0)>=round)add('weakened','↓','Affaibli — Saut',`Dégâts d’attaque réduits de 15 %. ${durationText(e.weakenedUntil,round,e.weakenedApplied)}`);
@@ -2537,7 +2704,7 @@ function resolveAction(s,action,rng=Math.random){
   if(id!=='hero'&&!unit.hp)events.push({type:'ally-down',to:id});
   log(`${e.name} exécute ${id==='hero'?CLASSES[s.hero.key].name:unit.name} en ignorant les boucliers.`);return true;
  };
- const enemyStrike=(e,mult=1,projectile=false,drain=false,area=false,riftMark=null)=>{
+ const enemyStrike=(e,mult=1,projectile=false,drain=false,area=false,riftMark=null,criticalChance=null)=>{
   if(b.hp<=0||e.hp<=0||duelOver())return 0;
   triggerTrap(e);if(e.hp<=0||b.hp<=0)return 0;
   if(trappedAction===e.id)mult*=.7;
@@ -2549,7 +2716,7 @@ function resolveAction(s,action,rng=Math.random){
    if(e.riftKind==='specter'&&executeSpecter(e,unit,id))continue;
    if(id==='hero'&&blockAttack(e))continue;
    if(id==='hero'&&dodgeChance(s,e)>0&&rng()<dodgeChance(s,e)){events.push({type:'dodge',from:e.id,to:'hero'});log(`${smokeActive(s)?'Écran de fumée / Analyse':'Analyse'} : attaque de ${e.name} esquivée.`);continue;}
-   const crit=enemyCritChance(e,b.round)>0&&rng()<enemyCritChance(e,b.round);
+   const chance=criticalChance??enemyCritChance(e,b.round),crit=chance>0&&rng()<chance;
    const targetState=id!=='hero'?{...s,battle:{...b,maxHp:unit.maxHp}}:s;
    const fissured=riftMark==='consume'&&unit.riftFissures?.[e.id];
    const damage=Math.max(1,Math.round(enemyDamage(targetState,e)*mult*(fissured?1.4:1)*(crit?(e.riftKind==='spectralGuard'?2:1.75):1)*(id==='hero'&&(b.buffs.courage??0)>=b.round?.5:1)));
@@ -2837,6 +3004,14 @@ function resolveAction(s,action,rng=Math.random){
    else enemyStrike(e,e.storyKind==='nahatBear'&&b.round%3===2?1.6:1,'black-slash');
    if(!b.hp)return finish(false);continue;
   }
+  let forgeurHitHero=false;
+  if(forgeurEnemyTurn(b,e,{
+   rng,emit:event=>events.push(event),log,
+   nextAction:()=>{enemyActionBlocked=false;trappedAction=null;riposteCounted=false;nextEnemyAction();},
+   strike:(mult,projectile,crit)=>{const cursor=events.length,total=enemyStrike(e,mult,projectile,false,false,null,crit);forgeurHitHero=events.slice(cursor).some(event=>event.type==='hit'&&event.from===e.id&&event.to==='hero');return total;},
+   weakness:()=>{if(forgeurHitHero&&!b.roxxorWeakened){b.roxxorWeakened=true;events.push({type:'roxxor-weaken',to:'hero'});log('Poids du regret : dégâts du Forgeur −10 % jusqu’à la fin du combat. Non cumulable.');}},
+   burn:()=>{const unit=enemyTarget(),id=allyId(unit);if(unit.hp>0){if(id==='hero'&&blockAttack(e))return;unit.burning=true;events.push({type:'forgeur-story-burn',from:e.id,to:id,label:'Souffle de la Tryhydre · brûlure'});log(`${id==='hero'?CLASSES[s.hero.key].name:unit.name} brûle : 5 % des PV max au début du tour.`);}}
+  })){flushRefusal();if(!b.hp)return finish(false);continue;}
   if(expeditionEnemyTurn(b,e,{rng,strike:(mult,projectile,drain=false)=>enemyStrike(e,mult,projectile,drain),emit:event=>events.push(event),log})){flushRefusal();if(!b.hp)return finish(false);continue;}
   if(e.guardian){trialEnemyTurn(b,e,{strike:(mult,projectile,drain=false,area=false)=>enemyStrike(e,mult,projectile,drain,area),emit:event=>events.push(event),log});flushRefusal();if(!b.hp)return finish(false);continue;}
   if(e.riftKind){
@@ -3561,7 +3736,7 @@ function save(){
 }
 try{const raw=localStorage.getItem(SAVE);if(raw){const restored=restoreCompanionSave(JSON.parse(raw));s=restored.active;companions=restored.companions;if(restored.changed)save();}}
 catch{saveBlocked=true;toast('Sauvegarde inaccessible. Votre ancienne progression est conservée ; cette session ne sera pas enregistrée.');}
-const companionCard=key=>key==='forgeur'?`<span class="forgeur-selection-art"><img class="art" src="assets/forgeur-classic.webp" alt="Le Forgeur" decoding="async"></span>`:`<img class="selection-card-image" src="assets/cards/${key}.webp" alt="Carte ASTRAL CARDS de ${CLASSES[key].name}" width="744" height="1038" decoding="async" draggable="false">`;
+const companionCard=key=>`<img class="selection-card-image" src="assets/cards/${key}.webp" alt="Carte ASTRAL CARDS de ${CLASSES[key].name}" width="744" height="1038" decoding="async" draggable="false">`;
 const artSrc=name=>`assets/${name}.webp`;
 const art=(name,extra='')=>`<img class="art ${extra} ${name==='forgeur-defensif'?'forgeur-dark-matte':''}" src="${artSrc(name)}" alt="" decoding="async" draggable="false">`;
 const itemArt=(type,extra='')=>`<img class="item-art ${extra}" src="assets/${type}.webp" alt="" decoding="async" draggable="false">`;
@@ -3603,7 +3778,7 @@ function characterScreen(){
 }
 function adventureCard(key,slot=null){
  const c=CLASSES[key],id=slot?adventureId(slot):key;
- return `<button class="companion-card choose-card ${slot?'started-companion':'sealed-companion'}" data-action="${slot?'resume-companion':'choose'}" data-key="${id}" ${slot?'':'aria-haspopup="dialog"'}><span class="role">${c.role}</span><span class="selection-visual">${slot?art(heroArt(slot,false)):companionCard(key)}</span><h2>${c.name}</h2>${slot?`<span class="adventure-number">Aventure n° ${adventureNumber(slot)}</span>`:''}${slot?titleBadge(slot):''}<p>${c.title}</p>${slot?`<span class="companion-progress"><b>Niv. ${slot.hero.level}</b><span>${num(slot.gold)} or</span><span>${chapterUnlocked(slot,2)?`Chap. 2 · ${chapterCleared(slot,2)} / ${chapterSize(slot,2)}`:`${slot.hero.key==='forgeur'?'Histoire à venir':Math.min(slot.cleared,chapterSize(slot))+' / '+chapterSize(slot)+' missions'}`}</span></span><span class="companion-session">${slot.storyScene?'Dialogue en cours':slot.battle?'Combat en cours':'Au camp'}</span>`:'<span class="companion-new">Nouvelle aventure · niveau 1</span>'}<span class="choose-link">${slot?'Reprendre l’aventure':newAdventureMode?'Commencer une nouvelle aventure':'Découvrir ce compagnon'}</span></button>`;
+ return `<button class="companion-card choose-card ${slot?'started-companion':'sealed-companion'}" data-action="${slot?'resume-companion':'choose'}" data-key="${id}" ${slot?'':'aria-haspopup="dialog"'}><span class="role">${c.role}</span><span class="selection-visual">${slot?art(heroArt(slot,false)):companionCard(key)}</span><h2>${c.name}</h2>${slot?`<span class="adventure-number">Aventure n° ${adventureNumber(slot)}</span>`:''}${slot?titleBadge(slot):''}<p>${c.title}</p>${slot?`<span class="companion-progress"><b>Niv. ${slot.hero.level}</b><span>${num(slot.gold)} or</span><span>${chapterUnlocked(slot,2)?`Chap. 2 · ${chapterCleared(slot,2)} / ${chapterSize(slot,2)}`:`${Math.min(slot.cleared,chapterSize(slot))+' / '+chapterSize(slot)+' missions'}`}</span></span><span class="companion-session">${slot.storyScene?'Dialogue en cours':slot.battle?'Combat en cours':'Au camp'}</span>`:'<span class="companion-new">Nouvelle aventure · niveau 1</span>'}<span class="choose-link">${slot?'Reprendre l’aventure':newAdventureMode?'Commencer une nouvelle aventure':'Découvrir ce compagnon'}</span></button>`;
 }
 function summonScreen(){
  const states=Object.values(companions),first=Object.fromEntries(Object.keys(CLASSES).map(key=>[key,states.filter(c=>c.hero.key===key).sort((a,b)=>adventureNumber(a)-adventureNumber(b))[0]]));
@@ -3624,14 +3799,13 @@ function reforgePanel(){
  return `<div class="reforge-panel"><div><h3>Reforger les points</h3><p>Récupérez tous les points investis pour les répartir à nouveau.</p><small>${cost===0?'Gratuit et illimité jusqu’au niveau 9 inclus. Dès le niveau 10 : 100 or, puis +5 or par niveau.':`${num(cost)} or à votre niveau · +5 or par niveau supplémentaire. Le prix n’augmente pas avec le nombre de reforges.`}</small>${spent&&s.gold<cost?`<span class="reforge-shortfall">Il vous manque ${num(cost-s.gold)} or.</span>`:''}</div><button data-action="reforge" aria-haspopup="dialog" ${!spent||s.gold<cost?'disabled':''}>Reforger les points <b>${cost?'· '+num(cost)+' or':'· Gratuit'}</b></button></div>`;
 }
 function worldScreen(){
- if(s.hero.key==='forgeur')return `<section class="forgeur-story-pending"><p class="eyebrow">LE FORGEUR</p><h2>L’histoire s’écrira dans l’acier.</h2><p>Son chapitre est en préparation. Explorez les expéditions, éprouvez vos techniques et forgez votre équipement.</p><button class="primary" data-action="tab" data-tab="training">Partir en expédition</button></section>`;
  if(storyRoute(s.hero.key))return campaignScreen();
  return `<div class="world-banner"><div class="eyebrow">MONDE 01</div><h2>Les terres sauvages</h2><p>Slimes de combat, chiens sauvages et Corkbeaux vous attendent.</p><span class="count">${s.cleared}<span class="muted"> / 10</span></span></div><div class="section-head"><div><h3>Votre traversée</h3><p>Chaque combat remporté est terminé définitivement.</p></div></div><div class="stages">${Array.from({length:10},(_,i)=>{const stage=i+1,done=stage<=s.cleared,locked=stage>s.cleared+1;return `<button class="stage ${done?'completed':!locked?'available':''} ${stage===5?'boss-stage':''}" data-action="world" data-stage="${stage}" ${locked||done?'disabled':''} title="${done?'Combat terminé':locked?'Combat verrouillé':'Lancer ce combat'}"><strong>${done?'✓':String(stage).padStart(2,'0')}</strong><span>Niveau ${stage}<br>${done?'Terminé':stage===5?'Drannex · Boss':[3,6,8,10].includes(stage)?'2 créatures':'1 créature'}</span></button>`;}).join('')}</div><p class="bottom-note">${s.cleared===10?'Monde 1 terminé ! Continuez à progresser en expédition.':'Une difficulté trop élevée ? Entraînez votre compagnon et améliorez son équipement.'}<br>Combats 1 à 5 : 5 à 15 or. Combats 6 à 10 : 22 or fixes. Bonus unique de 15 or au combat 1.</p>`;
 }
 function chapterTabs(selected=1){const route=storyRoute(s.hero.key);if(route.singleChapter)return '';return `<nav class="chapter-tabs" aria-label="Chapitres de ${CLASSES[s.hero.key].name}"><button class="${selected===1?'primary':''}" data-action="chapter" data-chapter="1">${route.title}</button><button class="${selected===2?'primary':''}" data-action="chapter" data-chapter="2">Chapitre 2 · ${route.nextTitle}</button>${s.hero.key==='stibili'?`<button class="${selected===3?'primary':''}" data-action="chapter" data-chapter="3">Chapitre 3 · ${storyRoute('stibili',2).nextTitle}</button>`:''}</nav>`;}
 function campaignScreen(chapter=1){
  const route=storyRoute(s.hero.key,chapter),wolf=s.hero.key==='wolffy',count=chapterSize(s,chapter),cleared=chapterCleared(s,chapter),open=chapterUnlocked(s,chapter);
- return `${chapterTabs(chapter)}<div class="world-banner ${wolf?'wolffy-banner':s.hero.key==='kaerune'?'kaerune-banner':s.hero.key==='drunn'?'drunn-banner':s.hero.key==='nahat'?'nahat-banner':'stibili-banner'}"><div class="eyebrow">L’HISTOIRE DE ${CLASSES[s.hero.key].name.toUpperCase()}</div><h2>${route.title}</h2><p>${route.description}</p><span class="count">${Math.min(cleared,count)} / ${count}</span></div>${!open?'<p class="lesson-note">Terminez le chapitre 1 pour entrer dans le Néant.</p>':''}<div class="story-missions">${Object.entries(route.missions).map(([n,m])=>{const stage=Number(n),done=stage<=cleared,locked=!open||stage>cleared+1;return `<article class="story-mission ${done?'completed':locked?'locked':'available'}"><span class="mission-number">${done?'✓':n.padStart(2,'0')}</span><div><h3>${m.title}</h3><p>${done?'Mission terminée':locked?'Terminez la mission précédente':m.gauntlet?'Niveau conseillé : 4 · 4 combats · une seule récompense':m.duel?'Duel non mortel · niveau conseillé : 5':wolf&&stage===7?'Deux rencontres · une seule récompense':m.escape?'Combat pour ouvrir une voie de fuite':m.lesson?'Duel d’apprentissage · défaite scénarisée':m.scriptedDefeat?'Défaite scénarisée · récompenses accordées':m.level?`Niveau conseillé : ${m.level}${stage===6?' (ou 9 bien équipé)':stage===7?'–12 · arme en or':''}`:'Récit et combat'}${locked&&m.level?` · Niveau conseillé : ${m.level}${stage===7?'–12':''}`:''}${m.boss||wolf&&stage===5?' · Boss':''}${m.potionReward?' · Potion de soin offerte':''}</p></div><button data-action="${done?'recap':'world'}" data-stage="${stage}" data-chapter="${chapter}" ${locked?'disabled':''} class="${!locked&&!done?'primary':'ghost'}">${done?'Revoir le récit':locked?'Verrouillée':wolf&&stage===7&&s.wolffyStory?.cemetery?'Cimetière II':'Commencer'}</button></article>`;}).join('')}</div><p class="bottom-note">Les récits peuvent être relus ; les missions terminées ne sont pas rejouables.<br>${s.hero.key==='nahat'?'Mission 1 : 5 à 15 or + 15 or de bienvenue. Traversée des bois : 30 or et l’EXP des quatre combats, uniquement à la fin. Duels : 5 à 15 or et de l’EXP.':chapter===2?'Chaque rencontre rapporte 22 or et de l’EXP, y compris la défaite scénarisée de la première mission.':`Missions 1 à 5 : 5 à 15 or. Missions 6 à ${count} : 22 or. Bonus unique de 15 or à la première mission.`}</p>`;
+ return `${s.hero.key==='forgeur'&&s.forgeurResetNotice?'<aside class="forgeur-reset-notice" role="status"><strong>Une nouvelle naissance</strong><p>Le chapitre du Forgeur est arrivé. Cette aventure a été remise au niveau 1, sans équipement ni progression. Son déblocage et vos autres compagnons sont conservés. Cette remise à zéro ne se reproduira pas.</p><button class="ghost" data-action="forgeur-reset-notice">Compris</button></aside>':''}${chapterTabs(chapter)}<div class="world-banner ${wolf?'wolffy-banner':s.hero.key==='kaerune'?'kaerune-banner':s.hero.key==='drunn'?'drunn-banner':s.hero.key==='nahat'?'nahat-banner':'stibili-banner'}"><div class="eyebrow">L’HISTOIRE DE ${CLASSES[s.hero.key].name.toUpperCase()}</div><h2>${route.title}</h2><p>${route.description}</p><span class="count">${Math.min(cleared,count)} / ${count}</span></div>${!open?'<p class="lesson-note">Terminez le chapitre 1 pour entrer dans le Néant.</p>':''}<div class="story-missions">${Object.entries(route.missions).map(([n,m])=>{const stage=Number(n),done=stage<=cleared,locked=!open||stage>cleared+1;return `<article class="story-mission ${done?'completed':locked?'locked':'available'}"><span class="mission-number">${done?'✓':n.padStart(2,'0')}</span><div><h3>${m.title}</h3><p>${done?'Mission terminée':locked?'Terminez la mission précédente':m.gauntlet?'Niveau conseillé : 4 · 4 combats · une seule récompense':m.duel?'Duel non mortel · niveau conseillé : 5':wolf&&stage===7?'Deux rencontres · une seule récompense':m.escape?'Combat pour ouvrir une voie de fuite':m.lesson?'Duel d’apprentissage · défaite scénarisée':m.scriptedDefeat?'Défaite scénarisée · récompenses accordées':m.level?`Niveau conseillé : ${m.level}${stage===6?' (ou 9 bien équipé)':stage===7?'–12 · arme en or':''}`:'Récit et combat'}${locked&&m.level?` · Niveau conseillé : ${m.level}${stage===7?'–12':''}`:''}${m.gearHint?' · '+m.gearHint:''}${m.boss||wolf&&stage===5?' · Boss':''}${m.potionReward?' · Potion de soin offerte':''}</p></div><button data-action="${done?'recap':'world'}" data-stage="${stage}" data-chapter="${chapter}" ${locked?'disabled':''} class="${!locked&&!done?'primary':'ghost'}">${done?'Revoir le récit':locked?'Verrouillée':wolf&&stage===7&&s.wolffyStory?.cemetery?'Cimetière II':'Commencer'}</button></article>`;}).join('')}</div><p class="bottom-note">Les récits peuvent être relus ; les missions terminées ne sont pas rejouables.<br>${s.hero.key==='forgeur'?'Chaque victoire : 5 à 15 or et de l’EXP. Bonus unique de 15 or à la première mission.':s.hero.key==='nahat'?'Mission 1 : 5 à 15 or + 15 or de bienvenue. Traversée des bois : 30 or et l’EXP des quatre combats, uniquement à la fin. Duels : 5 à 15 or et de l’EXP.':chapter===2?'Chaque rencontre rapporte 22 or et de l’EXP, y compris la défaite scénarisée de la première mission.':`Missions 1 à 5 : 5 à 15 or. Missions 6 à ${count} : 22 or. Bonus unique de 15 or à la première mission.`}</p>`;
 }
 function chapterTwoScreen(){if(storyRoute(s.hero.key)?.singleChapter)return campaignScreen(1);if(s.hero.key==='stibili')return campaignScreen(2);const route=storyRoute(s.hero.key);return `${chapterTabs(2)}<section class="chapter-coming ${s.hero.key==='stibili'?'stibili-next':s.hero.key==='kaerune'?'kaerune-next':''}"><div class="eyebrow">L’HISTOIRE DE ${CLASSES[s.hero.key].name.toUpperCase()} · CHAPITRE 2</div><h2>${route.nextTitle}</h2><p>En cours de développement</p></section>`;}
 function chapterThreeScreen(){return `${chapterTabs(3)}<section class="chapter-coming stibili-next"><div class="eyebrow">L’HISTOIRE DE STIBILI · CHAPITRE 3</div><h2>${storyRoute('stibili',2).nextTitle}</h2><p>En cours de développement</p></section>`;}
@@ -3639,7 +3813,7 @@ function storyScreen(){
  const scene=s.storyScene,chapter=scene.chapter??1,route=storyRoute(s.hero.key,chapter),lines=storyLines(scene.stage,scene.phase,s.hero.key,chapter),frame=lines[scene.index],speaker=STORY_CAST[frame.speaker];
  const portrait=(key,side)=>{const c=STORY_CAST[key];if(!c)return '';return `<div class="story-actor ${side} ${c.kind} ${frame.speaker===key?'speaking':'listening'} ${c.silhouette?'silhouette':''} ${frame.speaker===key?frame.effect||'':''}">${art(frame.combatPortrait?(c.combatArt??c.art):key===s.hero?.key?heroArt(s,false):c.art)}</div>`;};
  const left=frame.other===null?frame.speaker:frame.speaker===s.hero.key?s.hero.key:frame.other||s.hero.key,right=frame.other===null?null:frame.speaker===s.hero.key?frame.other:frame.speaker;
- return `<section class="story-scene"><div class="story-heading"><div><div class="eyebrow">CHAPITRE ${chapter} · MISSION ${scene.stage}${scene.phase==='recap'?' · RELECTURE':scene.phase==='interlude'?' · COMBAT EN PAUSE':''}</div><h2>${route.missions[scene.stage].title}</h2></div><span>${scene.index+1} / ${lines.length}</span></div><div class="story-stage ${s.hero.key==='nahat'?'drunn-bg nahat-bg bg-'+(frame.background??route.missions[scene.stage].background):s.hero.key==='drunn'?'drunn-bg bg-'+route.missions[scene.stage].background:s.hero.key==='kaerune'?'kaerune-bg bg-'+(frame.background??route.missions[scene.stage].background):s.hero.key==='stibili'?'stibili-bg bg-'+route.missions[scene.stage].background:scene.stage>=2?'story-war':'story-awakening'}">${frame.speaker?portrait(left,'left')+(right!==left?portrait(right,'right'):''): '<div class="story-narration-mark" aria-hidden="true">✧</div>'}</div><div class="story-dialogue ${frame.whisper?'whisper':''}" aria-live="polite"><div class="story-speaker">${frame.narration||!speaker?'Récit':frame.speakerName??speaker.name}</div><p>${frame.whisper?'<small>À voix basse</small>':''}${frame.text}</p><div class="story-controls"><button class="ghost" data-action="story-skip">${scene.phase==='recap'?'Fermer le récit':'Passer cette scène'}</button><button class="primary" data-action="story-next">${scene.index<lines.length-1?'Suite →':['before','between'].includes(scene.phase)?'Entrer en combat':scene.phase==='after'?'Voir les récompenses':scene.phase==='interlude'?'Reprendre le combat':'Retour au chapitre'}</button></div></div></section>`;
+ return `<section class="story-scene ${frame.shake?'forgeur-story-quake':''}"><div class="story-heading"><div><div class="eyebrow">CHAPITRE ${chapter} · MISSION ${scene.stage}${scene.phase==='recap'?' · RELECTURE':scene.phase==='interlude'?' · COMBAT EN PAUSE':''}</div><h2>${route.missions[scene.stage].title}</h2></div><span>${scene.index+1} / ${lines.length}</span></div><div class="story-stage ${s.hero.key==='forgeur'?'forgeur-story-bg bg-'+(frame.background??route.missions[scene.stage].background):s.hero.key==='nahat'?'drunn-bg nahat-bg bg-'+(frame.background??route.missions[scene.stage].background):s.hero.key==='drunn'?'drunn-bg bg-'+route.missions[scene.stage].background:s.hero.key==='kaerune'?'kaerune-bg bg-'+(frame.background??route.missions[scene.stage].background):s.hero.key==='stibili'?'stibili-bg bg-'+route.missions[scene.stage].background:scene.stage>=2?'story-war':'story-awakening'}">${frame.speaker?portrait(left,'left')+(right!==left?portrait(right,'right'):''): '<div class="story-narration-mark" aria-hidden="true">✧</div>'}</div><div class="story-dialogue ${frame.whisper?'whisper':''}" aria-live="polite"><div class="story-speaker">${frame.narration||!speaker?'Récit':frame.speakerName??speaker.name}</div><p>${frame.whisper?'<small>À voix basse</small>':''}${frame.text}</p><div class="story-controls"><button class="ghost" data-action="story-skip">${scene.phase==='recap'?'Fermer le récit':'Passer cette scène'}</button><button class="primary" data-action="story-next">${scene.index<lines.length-1?'Suite →':['before','between'].includes(scene.phase)?'Entrer en combat':scene.phase==='after'?'Voir les récompenses':scene.phase==='interlude'?'Reprendre le combat':'Retour au chapitre'}</button></div></div></section>`;
 }
 
 function trainingScreen(){
@@ -3768,7 +3942,7 @@ function pupCard(p){return `<div class="fighter ally wolf-pup ${p.hp<=0?'fallen-
 function battleScreen(){
  const b=s.battle,forestDeadline=b.enemies[0]?.fatalAt??4,c=CLASSES[s.hero.key],skills=b.sealedMagic?[]:availableSkills(s),living=b.enemies.filter(e=>e.hp>0),multiple=living.length>1;
  if(!b.enemies[b.target]?.hp)b.target=b.enemies.findIndex(e=>e.hp>0);
- return `<div class="arena ${s.hero.key==='stibili'?'stibili-combat':s.hero.key==='wolffy'?'wolffy-combat':''} ${s.hero.key==='forgeur'?'forgeur-combat forge-'+forgeState(b):''} ${b.bone?'has-bone':''} ${b.pups?.length?'has-pack':''} ${b.pups?.filter(p=>p.hp>0).length>=3?'large-pack':''} ${b.larva?'has-larva':''} ${b.enemies.length>=3?'three-enemies':''} ${b.mode==='practice'?'training-arena practice-arena':b.mode==='training'?'expedition-arena drunn-arena expedition-'+(b.goldenEncounter?'treasury':b.expedition??'forest'):b.mode==='trial'?'drunn-arena bg-'+(TRIALS[b.stage]?.background??b.background):b.mode==='rift'?'rift-arena':b.mode==='forest'?'forest-arena':(b.mode==='training'||b.story&&s.hero.key==='wolffy'&&b.stage===1)?'training-arena':b.story&&['drunn','nahat'].includes(s.hero.key)?'drunn-arena bg-'+b.background:b.story&&s.hero.key==='kaerune'?'kaerune-arena bg-'+b.background:b.story&&s.hero.key==='stibili'?'stibili-arena bg-'+b.background:b.story&&b.stage>=2?'wolffy-arena':''}">${b.goldenEncounter&&!b.goldenIntroSeen?'<span class="golden-entry-flash" aria-hidden="true"></span>':''}<div class="arena-top"><div><span class="turn">Tour ${b.round}${b.goldenEncounter?' / 4':''}${b.mode==='forest'?' / '+forestDeadline:''} · ${busy?'Résolution en cours':'À vous de jouer'}</span><h3>${battleTitle(b)}</h3></div><button class="ghost" data-action="retreat" ${busy?'disabled':''}>Quitter</button></div>${b.sealedMagic?'<div class="lesson-note">La magie ne répond plus. Seule l’attaque de base est disponible.</div>':''}${b.lesson?`<div class="lesson-note">Duel d’apprentissage : la défaite face à Séraphyne fait partie du récit et valide la mission. Or et EXP accordés à sa conclusion.</div>`:''}${b.mode==='forest'?`<div class="forest-countdown ${b.round>=forestDeadline?'urgent':''}">${b.round>=forestDeadline?'Dernière action : vainquez-la maintenant !':`L’Enfant de la forêt se soigne de 6 % de ses PV max à chaque tour. Attaque fatale au tour ${forestDeadline}.`}</div>`:''}<div class="battlefield"><div class="allied-group"><div class="fighter ${b.matriarch?'matriarch-form':''} ${smokeActive(s)?'smoke-active':''}" id="hero">${combatNameplate(c)}${titleBadge(s)}${art(heroArt(s))}${health(b.hp,b.maxHp,heroEffects(s),shieldTotal(b,b.round),false,shieldCapacity(b,b.round))}<span class="target-tag">Votre compagnon</span></div><div class="summon-column">${b.larva?larvaCard(b.larva):''}${b.bone?boneCard(b.bone):''}${s.hero.key==='wolffy'?`<div class="pack-allies">${(b.pups??[]).filter(p=>p.hp>0).map(pupCard).join('')}</div>`:''}</div></div><div class="enemy-group">${b.enemies.map((e,i)=>enemyCard(e,i,b,multiple)).join('')}</div></div><div class="arena-footer"><span>${multiple?'Choisissez votre cible, puis votre attaque ou compétence.':'Le seul ennemi vivant est ciblé automatiquement.'}</span><span>${buffLabel(b)}</span></div></div>${combatToolbar(skills)}${nahatIntentPanel(b)}${drunnIntentPanel(b)}${riftIntentPanel(b)}${trialIntentPanel(b)}${expeditionIntentPanel(b)}${forgeTensionPanel()}${chargePanel()}${skills.length?`<details class="skill-detail"><summary>Détails des compétences</summary>${skills.map(d=>`<p><b>${d.name}.</b> ${skillText(s,d.id)}</p>`).join('')}</details>`:''}${passiveCard()}${logScreen(b.log)}`;
+ return `<div class="arena ${s.hero.key==='stibili'?'stibili-combat':s.hero.key==='wolffy'?'wolffy-combat':''} ${s.hero.key==='forgeur'?'forgeur-combat forge-'+forgeState(b):''} ${b.bone?'has-bone':''} ${b.pups?.length?'has-pack':''} ${b.pups?.filter(p=>p.hp>0).length>=3?'large-pack':''} ${b.larva?'has-larva':''} ${b.enemies.length>=3?'three-enemies':''} ${b.mode==='practice'?'training-arena practice-arena':b.mode==='training'?'expedition-arena drunn-arena expedition-'+(b.goldenEncounter?'treasury':b.expedition??'forest'):b.mode==='trial'?'drunn-arena bg-'+(TRIALS[b.stage]?.background??b.background):b.mode==='rift'?'rift-arena':b.mode==='forest'?'forest-arena':(b.mode==='training'||b.story&&s.hero.key==='wolffy'&&b.stage===1)?'training-arena':b.story&&s.hero.key==='forgeur'?'forgeur-story-arena bg-'+b.background:b.story&&['drunn','nahat'].includes(s.hero.key)?'drunn-arena bg-'+b.background:b.story&&s.hero.key==='kaerune'?'kaerune-arena bg-'+b.background:b.story&&s.hero.key==='stibili'?'stibili-arena bg-'+b.background:b.story&&b.stage>=2?'wolffy-arena':''}">${b.goldenEncounter&&!b.goldenIntroSeen?'<span class="golden-entry-flash" aria-hidden="true"></span>':''}<div class="arena-top"><div><span class="turn">Tour ${b.round}${b.goldenEncounter?' / 4':''}${b.mode==='forest'?' / '+forestDeadline:''} · ${busy?'Résolution en cours':'À vous de jouer'}</span><h3>${battleTitle(b)}</h3></div><button class="ghost" data-action="retreat" ${busy?'disabled':''}>Quitter</button></div>${b.sealedMagic?'<div class="lesson-note">La magie ne répond plus. Seule l’attaque de base est disponible.</div>':''}${b.lesson?`<div class="lesson-note">Duel d’apprentissage : la défaite face à Séraphyne fait partie du récit et valide la mission. Or et EXP accordés à sa conclusion.</div>`:''}${b.mode==='forest'?`<div class="forest-countdown ${b.round>=forestDeadline?'urgent':''}">${b.round>=forestDeadline?'Dernière action : vainquez-la maintenant !':`L’Enfant de la forêt se soigne de 6 % de ses PV max à chaque tour. Attaque fatale au tour ${forestDeadline}.`}</div>`:''}<div class="battlefield">${b.enemies.some(e=>e.hp>0&&e.bombPending)?'<span class="forgeur-bomb" role="img" aria-label="Bombe : explosion au prochain tour ennemi"></span>':''}<div class="allied-group"><div class="fighter ${b.matriarch?'matriarch-form':''} ${smokeActive(s)?'smoke-active':''}" id="hero">${combatNameplate(c)}${titleBadge(s)}${art(heroArt(s))}${health(b.hp,b.maxHp,heroEffects(s),shieldTotal(b,b.round),false,shieldCapacity(b,b.round))}<span class="target-tag">Votre compagnon</span></div><div class="summon-column">${b.larva?larvaCard(b.larva):''}${b.bone?boneCard(b.bone):''}${s.hero.key==='wolffy'?`<div class="pack-allies">${(b.pups??[]).filter(p=>p.hp>0).map(pupCard).join('')}</div>`:''}</div></div><div class="enemy-group">${b.enemies.map((e,i)=>enemyCard(e,i,b,multiple)).join('')}</div></div><div class="arena-footer"><span>${multiple?'Choisissez votre cible, puis votre attaque ou compétence.':'Le seul ennemi vivant est ciblé automatiquement.'}</span><span>${buffLabel(b)}</span></div></div>${combatToolbar(skills)}${nahatIntentPanel(b)}${drunnIntentPanel(b)}${riftIntentPanel(b)}${trialIntentPanel(b)}${expeditionIntentPanel(b)}${forgeTensionPanel()}${chargePanel()}${skills.length?`<details class="skill-detail"><summary>Détails des compétences</summary>${skills.map(d=>`<p><b>${d.name}.</b> ${skillText(s,d.id)}</p>`).join('')}</details>`:''}${passiveCard()}${logScreen(b.log)}`;
 }
 function chargePanel(){
  const b=s.battle;if(s.hero.key!=='drunn'||s.hero.level<9)return '';
@@ -3883,7 +4057,15 @@ function showForgeurUnlock(){
 async function animate(events,visual){
  let signaturePlayed=false;
  for(const e of events){
-  if(e.type==='forge-tension'){
+  if(e.type==='forgeur-story-cue'){
+   const unit=battleUnit(visual,e.to);floatText(e.to,e.label,'spell-name');
+   if(e.kind==='bomb-set'){unit.bombPending=true;document.querySelector('.battlefield')?.insertAdjacentHTML('beforeend','<span class="forgeur-bomb bomb-arriving" role="img" aria-label="Bombe : explosion au prochain tour ennemi"></span>');await sleep(650);}
+   else if(e.kind==='bomb-explode'){unit.bombPending=false;document.querySelector('.forgeur-bomb')?.remove();await sleep(250);}
+   else await sleep(280);
+  }else if(e.type==='roxxor-weaken'){visual.roxxorWeakened=true;refreshHeroEffects(visual);floatText('hero','Poids du regret · dégâts −10 %','spell-name');await sleep(450);
+  }else if(e.type==='forgeur-story-burn'){
+   const unit=battleUnit(visual,e.to);unit.burning=true;refreshHeroEffects(visual);floatText(e.to,e.label,'burn');await strikeEffect({projectile:'fire'},document.getElementById(e.from),document.getElementById(e.to));
+  }else if(e.type==='forge-tension'){
    visual.tension=e.tension;await forgeurEffect(e,document.getElementById('hero'));refreshHeroEffects(visual);const panel=document.querySelector('.tension-panel');if(panel){const original=s.battle;s.battle=visual;panel.outerHTML=forgeTensionPanel();s.battle=original;}
   }else if(e.type==='forge-sync'){
    for(const key of ['tension','forgeNextStrike','forgeNextFracas','forgeNextProtection','forgeJudgment','preventionArmed','preventionPending','divineSwordStacks'])visual[key]=e[key];refreshHeroEffects(visual);
@@ -4174,6 +4356,7 @@ app.addEventListener('click',async e=>{
  if(busy)return;
  if(a==='practice'){if(home||!s.hero||s.battle||s.storyScene)return;practiceRequest=adventureId(s);document.querySelector('#practice-dialog').showModal();return;}
  if(a==='achievements'){if(!home&&s.hero){renderAchievements();document.querySelector('#achievements-dialog').showModal();}return;}
+ if(a==='forgeur-reset-notice'){delete s.forgeurResetNotice;save();render();return;}
  if(a==='home'){document.querySelector('#achievements-dialog').close();goHome();return;}
  if(a==='new-adventure'||a==='cancel-new-adventure'){if(!home||busy)return;newAdventureMode=a==='new-adventure';selectedHero=null;render();return;}
  if(a==='resume-companion'){resumeCompanion(b.dataset.key);return;}

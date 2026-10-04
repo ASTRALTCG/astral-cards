@@ -1,3 +1,4 @@
+import {FORGEUR_STORY_VERSION,FORGEUR_MISSIONS,FORGEUR_ENCOUNTERS,forgeurStoryEnemies,forgeurEnemyTurn} from './forgeur-story.mjs';
 import {FORGEUR_CLASS,FORGEUR_PASSIVE,FORGEUR_SKILLS,FORGEUR_TEXT,FORGEUR_ITEMS,forgeTension,forgeState,forgeArt,newProfile,syncProfile,companionAvailable} from './forgeur.mjs';
 export {forgeTension,forgeState,forgeArt,newProfile,syncProfile,companionAvailable};
 import {MAX_LEVEL,xpNeed,expeditionXp,expeditionXpRange,expeditionXpDivisors} from './progression.mjs';
@@ -244,7 +245,7 @@ export const lastBreathReady=s=>s.hero?.key==='kaerune'&&s.battle?.lastBreathTur
 export function healHero(s,amount,alreadyScaled=false){const b=s.battle;if(!b||b.hp<=0||b.unhealable)return 0;const restored=Math.max(0,Math.min(b.maxHp-b.hp,Math.round(amount*(alreadyScaled?1:(equippedItem(s,'orb')?.type==='orbe-brasier'?.6:1)))));b.hp+=restored;return restored;}
 
 // Current harmful hero states; scenario locks and skill costs are not dispellable effects.
-export function cleanseHero(b){b.burning=!!b.eternalFlames;b.snakePoison=false;b.sandUntil=0;b.cobraBurnStacks=0;b.unhealable=!!(b.refusSuccess||b.distressUsed);b.riftFissures={};b.riftAttraction={};}
+export function cleanseHero(b){b.roxxorWeakened=false;b.burning=!!b.eternalFlames;b.snakePoison=false;b.sandUntil=0;b.cobraBurnStacks=0;b.unhealable=!!(b.refusSuccess||b.distressUsed);b.riftFissures={};b.riftAttraction={};}
 
 export function enemyDamage(s,e){return Math.max(1,Math.round((e.dmg+(e.type==='corkbeau'&&!e.storyKind?Math.min(s.battle.maxHp*.02,e.dmg*.5):0))*((e.weakenedUntil??0)>=s.battle.round?.85:1)));}
 export const ENEMIES={
@@ -328,8 +329,21 @@ function collectResources(s,enemies,rng){
 export const LABELS={flameDamage:'% de dégâts en combat',bonePower:'% des statistiques de l’invocation',hp:'PV',dmg:'Dégâts',luck:'Chance',speed:'Vitesse',dmgPercent:'% de dégâts',luckPercent:'% de Chance',speedPercent:'% de Vitesse',vitalityPercent:'% de PV max après bonus',hpPercent:'% de PV max',omen:'% de Riposte par impact subi'};
 export const rngInt=(a,b,rng=Math.random)=>a+Math.floor(rng()*(b-a+1));
 
-export const fresh=()=>({profile:newProfile(),forge:{unlocked:false,itemId:null},achievements:newAchievements(),version:1,progressionVersion:1,nahatStoryVersion:1,drunnStoryVersion:1,balanceVersion:BALANCE_VERSION,hero:null,gold:0,items:[],resources:{},equipped:{weapon:null,armor:null,accessory:null,accessory2:null,orb:null},cleared:0,rift:{cleared:0},missions:{forest:false},battle:null,storyScene:null,wolffyStory:{cemetery:0},stibiliChapter2:{cleared:0,voidForm:false}});
+export const fresh=()=>({forgeurStoryVersion:FORGEUR_STORY_VERSION,profile:newProfile(),forge:{unlocked:false,itemId:null},achievements:newAchievements(),version:1,progressionVersion:1,nahatStoryVersion:1,drunnStoryVersion:1,balanceVersion:BALANCE_VERSION,hero:null,gold:0,items:[],resources:{},equipped:{weapon:null,armor:null,accessory:null,accessory2:null,orb:null},cleared:0,rift:{cleared:0},missions:{forest:false},battle:null,storyScene:null,wolffyStory:{cemetery:0},stibiliChapter2:{cleared:0,voidForm:false}});
 export function migrateBalance(s){
+ // One release migration per adventure, including inactive duplicate Forgeurs.
+ // Profile unlock and adventure identity survive; no other companion is reset.
+ if(s.hero?.key==='forgeur'&&s.forgeurStoryVersion!==FORGEUR_STORY_VERSION){
+  const played=s.hero.level>1||s.hero.xp>0||s.gold>0||s.items?.length>0||s.cleared>0||s.battle||s.storyScene||Object.values(s.hero.allocated??{}).some(Boolean)||Object.values(s.resources??{}).some(Boolean)||s.rift?.cleared>0||['wins','spent','goldBought','crafted','astralStars','astralWeapons','astralArmors'].some(k=>(s.achievements?.[k]??0)>0)||s.achievements?.claimed?.length>0||s.achievements?.unlockedByCode?.length>0||Object.values(s.achievements?.monsterDrops??{}).some(Boolean)||s.trials?.claimed||s.forge?.unlocked;
+  if(played){
+   const identity={...(s.adventureId?{adventureId:s.adventureId}:{}),...(s.adventureNumber?{adventureNumber:s.adventureNumber}:{})};
+   const profile=s.profile??newProfile();profile.unlocks??={};profile.unlocks.forgeur=true;
+   const clean=fresh();clean.profile=profile;summon(clean,'forgeur');
+   for(const key of Object.keys(s))delete s[key];Object.assign(s,clean,identity,{forgeurResetNotice:true});
+  }else s.forgeurStoryVersion=FORGEUR_STORY_VERSION;
+  migrateBalance(s);return true;
+ }
+
  const legacyAstralAchievements=s.achievements?.version!==2;
  let traversalChanged=ensureAchievements(s);
  if(legacyAstralAchievements){for(const item of (s.items??[]).filter(isAstral)){recordAchievement(s,ITEMS[item.type].slot==='weapon'?'astralWeapons':'astralArmors');if(item.stars?.some(Boolean))recordAchievement(s,'astralStars');}}
@@ -596,7 +610,7 @@ export const heroArt=(s,combat=!!s.battle)=>s.hero?.key==='forgeur'?(combat?forg
 export const wolfPupDamage=(p,round)=>p.dmg*((p.furyUntil??0)>=round?1.2:1);
 export const hurricaneMultiplier=s=>.8*1.1**(s.battle?.hurricaneStacks??0);
 export const forestUnlocked=s=>false;
-export const chapterSize=(s,chapter=1)=>s.hero?.key==='forgeur'?0:Object.keys(storyRoute(s.hero?.key,chapter)?.missions??(chapter===1?WOLFFY_MISSIONS:{})).length;
+export const chapterSize=(s,chapter=1)=>Object.keys(storyRoute(s.hero?.key,chapter)?.missions??(chapter===1?WOLFFY_MISSIONS:{})).length;
 export const getAchievements=s=>achievementRows(s,chapterSize(s));
 export function grantExperience(s,amount){
  const old=s.hero.level;if(old>=MAX_LEVEL){s.hero.xp=0;return 0;}
@@ -675,7 +689,6 @@ export const enemyCritChance=(e,round)=>e.riftKind==='spectralGuard'?1/3:e.story
 export function startBattle(s,mode,stage=1,rng=Math.random,chapter=1){
  if(!s.hero||s.battle||s.storyScene)throw Error('Combat indisponible.');
  if(!['practice','training','world','rift','trial'].includes(mode))throw Error('Mode inconnu.');
- if(s.hero?.key==='forgeur'&&mode==='world')throw Error('L’histoire du Forgeur sera disponible prochainement.');
  if(mode==='world'&&(!chapterUnlocked(s,chapter)||!Number.isInteger(stage)||stage<1||stage>chapterSize(s,chapter)||stage!==chapterCleared(s,chapter)+1))throw Error('Combat verrouillé.');
  if(mode==='forest'&&(!forestUnlocked(s)||s.missions.forest))throw Error('Mission verrouillée ou déjà terminée.');
  if(mode==='rift'&&(!riftUnlocked(s)||!Number.isInteger(stage)||stage<1||stage>50||stage>riftCleared(s)+1||stage===50&&riftCleared(s)===50))throw Error('Étage de la Fissure verrouillé.');
@@ -684,7 +697,7 @@ export function startBattle(s,mode,stage=1,rng=Math.random,chapter=1){
  if(expedition&&!Object.hasOwn(EXPEDITIONS,expedition))throw Error('Expédition inconnue.');
  const pending=expedition?pendingExpedition(s,expedition):null;
  const trainingLevelOffset=mode==='training'?(Number.isInteger(pending?.levelOffset)?pending.levelOffset:rngInt(-1,1,rng)):0;
- const level=mode==='practice'?s.hero.level:mode==='trial'?15:mode==='rift'?riftFloor(stage).level:mode==='training'?(expedition==='chasm'?s.hero.level+2:Math.min(MAX_LEVEL,Math.max(1,s.hero.level+trainingLevelOffset))):mode==='forest'?7:mode==='world'&&s.hero.key==='nahat'?NAHAT_MISSIONS[stage].level:mode==='world'&&s.hero.key==='drunn'?DRUNN_MISSIONS[stage].level:stage+(chapter===2?9:0);
+ const level=mode==='practice'?s.hero.level:mode==='trial'?15:mode==='rift'?riftFloor(stage).level:mode==='training'?(expedition==='chasm'?s.hero.level+2:Math.min(MAX_LEVEL,Math.max(1,s.hero.level+trainingLevelOffset))):mode==='forest'?7:mode==='world'&&s.hero.key==='forgeur'?FORGEUR_MISSIONS[stage].level:mode==='world'&&s.hero.key==='nahat'?NAHAT_MISSIONS[stage].level:mode==='world'&&s.hero.key==='drunn'?DRUNN_MISSIONS[stage].level:stage+(chapter===2?9:0);
  const encounter=mode==='training'?(pending?.type??trainingEncounter(rng,expedition)):null;
  const goldenEncounter=mode==='training'&&s.hero.level>=10&&(pending?!!pending.golden:rng()<.05);
  if(expedition)(s.expeditionEncounters??={})[expedition]={type:encounter,golden:goldenEncounter,levelOffset:trainingLevelOffset};
@@ -696,8 +709,8 @@ export function startBattle(s,mode,stage=1,rng=Math.random,chapter=1){
  if(mode==='rift')enemies=riftEnemies(stage);
  if(mode==='trial')enemies=[trialEnemy(stage)];
  if(mode==='practice')enemies=[{id:'enemy0',type:'practice-dummy',practiceDummy:true,name:'Le mannequin d’entraînement',art:'training-dummy',level:s.hero.level,hp:stats(s).hp,maxHp:stats(s).hp,dmg:0,totalDamage:0,noReward:true}];
- const story=mode==='world'&&!!storyRoute(s.hero.key);if(story)enemies=s.hero.key==='nahat'?nahatEnemies(stage):s.hero.key==='drunn'?drunnEnemies(stage):s.hero.key==='kaerune'?kaeruneEnemies(stage):s.hero.key==='stibili'?(chapter===2?stibiliVoidEnemies(stage):stibiliEnemies(stage)):storyEnemies(stage,stage===7&&!!s.wolffyStory?.cemetery);
- if(mode==='world'&&!['drunn','nahat'].includes(s.hero.key)&&chapter===1&&stage>=4)for(const enemy of enemies){enemy.maxHp=Math.ceil(enemy.maxHp*1.2);enemy.hp=enemy.maxHp;}
+ const story=mode==='world'&&!!storyRoute(s.hero.key);if(story)enemies=s.hero.key==='forgeur'?forgeurStoryEnemies(stage):s.hero.key==='nahat'?nahatEnemies(stage):s.hero.key==='drunn'?drunnEnemies(stage):s.hero.key==='kaerune'?kaeruneEnemies(stage):s.hero.key==='stibili'?(chapter===2?stibiliVoidEnemies(stage):stibiliEnemies(stage)):storyEnemies(stage,stage===7&&!!s.wolffyStory?.cemetery);
+ if(mode==='world'&&!['drunn','nahat','forgeur'].includes(s.hero.key)&&chapter===1&&stage>=4)for(const enemy of enemies){enemy.maxHp=Math.ceil(enemy.maxHp*1.2);enemy.hp=enemy.maxHp;}
  if(chapter===2&&mode==='world'&&stage>=2){s.stibiliChapter2??={cleared:0,voidForm:false};s.stibiliChapter2.voidForm=true;}
  const v=stats(s);s.battle={goldenEncounter,goldenIntroSeen:false,expeditionRewardMultiplier:mode==='training'&&expedition==='chasm'&&!goldenEncounter?1.11:1,weaponChoiceVersion:1,plumesStacks:0,playtestBalanceVersion:1,encounterBalanceVersion:1,expeditionEntryLevel:s.hero.level,nahatWave:1,expedition,bone:null,boneUsed:false,disabledSkill:null,openingPending:story&&s.hero.key==='drunn'&&stage===3,eternalFlames:story&&s.hero.key==='drunn'&&stage===7,trainingBalanceVersion:3,stibiliBalanceVersion:2,voidBalanceVersion:1,healCharges:2,healLastTurn:0,chapter:mode==='world'?chapter:1,sealedMagic:mode==='world'&&chapter===2&&stage===1,summonBase:{hp:v.hp,dmg:v.dmg},larva:null,larvaUsed:false,pups:[],packUsed:false,packVersion:1,packReworkVersion:1,cloudStrike:false,advancedSkillsVersion:1,unhealable:false,distressUsed:false,lastBreathTurn:0,fangStacks:0,smokeUsed:false,smokeUntil:0,navigatorUsed:false,elementalUsed:{},elementalSacrificeUsed:false,durationVersion:1,buffApplied:{},riftRewardXp:mode==='rift'?(s.hero.level>=MAX_LEVEL?0:Math.round(Math.round(xpNeed(s.hero.level)*.2)*.65)):0,riftEntryLevel:s.hero.level,riftAttraction:{},riftFissures:{},trainingEncounter:encounter,id:globalThis.crypto.randomUUID(),mode,stage:mode==='forest'?7:stage,level,story,storyKey:story?s.hero.key:null,background:mode==='trial'?TRIALS[stage].background:story?storyRoute(s.hero.key,chapter).missions[stage].background??null:null,lesson:story&&s.hero.key==='kaerune'?KAERUNE_MISSIONS[stage].lesson??null:null,burning:story&&s.hero.key==='drunn'&&stage===7,storyWave:story&&s.hero.key==='wolffy'&&stage===7&&s.wolffyStory?.cemetery?2:1,enemies,hp:v.hp,maxHp:v.hp,round:1,cooldowns:{},buffs:{},power:0,powerCasts:0,accumulation:0,reinforcementCalled:false,refusUsed:false,refusSuccess:false,matriarch:false,hurricaneStacks:0,glacierUsed:false,charges:s.hero.key==='drunn'&&s.hero.level>=9?1:0,redressement:false,target:0,log:[mode==='forest'?'Quatre tours pour vaincre l’Enfant de la forêt avant son attaque fatale.':story?storyRoute(s.hero.key,chapter).missions[stage].title+' — À vous de jouer.':boss?'Drannex, le loup à deux têtes, vous barre la route.':'Le combat commence. À vous de jouer.']};
  if(accessoryOf(s,'ceinture-pierre'))grantShield(s.battle,'Ceinture ancienne · entrée',s.battle.maxHp*accessoryOf(s,'ceinture-pierre').stats.stoneShieldPercent/100);
@@ -712,6 +725,7 @@ export function combatStats(s){
  if(active('fury')){v.dmg=Math.round(v.dmg*1.2);v.luck*=1.2;v.speed*=1.2;}
  if(acharnement(s)){v.dmg=Math.round(v.dmg*1.15);v.luck*=1.15;v.speed*=1.15;}
  if(b.refusSuccess)v.dmg*=.8;
+ if(b.roxxorWeakened)v.dmg*=.9;
  if(skillUnlocked(s,'adaptation'))v.dmg*=1+.02*(b.adaptation??0);
  if(s.hero.key==='kaerune'&&b.redressement){v.dmg=Math.round(v.dmg*1.05);v.speed*=1.03;}
  if(s.hero.key==='forgeur'){v.dmg*=forgeState(b)==='hot'?1.2:forgeState(b)==='cold'?.8:1;v.dmg*=1+.1*(b.divineSwordStacks??0);}
@@ -810,6 +824,7 @@ export function heroEffects(s){
  if(skillUnlocked(s,'crocs'))add('crocs','⚔','Crocs nuageux',`Prochaine morsure : ${crocsPercent(s)} %. +7 points à chaque fin de tour de Wolffy.`,b.fangStacks??0);
  if(skillUnlocked(s,'elementaire'))add('elementaire','◈','Sacrifice élémentaire',b.elementalSacrificeUsed?'Déjà utilisé ce combat.':elementalMissing(s).length?'À lancer : '+elementalMissing(s).map(id=>SKILLS[id].name).join(', ')+'.':'Prêt : les trois éléments ont été utilisés.');
  if((b.sandUntil??0)>=b.round)add('sand','◌','Sable de brouillage',`20 % de risque de manquer chaque frappe de base ou de compétence offensive. ${b.sandUntil-b.round+1} tour(s) restant(s), tour actuel inclus.`);
+ if(b.roxxorWeakened)add('roxxor-regret','↓','Poids du regret','Dégâts d’attaque réduits de 10 % jusqu’à la fin du combat. Non cumulable ; une purification peut retirer ce malus.');
  if(b.sealedMagic)add('sealed','◈','Magie scellée','Vos compétences et les potions sont indisponibles. Seule l’attaque de base répond.');
  if(b.larva?.hp>0)add('larva','◈','Larve protectrice','Les attaques ciblées frappent d’abord la Larve. Les attaques de zone et les brûlures déjà subies peuvent toujours toucher Stibili.');
  for(const sh of activeShields(b,b.round))add('shield-'+sh.source,'⬡',sh.source,`Bouclier : ${sh.amount} points${sh.until==null?' jusqu’à absorption':', '+(sh.until-b.round+1)+' tour(s) restant(s)'}. Les sacrifices de PV ignorent le bouclier.`,sh.amount);
@@ -851,6 +866,7 @@ export function enemyEffects(e,round=1){
  if(e.guardian)effects.push({id:'guardian',icon:'◈',name:'Gardien de la Traversée',text:TRIALS[e.guardian].rule});
  if(e.riftKind){effects.push({id:'rift-rule',icon:'◈',name:'Créature de la Fissure',text:RIFT_CREATURES[e.riftKind].rule});if(e.rift.ward)effects.push({id:'rift-ward',icon:'⬡',name:'Ailes protectrices',text:'Première frappe directe réduite de 50 %.'});if(e.rift.cocoon)effects.push({id:'rift-cocoon',icon:'◉',name:'Cocon',text:'Éclosion à la prochaine action de la Larve.'});if(e.rift.revived)effects.push({id:'rift-revived',icon:'◇',name:'Âme épuisée',text:'Cette entité a déjà été ressuscitée.'});}
  const add=(id,icon,name,text,stacks)=>effects.push({id,icon,name,text,...(stacks===undefined?{}:{stacks})});
+ if(e.forgeurStory){add('forgeur-enemy-rule','◆',e.name,FORGEUR_ENCOUNTERS[e.storyKind].rule);if(e.bombPending)add('bomb','●','Bombe au sol','Après la prochaine attaque de l’Écurexplosion : explosion à 140 % des dégâts.');if(e.rageStacks)add('three-heads','♨','Rage de la troisième tête',`Dégâts +${e.rageStacks*7} %.`,e.rageStacks);}
  if(e.riftKind==='saw'&&e.rift.step>0)add('saw-power','⚔','Scies grandissantes',`Prochaine frappe : ${100+10*e.rift.step} % des dégâts.`,e.rift.step);
  if(e.poisonStacks)add('poison','☠','Poison',`${e.poisonStacks} cumul(s) : perd ${e.poisonStacks*3} % de la plus élevée des statistiques dégâts/chance de Drunn au début de son tour.`,e.poisonStacks);
  if((e.weakenedUntil??0)>=round)add('weakened','↓','Affaibli — Saut',`Dégâts d’attaque réduits de 15 %. ${durationText(e.weakenedUntil,round,e.weakenedApplied)}`);
@@ -1007,7 +1023,7 @@ export function resolveAction(s,action,rng=Math.random){
   if(id!=='hero'&&!unit.hp)events.push({type:'ally-down',to:id});
   log(`${e.name} exécute ${id==='hero'?CLASSES[s.hero.key].name:unit.name} en ignorant les boucliers.`);return true;
  };
- const enemyStrike=(e,mult=1,projectile=false,drain=false,area=false,riftMark=null)=>{
+ const enemyStrike=(e,mult=1,projectile=false,drain=false,area=false,riftMark=null,criticalChance=null)=>{
   if(b.hp<=0||e.hp<=0||duelOver())return 0;
   triggerTrap(e);if(e.hp<=0||b.hp<=0)return 0;
   if(trappedAction===e.id)mult*=.7;
@@ -1019,7 +1035,7 @@ export function resolveAction(s,action,rng=Math.random){
    if(e.riftKind==='specter'&&executeSpecter(e,unit,id))continue;
    if(id==='hero'&&blockAttack(e))continue;
    if(id==='hero'&&dodgeChance(s,e)>0&&rng()<dodgeChance(s,e)){events.push({type:'dodge',from:e.id,to:'hero'});log(`${smokeActive(s)?'Écran de fumée / Analyse':'Analyse'} : attaque de ${e.name} esquivée.`);continue;}
-   const crit=enemyCritChance(e,b.round)>0&&rng()<enemyCritChance(e,b.round);
+   const chance=criticalChance??enemyCritChance(e,b.round),crit=chance>0&&rng()<chance;
    const targetState=id!=='hero'?{...s,battle:{...b,maxHp:unit.maxHp}}:s;
    const fissured=riftMark==='consume'&&unit.riftFissures?.[e.id];
    const damage=Math.max(1,Math.round(enemyDamage(targetState,e)*mult*(fissured?1.4:1)*(crit?(e.riftKind==='spectralGuard'?2:1.75):1)*(id==='hero'&&(b.buffs.courage??0)>=b.round?.5:1)));
@@ -1307,6 +1323,14 @@ export function resolveAction(s,action,rng=Math.random){
    else enemyStrike(e,e.storyKind==='nahatBear'&&b.round%3===2?1.6:1,'black-slash');
    if(!b.hp)return finish(false);continue;
   }
+  let forgeurHitHero=false;
+  if(forgeurEnemyTurn(b,e,{
+   rng,emit:event=>events.push(event),log,
+   nextAction:()=>{enemyActionBlocked=false;trappedAction=null;riposteCounted=false;nextEnemyAction();},
+   strike:(mult,projectile,crit)=>{const cursor=events.length,total=enemyStrike(e,mult,projectile,false,false,null,crit);forgeurHitHero=events.slice(cursor).some(event=>event.type==='hit'&&event.from===e.id&&event.to==='hero');return total;},
+   weakness:()=>{if(forgeurHitHero&&!b.roxxorWeakened){b.roxxorWeakened=true;events.push({type:'roxxor-weaken',to:'hero'});log('Poids du regret : dégâts du Forgeur −10 % jusqu’à la fin du combat. Non cumulable.');}},
+   burn:()=>{const unit=enemyTarget(),id=allyId(unit);if(unit.hp>0){if(id==='hero'&&blockAttack(e))return;unit.burning=true;events.push({type:'forgeur-story-burn',from:e.id,to:id,label:'Souffle de la Tryhydre · brûlure'});log(`${id==='hero'?CLASSES[s.hero.key].name:unit.name} brûle : 5 % des PV max au début du tour.`);}}
+  })){flushRefusal();if(!b.hp)return finish(false);continue;}
   if(expeditionEnemyTurn(b,e,{rng,strike:(mult,projectile,drain=false)=>enemyStrike(e,mult,projectile,drain),emit:event=>events.push(event),log})){flushRefusal();if(!b.hp)return finish(false);continue;}
   if(e.guardian){trialEnemyTurn(b,e,{strike:(mult,projectile,drain=false,area=false)=>enemyStrike(e,mult,projectile,drain,area),emit:event=>events.push(event),log});flushRefusal();if(!b.hp)return finish(false);continue;}
   if(e.riftKind){

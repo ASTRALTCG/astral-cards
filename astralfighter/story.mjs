@@ -1,3 +1,4 @@
+import {FORGEUR_CAST,FORGEUR_CHAPTER,FORGEUR_MISSIONS} from './forgeur-story.mjs';
 import {NAHAT_CAST,NAHAT_CHAPTER,NAHAT_MISSIONS} from './nahat-story.mjs';
 import {DRUNN_CAST,DRUNN_CHAPTER,DRUNN_MISSIONS} from './drunn-story.mjs';
 import {STIBILI_VOID_CAST,STIBILI_CHAPTER2,STIBILI_CHAPTER2_MISSIONS} from './stibili-chapter2.mjs';
@@ -9,6 +10,7 @@ export {STIBILI_CHAPTER,STIBILI_MISSIONS};
 const narrate=text=>({speaker:null,text});
 const say=(speaker,text,other='wolffy',effect='')=>({speaker,text,other,effect});
 export const STORY_CAST={
+ ...FORGEUR_CAST,
  ...NAHAT_CAST,
  ...DRUNN_CAST,
  ...STIBILI_CAST,
@@ -217,4 +219,4 @@ export const WOLFFY_MISSIONS={
 };
 export function storyLines(stage,phase,key='wolffy',chapter=1){const m=storyRoute(key,chapter)?.missions[stage];if(!m)return [];return phase==='recap'?[...m.before,...(m.between??[]),...(m.interlude??[]),...m.after]:m[phase]??[];}
 
-export function storyRoute(key,chapter=1){if(chapter===2&&key==='stibili')return {...STIBILI_CHAPTER2,missions:STIBILI_CHAPTER2_MISSIONS};if(chapter!==1)return null;return key==='nahat'?{...NAHAT_CHAPTER,missions:NAHAT_MISSIONS}:key==='drunn'?{...DRUNN_CHAPTER,missions:DRUNN_MISSIONS}:key==='wolffy'?{...WOLFFY_CHAPTER,nextTitle:'En plein cœur de Nébryss',missions:WOLFFY_MISSIONS}:key==='stibili'?{...STIBILI_CHAPTER,missions:STIBILI_MISSIONS}:key==='kaerune'?{...KAERUNE_CHAPTER,missions:KAERUNE_MISSIONS}:null;}
+export function storyRoute(key,chapter=1){if(chapter===2&&key==='stibili')return {...STIBILI_CHAPTER2,missions:STIBILI_CHAPTER2_MISSIONS};if(chapter!==1)return null;return key==='forgeur'?{...FORGEUR_CHAPTER,missions:FORGEUR_MISSIONS}:key==='nahat'?{...NAHAT_CHAPTER,missions:NAHAT_MISSIONS}:key==='drunn'?{...DRUNN_CHAPTER,missions:DRUNN_MISSIONS}:key==='wolffy'?{...WOLFFY_CHAPTER,nextTitle:'En plein cœur de Nébryss',missions:WOLFFY_MISSIONS}:key==='stibili'?{...STIBILI_CHAPTER,missions:STIBILI_MISSIONS}:key==='kaerune'?{...KAERUNE_CHAPTER,missions:KAERUNE_MISSIONS}:null;}
