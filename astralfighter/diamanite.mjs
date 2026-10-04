@@ -14,4 +14,4 @@ export const DIAMANITE_ITEMS=Object.fromEntries(Object.entries({
  'cristal-diamanite':weapon('Cristal en Diamanite','wolffy','cristal',{dmg:[24,25,26,28],luck:[15,16,17,19]}),
  'dentier-diamanite':weapon('Dentier de combat en Diamanite','wolffy','dentier',{dmg:[12,14,16,20],hp:[45,50,55,65],luck:[9,10,11,13],speed:[9,11,12,13]}),
  'armure-complete':armor('Armure complète',{hp:[100,110,125,150]},{owner:'wolffy'})
-}).map(([id,item])=>[id,{...item,level:4,price:item.slot==='weapon'?555:375,sellPrice:75}]));
+}).map(([id,item])=>[id,{...item,level:4,price:555,sellPrice:75}]));

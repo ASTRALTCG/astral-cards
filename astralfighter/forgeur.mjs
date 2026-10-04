@@ -1,5 +1,5 @@
 // Forgeur rules. No engine imports: usable by combat, catalog and offline bundle.
-export const FORGEUR_CLASS={name:'Le Forgeur',title:'L’acier entre deux extrêmes',role:'Tension',art:'forgeur-classic',hp:145,dmg:24,luck:14,speed:12,weapon:'epee-lourde',color:'#ff8358',lore:'Après la chute de Selkiel, le Forgeur fut appelé par Zvatas pour les gouverner tous…'};
+export const FORGEUR_CLASS={name:'Le Forgeur',title:'L’acier entre deux extrêmes',role:'Tension',art:'forgeur-classic',hp:110,dmg:15,luck:14,speed:14,weapon:'epee-lourde',color:'#ff8358',lore:'Après la chute de Selkiel, le Forgeur fut appelé par Zvatas pour les gouverner tous…'};
 export const FORGEUR_PASSIVE={name:'Acier vivant',text:'Commence chaque combat avec 3 cumuls de Tension, entre 1 et 5. À 2, 3 ou 4 : état neutre. À 5, Surchauffe : dégâts +20 %, Chance de critique +15 points et dégâts reçus +15 %. À 1, Refroidissement : dégâts −20 %, probabilité de double action +15 points et bouclier de 15 % des PV max au début de chaque tour. La Tension et les états ne peuvent pas être dissipés. Les boucliers se cumulent, persistent jusqu’à absorption ou dissipation et disparaissent en fin de combat.'};
 export const FORGEUR_SKILLS={
  fracas:{name:'Fracas de l’épée',owner:'forgeur',level:1,cd:0,effect:'fracas'},
@@ -28,7 +28,7 @@ export const FORGEUR_ITEMS={
 };
 export const forgeTension=b=>Math.max(1,Math.min(5,Math.floor(b?.tension??3)));
 export const forgeState=b=>forgeTension(b)===5?'hot':forgeTension(b)===1?'cold':'neutral';
-export const forgeArt=b=>forgeState(b)==='hot'?'forgeur-offensif':forgeState(b)==='cold'?'forgeur-defensif':'forgeur-classic';
+export const forgeArt=b=>forgeState(b)==='hot'?'forgeur-offensif':forgeState(b)==='cold'?'forgeur-defensif-v2':'forgeur-classic';
 export const newProfile=()=>({version:1,unlocks:{forgeur:false},forgeurNoticePending:false});
 // Profile progress survives deletion of every adventure. Only a genuinely new profile starts locked.
 export function syncProfile(active,companions={}){

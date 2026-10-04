@@ -42,13 +42,13 @@ export const ITEMS={
  'epee-bouclier':{name:'Épée & bouclier en bois',price:37,slot:'weapon',rolls:{dmg:[3,4,5],hp:[10,14]}},
  baton:{name:'Bâton en bois',price:37,slot:'weapon',rolls:{dmg:[5,6,7],luck:[1,2]}},
  cristal:{name:'Cristal en bois',price:37,slot:'weapon',rolls:{dmg:[3,4,5],luck:[1,2]}},
- veste:{name:'Veste en tissu',price:37,slot:'armor',rolls:{hp:[15,20,25]}},
+ veste:{name:'Veste en tissu',price:37,level:1,slot:'armor',rolls:{hp:[15,20,25]}},
  'griffe-fer':{name:'Griffe en fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'griffe',rolls:{dmg:[6,7,8],speed:[6,8]}},
  'arc-fer':{name:'Arc en fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'arc',rolls:{dmg:[6,7,8],luck:[6,8]}},
  'epee-bouclier-fer':{name:'Épée & bouclier en fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'epee-bouclier',rolls:{dmg:[6,7,8],hp:[24,30]}},
  'baton-acier':{name:'Bâton en acier',price:125,unlockCleared:7,level:2,slot:'weapon',family:'baton',rolls:{dmg:[9,10,11],luck:[2,3]}},
  'cristal-fer':{name:'Cristal de fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'cristal',rolls:{dmg:[7,8,9],luck:[2,3]}},
- 'veste-aventurier':{name:'Veste d’aventurier',price:110,unlockCleared:7,slot:'armor',rolls:{hp:[35,45,55]}},
+ 'veste-aventurier':{name:'Veste d’aventurier',price:125,level:2,unlockCleared:7,slot:'armor',rolls:{hp:[35,45,55]}},
  'lame-sabre':{name:'Lame-sabre en bois',price:37,slot:'weapon',family:'lame-sabre',rolls:{dmg:[6,7,8],hp:[4,6],luck:[-4,-3]}},
  'lame-sabre-fer':{name:'Lame-sabre en fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'lame-sabre',rolls:{dmg:[10,11,12],hp:[12,16],luck:[-7,-5]}},
  'griffe-or':{name:'Griffe en or',price:350,unlockChapter:true,level:3,slot:'weapon',family:'griffe',rolls:{dmg:[12,14,16],speed:[10,12,14]}},
@@ -453,7 +453,7 @@ export function migrateBalance(s){
   s.battle.trainingBalanceVersion=3;trainingChanged=true;
  }
  // All companions now use the same fixed bases, including previously rolled saves.
- const baseStatsVersion=s.hero?.key==='nahat'?3:s.hero?.key==='wolffy'?1:2;
+ const baseStatsVersion=['nahat','forgeur'].includes(s.hero?.key)?3:s.hero?.key==='wolffy'?1:2;
  if(s.hero&&(s.hero.baseStatsVersion!==baseStatsVersion||Object.hasOwn(s.hero,'iv'))){
   delete s.hero.iv;s.hero.baseStatsVersion=baseStatsVersion;
   if(s.battle){
@@ -513,7 +513,7 @@ export function summon(s,key){
  if(s.hero)throw Error('Un compagnon est déjà invoqué.');
  if(!Object.hasOwn(CLASSES,key))throw Error('Choisissez un compagnon.');
  if(!companionAvailable(key,s.profile))throw Error('Ce compagnon n’est pas disponible.');
- s.hero={key,level:1,xp:0,allocated:emptyAllocation(),baseStatsVersion:key==='nahat'?3:key==='wolffy'?1:2};return s.hero;
+ s.hero={key,level:1,xp:0,allocated:emptyAllocation(),baseStatsVersion:['nahat','forgeur'].includes(key)?3:key==='wolffy'?1:2};return s.hero;
 }
 function probabilities(v,cap=.5){v.luck=Math.max(0,v.luck);v.speed=Math.max(0,v.speed);v.crit=Math.min(cap,v.luck/300);v.double=Math.min(cap,v.speed/300);return v;}
 export function statBreakdown(s){

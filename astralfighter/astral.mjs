@@ -16,7 +16,7 @@ export const ASTRAL_ITEMS=Object.fromEntries(Object.entries({
  'porte-aile-astral':weapon('Porte-aile Astral','kaerune','porte-aile',{dmg:[30,40,48,55],speed:[45,55,61,70],luck:[-30,-28,-25,-20]}),
  'cape-astral':armor('Cape protectrice Astral',{hp:[250,270,310,400]}),
  'armure-complete-astral':armor('Armure complète Astral',{hp:[200,220,250,300]},{owner:'wolffy'})
-}).map(([id,d])=>[id,{...d,astral:true,level:5,price:d.slot==='weapon'?1050:650,sellPrice:200}]));
+}).map(([id,d])=>[id,{...d,astral:true,level:5,price:1050,sellPrice:200}]));
 export const isAstral=i=>!!ASTRAL_ITEMS[typeof i==='string'?i:i?.type];
 export const astralActive=(i,type,min=2)=>i?.type===type&&['common','rare','super-rare','legendary'].indexOf(i.rarity)>=min;
 export function astralPassiveText(i){

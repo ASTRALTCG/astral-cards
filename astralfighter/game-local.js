@@ -1,4 +1,4 @@
-// AstralFighter — Forgeur: Naissance. Generated from game modules.
+// AstralFighter — Forgeur visuals, base stats and armor prices.
 (()=>{'use strict';const modules=Object.create(null);
 modules["title-ornaments.mjs"]=(()=>{
 // Cosmetic only: progression and title ownership remain in achievements.mjs.
@@ -380,7 +380,7 @@ return {FORGEUR_CAST,FORGEUR_CHAPTER,FORGEUR_ENCOUNTERS,FORGEUR_MISSIONS,FORGEUR
 })();
 modules["forgeur.mjs"]=(()=>{
 // Forgeur rules. No engine imports: usable by combat, catalog and offline bundle.
-const FORGEUR_CLASS={name:'Le Forgeur',title:'L’acier entre deux extrêmes',role:'Tension',art:'forgeur-classic',hp:145,dmg:24,luck:14,speed:12,weapon:'epee-lourde',color:'#ff8358',lore:'Après la chute de Selkiel, le Forgeur fut appelé par Zvatas pour les gouverner tous…'};
+const FORGEUR_CLASS={name:'Le Forgeur',title:'L’acier entre deux extrêmes',role:'Tension',art:'forgeur-classic',hp:110,dmg:15,luck:14,speed:14,weapon:'epee-lourde',color:'#ff8358',lore:'Après la chute de Selkiel, le Forgeur fut appelé par Zvatas pour les gouverner tous…'};
 const FORGEUR_PASSIVE={name:'Acier vivant',text:'Commence chaque combat avec 3 cumuls de Tension, entre 1 et 5. À 2, 3 ou 4 : état neutre. À 5, Surchauffe : dégâts +20 %, Chance de critique +15 points et dégâts reçus +15 %. À 1, Refroidissement : dégâts −20 %, probabilité de double action +15 points et bouclier de 15 % des PV max au début de chaque tour. La Tension et les états ne peuvent pas être dissipés. Les boucliers se cumulent, persistent jusqu’à absorption ou dissipation et disparaissent en fin de combat.'};
 const FORGEUR_SKILLS={
  fracas:{name:'Fracas de l’épée',owner:'forgeur',level:1,cd:0,effect:'fracas'},
@@ -409,7 +409,7 @@ const FORGEUR_ITEMS={
 };
 const forgeTension=b=>Math.max(1,Math.min(5,Math.floor(b?.tension??3)));
 const forgeState=b=>forgeTension(b)===5?'hot':forgeTension(b)===1?'cold':'neutral';
-const forgeArt=b=>forgeState(b)==='hot'?'forgeur-offensif':forgeState(b)==='cold'?'forgeur-defensif':'forgeur-classic';
+const forgeArt=b=>forgeState(b)==='hot'?'forgeur-offensif':forgeState(b)==='cold'?'forgeur-defensif-v2':'forgeur-classic';
 const newProfile=()=>({version:1,unlocks:{forgeur:false},forgeurNoticePending:false});
 // Profile progress survives deletion of every adventure. Only a genuinely new profile starts locked.
 function syncProfile(active,companions={}){
@@ -596,7 +596,7 @@ const ASTRAL_ITEMS=Object.fromEntries(Object.entries({
  'porte-aile-astral':weapon('Porte-aile Astral','kaerune','porte-aile',{dmg:[30,40,48,55],speed:[45,55,61,70],luck:[-30,-28,-25,-20]}),
  'cape-astral':armor('Cape protectrice Astral',{hp:[250,270,310,400]}),
  'armure-complete-astral':armor('Armure complète Astral',{hp:[200,220,250,300]},{owner:'wolffy'})
-}).map(([id,d])=>[id,{...d,astral:true,level:5,price:d.slot==='weapon'?1050:650,sellPrice:200}]));
+}).map(([id,d])=>[id,{...d,astral:true,level:5,price:1050,sellPrice:200}]));
 const isAstral=i=>!!ASTRAL_ITEMS[typeof i==='string'?i:i?.type];
 const astralActive=(i,type,min=2)=>i?.type===type&&['common','rare','super-rare','legendary'].indexOf(i.rarity)>=min;
 function astralPassiveText(i){
@@ -667,7 +667,7 @@ const DIAMANITE_ITEMS=Object.fromEntries(Object.entries({
  'cristal-diamanite':weapon('Cristal en Diamanite','wolffy','cristal',{dmg:[24,25,26,28],luck:[15,16,17,19]}),
  'dentier-diamanite':weapon('Dentier de combat en Diamanite','wolffy','dentier',{dmg:[12,14,16,20],hp:[45,50,55,65],luck:[9,10,11,13],speed:[9,11,12,13]}),
  'armure-complete':armor('Armure complète',{hp:[100,110,125,150]},{owner:'wolffy'})
-}).map(([id,item])=>[id,{...item,level:4,price:item.slot==='weapon'?555:375,sellPrice:75}]));
+}).map(([id,item])=>[id,{...item,level:4,price:555,sellPrice:75}]));
 
 return {DIAMANITE_ITEMS};
 })();
@@ -1723,13 +1723,13 @@ const ITEMS={
  'epee-bouclier':{name:'Épée & bouclier en bois',price:37,slot:'weapon',rolls:{dmg:[3,4,5],hp:[10,14]}},
  baton:{name:'Bâton en bois',price:37,slot:'weapon',rolls:{dmg:[5,6,7],luck:[1,2]}},
  cristal:{name:'Cristal en bois',price:37,slot:'weapon',rolls:{dmg:[3,4,5],luck:[1,2]}},
- veste:{name:'Veste en tissu',price:37,slot:'armor',rolls:{hp:[15,20,25]}},
+ veste:{name:'Veste en tissu',price:37,level:1,slot:'armor',rolls:{hp:[15,20,25]}},
  'griffe-fer':{name:'Griffe en fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'griffe',rolls:{dmg:[6,7,8],speed:[6,8]}},
  'arc-fer':{name:'Arc en fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'arc',rolls:{dmg:[6,7,8],luck:[6,8]}},
  'epee-bouclier-fer':{name:'Épée & bouclier en fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'epee-bouclier',rolls:{dmg:[6,7,8],hp:[24,30]}},
  'baton-acier':{name:'Bâton en acier',price:125,unlockCleared:7,level:2,slot:'weapon',family:'baton',rolls:{dmg:[9,10,11],luck:[2,3]}},
  'cristal-fer':{name:'Cristal de fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'cristal',rolls:{dmg:[7,8,9],luck:[2,3]}},
- 'veste-aventurier':{name:'Veste d’aventurier',price:110,unlockCleared:7,slot:'armor',rolls:{hp:[35,45,55]}},
+ 'veste-aventurier':{name:'Veste d’aventurier',price:125,level:2,unlockCleared:7,slot:'armor',rolls:{hp:[35,45,55]}},
  'lame-sabre':{name:'Lame-sabre en bois',price:37,slot:'weapon',family:'lame-sabre',rolls:{dmg:[6,7,8],hp:[4,6],luck:[-4,-3]}},
  'lame-sabre-fer':{name:'Lame-sabre en fer',price:125,unlockCleared:7,level:2,slot:'weapon',family:'lame-sabre',rolls:{dmg:[10,11,12],hp:[12,16],luck:[-7,-5]}},
  'griffe-or':{name:'Griffe en or',price:350,unlockChapter:true,level:3,slot:'weapon',family:'griffe',rolls:{dmg:[12,14,16],speed:[10,12,14]}},
@@ -2134,7 +2134,7 @@ function migrateBalance(s){
   s.battle.trainingBalanceVersion=3;trainingChanged=true;
  }
  // All companions now use the same fixed bases, including previously rolled saves.
- const baseStatsVersion=s.hero?.key==='nahat'?3:s.hero?.key==='wolffy'?1:2;
+ const baseStatsVersion=['nahat','forgeur'].includes(s.hero?.key)?3:s.hero?.key==='wolffy'?1:2;
  if(s.hero&&(s.hero.baseStatsVersion!==baseStatsVersion||Object.hasOwn(s.hero,'iv'))){
   delete s.hero.iv;s.hero.baseStatsVersion=baseStatsVersion;
   if(s.battle){
@@ -2194,7 +2194,7 @@ function summon(s,key){
  if(s.hero)throw Error('Un compagnon est déjà invoqué.');
  if(!Object.hasOwn(CLASSES,key))throw Error('Choisissez un compagnon.');
  if(!companionAvailable(key,s.profile))throw Error('Ce compagnon n’est pas disponible.');
- s.hero={key,level:1,xp:0,allocated:emptyAllocation(),baseStatsVersion:key==='nahat'?3:key==='wolffy'?1:2};return s.hero;
+ s.hero={key,level:1,xp:0,allocated:emptyAllocation(),baseStatsVersion:['nahat','forgeur'].includes(key)?3:key==='wolffy'?1:2};return s.hero;
 }
 function probabilities(v,cap=.5){v.luck=Math.max(0,v.luck);v.speed=Math.max(0,v.speed);v.crit=Math.min(cap,v.luck/300);v.double=Math.min(cap,v.speed/300);return v;}
 function statBreakdown(s){
@@ -3681,7 +3681,7 @@ async function forgeurEffect(event,unit){
   if(event.fromState!==event.state){
    const sprite=unit.querySelector('.art'),color=event.state==='cold'?'#82d5ff':event.state==='hot'?'#ff6544':'#f1b780';ring(p,color,160,700);
    if(sprite){if(sprite.animate&&!reduced())await sprite.animate([{opacity:1,filter:'brightness(1)',transform:'scale(1)'},{opacity:.12,filter:'brightness(2)',transform:'scale(.96)'}],{duration:220,fill:'none'}).finished.catch(()=>{});
-    sprite.src='assets/'+event.art+'.webp';if(event.state==='cold')sprite.classList.add('forgeur-dark-matte');else sprite.classList.remove('forgeur-dark-matte');
+    sprite.src='assets/'+event.art+'.webp';
     if(sprite.decode)await sprite.decode().catch(()=>{});
     if(sprite.animate&&!reduced())await sprite.animate([{opacity:.12,filter:'brightness(1.8)',transform:'scale(.96)'},{opacity:1,filter:'brightness(1)',transform:'scale(1)'}],{duration:440,fill:'none',easing:'ease-out'}).finished.catch(()=>{});
    }
@@ -3738,13 +3738,13 @@ try{const raw=localStorage.getItem(SAVE);if(raw){const restored=restoreCompanion
 catch{saveBlocked=true;toast('Sauvegarde inaccessible. Votre ancienne progression est conservée ; cette session ne sera pas enregistrée.');}
 const companionCard=key=>`<img class="selection-card-image" src="assets/cards/${key}.webp" alt="Carte ASTRAL CARDS de ${CLASSES[key].name}" width="744" height="1038" decoding="async" draggable="false">`;
 const artSrc=name=>`assets/${name}.webp`;
-const art=(name,extra='')=>`<img class="art ${extra} ${name==='forgeur-defensif'?'forgeur-dark-matte':''}" src="${artSrc(name)}" alt="" decoding="async" draggable="false">`;
+const art=(name,extra='')=>`<img class="art ${extra} " src="${artSrc(name)}" alt="" decoding="async" draggable="false">`;
 const itemArt=(type,extra='')=>`<img class="item-art ${extra}" src="assets/${type}.webp" alt="" decoding="async" draggable="false">`;
 // Supplied artwork stays decorative: the adjacent name remains the accessible label.
 const abilityIcon=(id,kind='skill')=>`<img class="ability-icon" src="assets/icons/${kind}-${id==='piege'?'absorbante':id}.webp${id==='meute'||kind==='passive'&&id==='nahat'?'?v=3':''}" width="40" height="40" alt="" decoding="async" draggable="false">`;
 const mysteryIcon=()=>'<span class="ability-icon mystery-icon" aria-hidden="true">?</span>';
 const preloadedForms=new Set();
-function preloadForm(){if(s.hero?.key==='forgeur'&&globalThis.Image)for(const name of ['forgeur-classic','forgeur-defensif','forgeur-offensif']){if(!preloadedForms.has(name)){const img=new Image();img.src=artSrc(name);preloadedForms.add(name);img.decode?.().catch(()=>preloadedForms.delete(name));}}const name=s.hero?.key==='kaerune'&&s.hero.level>=5?'kaerune-forme-2':null;if(!name||preloadedForms.has(name)||!globalThis.Image)return;const img=new Image();img.src=artSrc(name);preloadedForms.add(name);img.decode?.().catch(()=>preloadedForms.delete(name));}
+function preloadForm(){if(s.hero?.key==='forgeur'&&globalThis.Image)for(const name of ['forgeur-classic','forgeur-defensif-v2','forgeur-offensif']){if(!preloadedForms.has(name)){const img=new Image();img.src=artSrc(name);preloadedForms.add(name);img.decode?.().catch(()=>preloadedForms.delete(name));}}const name=s.hero?.key==='kaerune'&&s.hero.level>=5?'kaerune-forme-2':null;if(!name||preloadedForms.has(name)||!globalThis.Image)return;const img=new Image();img.src=artSrc(name);preloadedForms.add(name);img.decode?.().catch(()=>preloadedForms.delete(name));}
 const itemName=i=>ITEMS[i.type].name+(i.rank?' +'+i.rank:'');
 const itemLevelLabel=type=>equipmentLevel(type)?' · Niveau '+equipmentLevel(type):'';
 const rarityClass=i=>hasRarity(i.type)?' rarity-'+itemRarity(i).id:'';

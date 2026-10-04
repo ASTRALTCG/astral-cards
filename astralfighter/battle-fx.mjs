@@ -495,7 +495,7 @@ export async function forgeurEffect(event,unit){
   if(event.fromState!==event.state){
    const sprite=unit.querySelector('.art'),color=event.state==='cold'?'#82d5ff':event.state==='hot'?'#ff6544':'#f1b780';ring(p,color,160,700);
    if(sprite){if(sprite.animate&&!reduced())await sprite.animate([{opacity:1,filter:'brightness(1)',transform:'scale(1)'},{opacity:.12,filter:'brightness(2)',transform:'scale(.96)'}],{duration:220,fill:'none'}).finished.catch(()=>{});
-    sprite.src='assets/'+event.art+'.webp';if(event.state==='cold')sprite.classList.add('forgeur-dark-matte');else sprite.classList.remove('forgeur-dark-matte');
+    sprite.src='assets/'+event.art+'.webp';
     if(sprite.decode)await sprite.decode().catch(()=>{});
     if(sprite.animate&&!reduced())await sprite.animate([{opacity:.12,filter:'brightness(1.8)',transform:'scale(.96)'},{opacity:1,filter:'brightness(1)',transform:'scale(1)'}],{duration:440,fill:'none',easing:'ease-out'}).finished.catch(()=>{});
    }

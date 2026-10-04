@@ -26,13 +26,13 @@ try{const raw=localStorage.getItem(SAVE);if(raw){const restored=restoreCompanion
 catch{saveBlocked=true;toast('Sauvegarde inaccessible. Votre ancienne progression est conservée ; cette session ne sera pas enregistrée.');}
 const companionCard=key=>`<img class="selection-card-image" src="assets/cards/${key}.webp" alt="Carte ASTRAL CARDS de ${CLASSES[key].name}" width="744" height="1038" decoding="async" draggable="false">`;
 const artSrc=name=>`assets/${name}.webp`;
-const art=(name,extra='')=>`<img class="art ${extra} ${name==='forgeur-defensif'?'forgeur-dark-matte':''}" src="${artSrc(name)}" alt="" decoding="async" draggable="false">`;
+const art=(name,extra='')=>`<img class="art ${extra} " src="${artSrc(name)}" alt="" decoding="async" draggable="false">`;
 const itemArt=(type,extra='')=>`<img class="item-art ${extra}" src="assets/${type}.webp" alt="" decoding="async" draggable="false">`;
 // Supplied artwork stays decorative: the adjacent name remains the accessible label.
 const abilityIcon=(id,kind='skill')=>`<img class="ability-icon" src="assets/icons/${kind}-${id==='piege'?'absorbante':id}.webp${id==='meute'||kind==='passive'&&id==='nahat'?'?v=3':''}" width="40" height="40" alt="" decoding="async" draggable="false">`;
 const mysteryIcon=()=>'<span class="ability-icon mystery-icon" aria-hidden="true">?</span>';
 const preloadedForms=new Set();
-function preloadForm(){if(s.hero?.key==='forgeur'&&globalThis.Image)for(const name of ['forgeur-classic','forgeur-defensif','forgeur-offensif']){if(!preloadedForms.has(name)){const img=new Image();img.src=artSrc(name);preloadedForms.add(name);img.decode?.().catch(()=>preloadedForms.delete(name));}}const name=s.hero?.key==='kaerune'&&s.hero.level>=5?'kaerune-forme-2':null;if(!name||preloadedForms.has(name)||!globalThis.Image)return;const img=new Image();img.src=artSrc(name);preloadedForms.add(name);img.decode?.().catch(()=>preloadedForms.delete(name));}
+function preloadForm(){if(s.hero?.key==='forgeur'&&globalThis.Image)for(const name of ['forgeur-classic','forgeur-defensif-v2','forgeur-offensif']){if(!preloadedForms.has(name)){const img=new Image();img.src=artSrc(name);preloadedForms.add(name);img.decode?.().catch(()=>preloadedForms.delete(name));}}const name=s.hero?.key==='kaerune'&&s.hero.level>=5?'kaerune-forme-2':null;if(!name||preloadedForms.has(name)||!globalThis.Image)return;const img=new Image();img.src=artSrc(name);preloadedForms.add(name);img.decode?.().catch(()=>preloadedForms.delete(name));}
 const itemName=i=>ITEMS[i.type].name+(i.rank?' +'+i.rank:'');
 const itemLevelLabel=type=>equipmentLevel(type)?' · Niveau '+equipmentLevel(type):'';
 const rarityClass=i=>hasRarity(i.type)?' rarity-'+itemRarity(i).id:'';
