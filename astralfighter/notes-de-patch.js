@@ -19,6 +19,20 @@
  * },
  */
 window.ASTRAL_PATCH_NOTES = [
+    {
+    id: "2026-10-05-03",
+    date: "2026-10-05",
+    titre: "Ajout de l'onglet mise à jour",
+    introduction: "Suiviez les mises à jour depuis ici !",
+    sections: [
+      {
+        titre: "Onglet mise à jour",
+        points: [
+          "Mise à jour en direct",
+        ],
+      },
+    ],
+  },
   {
     id: "2026-10-05-notes-de-patch",
     date: "2026-10-05",
