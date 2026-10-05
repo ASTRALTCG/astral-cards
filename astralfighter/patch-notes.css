@@ -1,0 +1,37 @@
+/* Carnet astral : styles isolés du jeu et de ses combats. */
+#patch-notes-button{display:inline-flex;align-items:center;gap:8px;position:relative;white-space:nowrap}
+.patch-note-icon{width:19px;height:19px;flex:none;color:#a19cac}
+.patch-unread-dot{width:6px;height:6px;background:#ffe3a5;border-radius:50%;box-shadow:0 0 10px #f8c971}
+#patch-notes-button.has-unread{border-color:#947049;background:linear-gradient(115deg,#2e243a,#29202a);color:#ffe5af}
+.has-unread .patch-note-icon{color:#ffdb87;animation:patchBeacon 2.6s ease-in-out infinite}
+@keyframes patchBeacon{0%,100%{filter:drop-shadow(0 0 2px #ffcd6b66)}50%{filter:drop-shadow(0 0 8px #ffcd6b);color:#fff3d5}}
+#patch-notes-dialog{width:min(740px,calc(100vw - 28px));max-width:740px;max-height:88vh;max-height:88dvh;padding:0;border:1px solid #77618f;border-radius:20px;background:radial-gradient(ellipse at 100% 0,#533c762e,transparent 55%),#15141f;box-shadow:0 24px 100px #000a;color:#eeeaf6;overflow:auto}
+#patch-notes-dialog::backdrop{background:#080711c9;backdrop-filter:blur(5px)}
+.patch-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:24px 30px;border-bottom:1px solid #8b6faf40;background:linear-gradient(120deg,#282034,#1c1926);position:sticky;top:0;z-index:1}
+.patch-heading .eyebrow{font-size:10px;letter-spacing:3px;color:#e1be87;margin-bottom:6px}
+.patch-heading h2{font-size:25px;line-height:1.25}
+#patch-notes-close{padding:7px 12px;background:#ffffff08;border-color:#a692be55;font-size:21px}
+.patch-article{padding:28px 30px 18px}
+.patch-meta{display:flex;align-items:center;flex-wrap:wrap;gap:12px;font-size:12px;color:#aaa1ba;margin-bottom:19px}
+.patch-tag{font-size:10px;letter-spacing:1.5px;color:#e9c888;border:1px solid #9e7b424d;border-radius:5px;padding:6px 8px;background:#a67f2010}
+.patch-article h3{font-size:26px;line-height:1.35;color:#e5d5ff;margin:0 0 14px}
+.patch-intro{color:#bfb6cd;font-size:15px;line-height:1.8;white-space:pre-line}
+.patch-article section{margin-top:25px}
+.patch-article h4{font-family:inherit;font-size:14px;letter-spacing:.3px;color:#eacb96;margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.patch-article h4:before{content:'✦';font-size:13px;color:#bc9df7}
+.patch-article ul{padding-left:21px;margin:0}
+.patch-article li{color:#d0c9da;font-size:14px;line-height:1.8;padding:3px 0 5px 3px;white-space:pre-line;overflow-wrap:anywhere}
+.patch-article li::marker{color:#8e73b0}
+#patch-notes-status{font-size:13px;line-height:1.6;color:#e0bf8f;padding:14px 30px}
+#patch-notes-status:empty{display:none}
+.patch-footer{padding:16px 30px 26px}
+#patch-notes-history-button{width:100%;font-size:13px;background:#24202f;border:1px solid #574563;padding:13px}
+#patch-notes-history{margin-top:16px}
+.patch-archive{border:1px solid #493b57;border-radius:9px;overflow:hidden;margin-top:10px;background:#100f19}
+.patch-archive summary{cursor:pointer;font-size:13px;line-height:1.6;color:#c7b6df;padding:14px 16px}
+.patch-archive .patch-article{padding:12px 18px 20px}.patch-archive h3{font-size:21px}
+#patch-notes-button [hidden],#patch-notes-dialog [hidden]{display:none!important}
+header{height:auto;min-height:88px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.header-right{flex-wrap:wrap;justify-content:flex-end}
+@media(max-width:760px){.header-right{justify-content:center;width:100%;gap:8px}.patch-heading{padding:19px 20px}.patch-heading h2{font-size:22px}.patch-article{padding:23px 20px 12px}.patch-article h3{font-size:23px}.patch-footer{padding:14px 20px 22px}#patch-notes-status{padding:14px 20px}}
+@media(prefers-reduced-motion:reduce){.has-unread .patch-note-icon{animation:none;filter:drop-shadow(0 0 5px #ffcd6b)}}
