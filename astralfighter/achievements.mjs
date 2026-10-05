@@ -9,9 +9,9 @@ export const ACHIEVEMENTS=[
  ...[[1,25,25],[5,400,100],[15,1000,250]].map(([n,xp,gold],i)=>row('craft-'+(i+1),'Craft '+(i+1),'crafted',n,{xp,gold,...(i===2?{title:'Artisan'}:{})},`Fabriquez ${n===1?'votre premier objet':n+' objets'} à l’atelier, hors consommables.`)),
  ...[[5,15],[10,50],[15,80],[20,250],[30,350],[40,500],[50,750]].map(([n,gold],i)=>row('level-'+(i+1),'Level '+(i+1),'level',n,{gold,...({3:{title:'Aventurier remarquable'},4:{title:'Chasseur de prime'},5:{title:'Navigateur'},6:{title:'ASTRAL'}}[i]??{})},`Atteignez le niveau ${n}.`)),
  row('chapitre-1','Chapitre 1','chapter',1,{xp:Math.round(xpNeed(6)*.75),gold:30},'Terminez le chapitre 1 ou le chapitre unique de ce compagnon.'),
- row('astral-star',"Nah i'd win",'astralStars',1,{gold:400,title:"Nah i'd win"},'Appliquez une étoile sur un équipement Astral.',true),
- row('astral-weapon','Cette puissance...','astralWeapons',1,{gold:300},'Achetez une arme Astral.',true),
- row('astral-armor','... coule dans mes veines','astralArmors',1,{gold:300},'Achetez une armure Astral.',true),
+ row('astral-star',"Nah i'd win",'astralStars',1,{gold:400,title:"Nah i'd win"},'Achetez votre premier équipement Cosmique dans la Boutique Cosmique.',true),
+ row('astral-weapon','Cette puissance...','astralWeapons',1,{gold:300},'Achetez une arme Cosmique.',true),
+ row('astral-armor','... coule dans mes veines','astralArmors',1,{gold:300},'Achetez une armure Cosmique.',true),
  row('astral-universe','Cette puissance qui coule dans les veines','astralPair',2,{title:'Le plus fort de l’univers'},'Débloquez les succès « Cette puissance... » et « ... coule dans mes veines ».',true),
  ...[
   ['ecaille-rouge','Écaille rouge',10,'Écailles rouges','Dragonnet rouge'],

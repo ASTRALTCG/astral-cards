@@ -7,8 +7,8 @@ import {ACHIEVEMENTS,newAchievements,ensureAchievements,recordAchievement,record
 export {ACHIEVEMENTS,unlockedTitles,equippedTitle,setCompanionTitle};
 import {NAHAT_MISSIONS,nahatEnemies,nahatIntent} from './nahat-story.mjs';
 export {NAHAT_MISSIONS,nahatIntent};
-import {ASTRAL_ITEMS,isAstral,astralActive,astralPassiveText,itemStats,normalizeForge,forgedStatKeys,STAR_NAMES,starText,placeForgeItem,addForgeStar,destroyForgeStar,removeForgeItem} from './astral.mjs';
-export {isAstral,itemStats,forgedStatKeys,STAR_NAMES,starText,placeForgeItem,addForgeStar,destroyForgeStar,removeForgeItem};
+import {ASTRAL_ITEMS,isAstral,astralActive,astralPassiveText,itemStats,normalizeForge} from './astral.mjs';
+export {isAstral,itemStats};
 import {DIAMANITE_ITEMS} from './diamanite.mjs';
 import {MASTERY_SKILLS,MASTERY_TEXT,activeShields,shieldTotal,shieldCapacity,grantShield,absorbShield,markedPrey} from './mastery.mjs';
 export {activeShields,shieldTotal,shieldCapacity,markedPrey};
@@ -260,6 +260,7 @@ export const ENEMIES={
  forest:{name:'Enfant de la forêt',art:'enfant-foret',hp:96,dmg:0,healer:true}
 };
 export const RESOURCES={
+ 'fragment-cosmique':{name:'Fragment Cosmique',art:'fragment-cosmique',unsellable:true,sellPrice:0},
  'touffe-poils':{name:'Touffe de poils',art:'touffe-poils',buyPrice:100,sellPrice:7},
  'flocon-eternel':{name:'Flocon éternel',art:'flocon-eternel',buyPrice:100,sellPrice:10},
  'roche-magmatique':{name:'Roche magmatique',art:'roche-magmatique',buyPrice:100,sellPrice:10},
@@ -283,6 +284,7 @@ export const TRAINING_BESTIARY={
  icewolf:{weight:1,tag:'Glace',drop:'fragment-glace-eternel',dropChance:.15,goldBonus:.30,skills:[{name:'Glacier',text:'Inflige 135 % de ses dégâts de base. Une seule utilisation par combat, lors de sa première action.'},{name:'Escrime',text:'Après Glacier, frappe de 1 à 4 fois au hasard. Chaque coup inflige 33 % de ses dégâts de base ; chaque nombre de coups a la même probabilité.'}],rewardText:'Victoire : +30 % d’or, après le bonus de progression des expéditions. Le total est arrondi à l’entier supérieur.'}
 };
 export function resourceOrigin(type){
+ if(type==='fragment-cosmique')return 'Une chance sur deux de recevoir un fragment en vendant un équipement Cosmique. Invendable ; son utilisation sera ajoutée plus tard.';
  if(type==='fragment-neant')return 'Récompense de la Fissure du Néant : première victoire aux étages 10, 20, 30, 40 et 50.';
  const names=[...new Set(Object.values(EXPEDITIONS).flatMap(zone=>zone.kinds).filter(kind=>TRAINING_BESTIARY[kind]?.drop===type).map(kind=>ENEMIES[kind].name))];
  return names.length?'Créature'+(names.length>1?'s':'')+' : '+names.join(' · ')+'.':'Disponible en boutique.';
@@ -300,7 +302,7 @@ export function retreatBattle(s){
  s.battle=null;
 }
 
-export const resourceQuantity=(s,type)=>Object.hasOwn(RESOURCES,type)?Math.min(RESOURCE_LIMIT,Math.max(0,Math.floor(Number(s.resources?.[type])||0))):0;
+export const resourceQuantity=(s,type)=>Object.hasOwn(RESOURCES,type)?Math.min(type==='fragment-cosmique'?Number.MAX_SAFE_INTEGER:RESOURCE_LIMIT,Math.max(0,Math.floor(Number(s.resources?.[type])||0))):0;
 export const resourceTotal=s=>Object.keys(RESOURCES).reduce((n,type)=>n+resourceQuantity(s,type),0);
 export function buyResource(s,type){
  const d=RESOURCES[type];
@@ -312,6 +314,7 @@ export function buyResource(s,type){
 }
 export function sellResource(s,type,quantity=1){
  if(!s.hero||s.battle||s.storyScene)throw Error('Vendez vos ressources au camp.');
+ if(RESOURCES[type]?.unsellable)throw Error('Le Fragment Cosmique est invendable.');
  if(!Object.hasOwn(RESOURCES,type)||!Number.isSafeInteger(quantity)||quantity<1||quantity>resourceQuantity(s,type))throw Error('Quantité de ressource indisponible.');
  const gold=RESOURCES[type].sellPrice*quantity;s.resources[type]-=quantity;
  if(!s.resources[type])delete s.resources[type];s.gold+=gold;return gold;
@@ -329,7 +332,8 @@ function collectResources(s,enemies,rng){
 export const LABELS={flameDamage:'% de dégâts en combat',bonePower:'% des statistiques de l’invocation',hp:'PV',dmg:'Dégâts',luck:'Chance',speed:'Vitesse',dmgPercent:'% de dégâts',luckPercent:'% de Chance',speedPercent:'% de Vitesse',vitalityPercent:'% de PV max après bonus',hpPercent:'% de PV max',omen:'% de Riposte par impact subi'};
 export const rngInt=(a,b,rng=Math.random)=>a+Math.floor(rng()*(b-a+1));
 
-export const fresh=()=>({forgeurStoryVersion:FORGEUR_STORY_VERSION,profile:newProfile(),forge:{unlocked:false,itemId:null},achievements:newAchievements(),version:1,progressionVersion:1,nahatStoryVersion:1,drunnStoryVersion:1,balanceVersion:BALANCE_VERSION,hero:null,gold:0,items:[],resources:{},equipped:{weapon:null,armor:null,accessory:null,accessory2:null,orb:null},cleared:0,rift:{cleared:0},missions:{forest:false},battle:null,storyScene:null,wolffyStory:{cemetery:0},stibiliChapter2:{cleared:0,voidForm:false}});
+export const SAVE_EPOCH='cosmic-shop-2026-10-v1';
+export const fresh=()=>({saveEpoch:SAVE_EPOCH,forgeurStoryVersion:FORGEUR_STORY_VERSION,profile:newProfile(),forge:{unlocked:false,cosmicBought:false,flamesBought:false},achievements:newAchievements(),version:1,progressionVersion:1,nahatStoryVersion:1,drunnStoryVersion:1,balanceVersion:BALANCE_VERSION,hero:null,gold:0,items:[],resources:{},equipped:{weapon:null,armor:null,accessory:null,accessory2:null,orb:null},cleared:0,rift:{cleared:0},missions:{forest:false},battle:null,storyScene:null,wolffyStory:{cemetery:0},stibiliChapter2:{cleared:0,voidForm:false}});
 export function migrateBalance(s){
  // One release migration per adventure, including inactive duplicate Forgeurs.
  // Profile unlock and adventure identity survive; no other companion is reset.
@@ -556,14 +560,21 @@ export function compatibleItem(s,type){
 }
 export function itemUnlocked(s,type){const d=ITEMS[type];return !!(d&&!d.questOnly&&!d.craftOnly&&compatibleItem(s,type));}
 export const resalePrice=item=>ITEMS[item?.type]?.sellPrice??(ITEMS[item?.type]?.slot?Math.ceil((item.purchasePrice??ITEMS[item.type].price??0)*itemRarity(item).salePercent/100):0);
-export const shopItems=s=>Object.keys(ITEMS).filter(type=>ITEMS[type].price&&!ITEMS[type].craftOnly&&compatibleItem(s,type));
+export const shopItems=s=>Object.keys(ITEMS).filter(type=>ITEMS[type].price&&!ITEMS[type].craftOnly&&!isAstral(type)&&compatibleItem(s,type));
+export const cosmicShopItems=s=>Object.keys(ITEMS).filter(type=>isAstral(type)&&compatibleItem(s,type));
+export function cosmicTierState(s,level){
+ const eligible=level===5?!!s.forge?.unlocked:level===6?!!s.forge?.cosmicBought:level===7?!!s.forge?.flamesBought:false;
+ const released=level===5;return {eligible,released,available:eligible&&released};
+}
+export const buyCosmic=(s,type,rng=Math.random)=>buy(s,type,rng,'cosmic');
 export const trainingGoldRange=s=>ECONOMY.trainingGold.map(n=>n+(Math.max(s.cleared,s.drunnLegacyCleared??0,s.nahatLegacyCleared??0)>=ECONOMY.trainingBonusFromCleared?ECONOMY.trainingBonus:0));
 export const worldGoldRange=stage=>stage>=ECONOMY.lateWorldFromStage?[ECONOMY.lateWorldGold,ECONOMY.lateWorldGold]:ECONOMY.worldGold;
-export function buy(s,type,rng=Math.random){
+export function buy(s,type,rng=Math.random,channel='shop'){
  const def=ITEMS[type];if(!s.hero||s.battle||s.storyScene||!def||def.unique||def.craftOnly||!compatibleItem(s,type))throw Error('Objet indisponible.');
+ if(isAstral(type)){if(channel!=='cosmic'||!cosmicTierState(s,equipmentLevel(type)).available)throw Error('Cet équipement est réservé à la Boutique Cosmique, après un achat de niveau 4.');}else if(channel==='cosmic')throw Error('Cet objet n’appartient pas à la Boutique Cosmique.');
  if(!itemUnlocked(s,type))throw Error('Objet indisponible à l’achat.');
  if(s.gold<def.price)throw Error('Or insuffisant.');
- const item=createItem(type,rng);s.gold-=def.price;s.items.push(item);recordAchievement(s,'spent',def.price);if(def.slot==='weapon'&&equipmentLevel(type)===3)recordAchievement(s,'goldBought');if(isAstral(item))recordAchievement(s,def.slot==='weapon'?'astralWeapons':'astralArmors');if(isAstral(item)&&!s.forge?.unlocked){s.forge={unlocked:true,itemId:null,announce:true};}return item;
+ const item=createItem(type,rng);s.gold-=def.price;s.items.push(item);recordAchievement(s,'spent',def.price);if(def.slot==='weapon'&&equipmentLevel(type)===3)recordAchievement(s,'goldBought');if(isAstral(item))recordAchievement(s,def.slot==='weapon'?'astralWeapons':'astralArmors');if(equipmentLevel(type)===4&&!s.forge?.unlocked){s.forge={unlocked:true,cosmicBought:false,flamesBought:false,announce:true};}if(isAstral(item)){s.forge.cosmicBought=true;recordAchievement(s,'astralStars');}return item;
 }
 export function equip(s,id,requestedSlot=null){
  if(s.battle)throw Error('Terminez le combat.');const item=s.items.find(x=>x.id===id);if(!item||ITEMS[item.type]?.consumable||!compatibleItem(s,item.type))throw Error('Équipement incompatible.');
@@ -583,14 +594,13 @@ export function extractEssence(s,id){
  s.items=s.items.filter(i=>i.id!==id);for(const slot of Object.keys(s.equipped))if(s.equipped[slot]===id)s.equipped[slot]=null;
  s.essences={...s.essences,foudroiement:true};return 'foudroiement';
 }
-export function sell(s,id){
- if(s.battle)throw Error('Terminez le combat.');
+export function sell(s,id,rng=Math.random){
+ if(s.battle||s.storyScene)throw Error('Terminez le combat.');
  const item=s.items.find(i=>i.id===id),price=resalePrice(item);
- if(s.forge?.itemId===id)throw Error('Retirez cet équipement de la Forge Cosmique avant de le vendre.');
  if(!item||!price)throw Error('Cet objet ne peut pas être revendu.');
  s.items=s.items.filter(i=>i.id!==id);
  for(const slot of Object.keys(s.equipped))if(s.equipped[slot]===id)s.equipped[slot]=null;
- s.gold+=price;return price;
+ s.gold+=price;if(isAstral(item)&&rng()<.5){s.resources??={};s.resources['fragment-cosmique']=Math.min(Number.MAX_SAFE_INTEGER,resourceQuantity(s,'fragment-cosmique')+1);}return price;
 }
 export const potionCount=s=>s.items.filter(i=>i.type==='potion-soin').length;
 export function consumePotion(s){
@@ -747,7 +757,7 @@ export function skillReady(s,id){
  return !!(b&&d&&!b.openingPending&&!b.sealedMagic&&!(id==='larve'&&b.larvaUsed)&&!d.automatic&&skillUnlocked(s,id)&&!(id==='redressement'&&b.redressement)&&b.round>=(b.cooldowns[id]??1)&&!(id==='puissance'&&b.powerCasts)&&!(id==='meute'&&livingPups(b).length>=2)&&!(id==='epine'&&b.hp<=0)&&!(id==='nuageux'&&b.hp>=b.maxHp&&!livingPups(b).length));
 }
 export function skillText(s,id){
- if(id==='meute'&&s.hero?.key==='wolffy'){const weapon=equippedItem(s,'weapon'),armor=equippedItem(s,'armor');if(isAstral(weapon)||isAstral(armor)){const crystal=astralActive(weapon,'cristal-astral'),double=astralActive(weapon,'dentier-astral'),armored=astralActive(armor,'armure-complete-astral');return `Invoque un Bébé Wolffy, ou deux sur un coup critique, dans la limite de deux petits vivants. Chaque petit possède ${crystal?75:50} % des dégâts et ${crystal?50:35} % des PV max de Wolffy avant combat, équipement compris.${armored?' Ces deux valeurs sont ensuite augmentées de 15 % par l’armure Astral.':''} Il attaque ${double?'deux fois':'une fois'} après Wolffy, sans critique ni bonus de Vitesse. Les ennemis peuvent cibler Wolffy ou ses petits. Récupération : 3 tours. La compétence d’invocation ne peut pas être répétée par la Vitesse.`;}}
+ if(id==='meute'&&s.hero?.key==='wolffy'){const weapon=equippedItem(s,'weapon'),armor=equippedItem(s,'armor');if(isAstral(weapon)||isAstral(armor)){const crystal=astralActive(weapon,'cristal-astral'),double=astralActive(weapon,'dentier-astral'),armored=astralActive(armor,'armure-complete-astral');return `Invoque un Bébé Wolffy, ou deux sur un coup critique, dans la limite de deux petits vivants. Chaque petit possède ${crystal?75:50} % des dégâts et ${crystal?50:35} % des PV max de Wolffy avant combat, équipement compris.${armored?' Ces deux valeurs sont ensuite augmentées de 15 % par l’armure Cosmique.':''} Il attaque ${double?'deux fois':'une fois'} après Wolffy, sans critique ni bonus de Vitesse. Les ennemis peuvent cibler Wolffy ou ses petits. Récupération : 3 tours. La compétence d’invocation ne peut pas être répétée par la Vitesse.`;}}
  if((SKILLS[id]?.unlockStage||SKILLS[id]?.unlockChapter2)&&!skillUnlocked(s,id))return 'Effet ???';
  if(FORGEUR_TEXT[id])return FORGEUR_TEXT[id];
  if(MASTERY_TEXT[id])return MASTERY_TEXT[id]+(id==='plumes'?` Puissance actuelle : ${plumesPercent(s)} %.`:'');
@@ -810,7 +820,7 @@ export function heroEffects(s){
 
  if(s.hero.key==='forgeur'){
   add('tension','⚒','Acier vivant',FORGEUR_PASSIVE.text,forgeTension(b));
-  if(b.divineSwordStacks)add('divine-sword','⚔','Épée des dieux nuageux',`Dégâts +${b.divineSwordStacks*10} %. Coût au début du tour : 5 % des PV max, ignore le bouclier.`,b.divineSwordStacks);
+  if(b.divineSwordStacks)add('divine-sword','⚔','Épée lourde Cosmique',`Dégâts +${b.divineSwordStacks*10} %. Coût au début du tour : 5 % des PV max, ignore le bouclier.`,b.divineSwordStacks);
   if(b.forgeNextStrike)add('forge-ignite','✦','Forge rallumée','Prochaine frappe offensive : dégâts +20 %.');
   if(b.forgeNextFracas)add('forge-fracas','↑','Fracas préparé','Le prochain Fracas gagne 2 Tensions.');
   if(b.forgeNextProtection)add('forge-protection','↓','Refroidissement préparé','La prochaine Protection ultime retire 2 Tensions.');
@@ -1101,7 +1111,7 @@ export function resolveAction(s,action,rng=Math.random){
   const rawDamage=fixedDamage!==null?fixedDamage:Math.max(1,Math.round(power*(crit?1.75:1)+nonCriticalBonus));
   const damage=wardDamage(e,trialDirectDamage(e,riftDirectDamage(b,e,Math.max(1,Math.round(rawDamage*outgoing(basic))),true)));
   if(echoCasting)echoHits.push({id:e.id,damage,projectile});
-  const {actual,survived,absorbed=0}=wound(e,damage);lastHitDamage=actual+absorbed;events.push({type:'hit',from:'hero',to:e.id,damage,hpAfter:e.hp,crit,projectile,matriarch:!!b.matriarch,charges:shotCharges});if(survived)survivalCue(e);if(e.storyKind==='eliandris'&&actual>0&&(crit||speedStrike))lightHeal(e,crit?'coup critique':'seconde action de vitesse');log(`${crit?'Critique ! ':''}${CLASSES[s.hero.key].name} inflige ${damage} dégâts à ${e.name}.`);redressementHeal(actual);if(crit){falconHeal(actual);if(bowPassiveActive(equippedItem(s,'weapon'))&&!(basic&&forcedBasic)){b.astralArcStacks=(b.astralArcStacks??0)+1;events.push({type:'status',to:'hero',label:'Maîtrise de l’arc · +'+(3*b.astralArcStacks)+' %'});}}if(wingDouble){const amount=healHero(s,actual*.07);if(amount)events.push({type:'heal',to:'hero',amount,label:'Porte-aile Astral'});}revive(e);deathEffect(e);summonReinforcement(e);if(e.aura&&e.hp>0&&rng()<.07){log('Aura Nébryss : contre-attaque !');enemyActionBlocked=false;trappedAction=null;riposteCounted=false;nextEnemyAction();enemyStrike(e,1,'purple-slash');}return e;
+  const {actual,survived,absorbed=0}=wound(e,damage);lastHitDamage=actual+absorbed;events.push({type:'hit',from:'hero',to:e.id,damage,hpAfter:e.hp,crit,projectile,matriarch:!!b.matriarch,charges:shotCharges});if(survived)survivalCue(e);if(e.storyKind==='eliandris'&&actual>0&&(crit||speedStrike))lightHeal(e,crit?'coup critique':'seconde action de vitesse');log(`${crit?'Critique ! ':''}${CLASSES[s.hero.key].name} inflige ${damage} dégâts à ${e.name}.`);redressementHeal(actual);if(crit){falconHeal(actual);if(bowPassiveActive(equippedItem(s,'weapon'))&&!(basic&&forcedBasic)){b.astralArcStacks=(b.astralArcStacks??0)+1;events.push({type:'status',to:'hero',label:'Maîtrise de l’arc · +'+(3*b.astralArcStacks)+' %'});}}if(wingDouble){const amount=healHero(s,actual*.07);if(amount)events.push({type:'heal',to:'hero',amount,label:'Porte-aile Cosmique'});}revive(e);deathEffect(e);summonReinforcement(e);if(e.aura&&e.hp>0&&rng()<.07){log('Aura Nébryss : contre-attaque !');enemyActionBlocked=false;trappedAction=null;riposteCounted=false;nextEnemyAction();enemyStrike(e,1,'purple-slash');}return e;
  };
  function triggerTrap(e){
   if(!e.trap||e.trap.until<b.round)return;
@@ -1123,7 +1133,7 @@ export function resolveAction(s,action,rng=Math.random){
  const prepareForgeStrike=isOffensive=>{forgeStrikeFactor=1;if(s.hero.key!=='forgeur')return;if(isOffensive){if(b.forgeNextStrike){forgeStrikeFactor*=1.2;b.forgeNextStrike=false;}if(b.forgeJudgment&&forgeState(b)==='hot'){forgeStrikeFactor*=2;b.forgeJudgment=false;}}else b.forgeJudgment=false;};
  const forgeTurnStart=()=>{
   if(s.hero.key!=='forgeur'||b.hp<=0||b.forgeTurnStarted===b.round)return;b.forgeTurnStarted=b.round;
-  if(equippedItem(s,'weapon')?.type==='epee-dieux-nuageux'){const cost=Math.ceil(b.maxHp*.05);woundHero(cost,true);events.push({type:'sacrifice',to:'hero',damage:cost,hpAfter:b.hp});if(b.hp>0){b.divineSwordStacks=(b.divineSwordStacks??0)+1;log(`Épée des dieux nuageux : ${cost} PV sacrifiés, dégâts +${b.divineSwordStacks*10} %.`);}}
+  if(equippedItem(s,'weapon')?.type==='epee-dieux-nuageux'){const cost=Math.ceil(b.maxHp*.05);woundHero(cost,true);events.push({type:'sacrifice',to:'hero',damage:cost,hpAfter:b.hp});if(b.hp>0){b.divineSwordStacks=(b.divineSwordStacks??0)+1;log(`Épée lourde Cosmique : ${cost} PV sacrifiés, dégâts +${b.divineSwordStacks*10} %.`);}}
   if(b.hp>0&&forgeState(b)==='cold')forgeShield('Acier vivant',b.maxHp*.15);
   if(b.hp>0&&b.preventionPending){forgeShield('Auréole de prévention',b.preventionPending.amount*b.preventionPending.rate);b.preventionPending=null;}
   forgeSync();
@@ -1249,13 +1259,13 @@ export function resolveAction(s,action,rng=Math.random){
   for(const kind of [cape?'cape':null,guard?'guard':null].filter(Boolean)){
    const victims=kind==='cape'?alive():[alive()[rngInt(0,alive().length-1,rng)]];
    for(const e of victims){if(!e||e.hp<=0||b.hp<=0)continue;const damage=wardDamage(e,trialDirectDamage(e,riftDirectDamage(b,e,Math.max(1,Math.round((kind==='cape'?combatStats(s).dmg:b.maxHp)*.02*outgoing(false,false))),true))),{survived}=wound(e,damage);
-    events.push({type:'hit',from:'hero',to:e.id,damage,hpAfter:e.hp,crit:false,projectile:kind==='cape'?'void-orb':'blood-price'});log(`${kind==='cape'?'Cape protectrice Astral':'Protège-bras Astral'} : ${damage} dégâts à ${e.name}.`);if(survived)survivalCue(e);revive(e);deathEffect(e);summonReinforcement(e);
+    events.push({type:'hit',from:'hero',to:e.id,damage,hpAfter:e.hp,crit:false,projectile:kind==='cape'?'void-orb':'blood-price'});log(`${kind==='cape'?'Cape protectrice Cosmique':'Protège-bras Cosmique'} : ${damage} dégâts à ${e.name}.`);if(survived)survivalCue(e);revive(e);deathEffect(e);summonReinforcement(e);
    }
   }
  };
  const finish=won=>{
   if(!won&&b.hp<=0&&!b.astralDeathUsed&&!b.sealedMagic&&astralActive(equippedItem(s,'weapon'),'baton-astral',3)){
-   b.astralDeathUsed=true;const e=target();if(e){const damage=wardDamage(e,trialDirectDamage(e,riftDirectDamage(b,e,Math.max(1,Math.round(combatStats(s).dmg*2*outgoing(false,false))),true))),{survived}=wound(e,damage);events.push({type:'status',to:'hero',label:'Ultime explosion Astral'},{type:'hit',from:'hero',to:e.id,damage,hpAfter:e.hp,crit:false,projectile:'elemental-orb'});log(`Bâton Astral : ultime explosion, ${damage} dégâts.`);if(survived)survivalCue(e);revive(e);deathEffect(e);won=e.hp<=0;}
+   b.astralDeathUsed=true;const e=target();if(e){const damage=wardDamage(e,trialDirectDamage(e,riftDirectDamage(b,e,Math.max(1,Math.round(combatStats(s).dmg*2*outgoing(false,false))),true))),{survived}=wound(e,damage);events.push({type:'status',to:'hero',label:'Ultime explosion Cosmique'},{type:'hit',from:'hero',to:e.id,damage,hpAfter:e.hp,crit:false,projectile:'elemental-orb'});log(`Bâton Cosmique : ultime explosion, ${damage} dégâts.`);if(survived)survivalCue(e);revive(e);deathEffect(e);won=e.hp<=0;}
   }
   flushRefusal();
   if(b.mode!=='practice'&&won&&!(nahatDuel&&b.hp<b.maxHp*.1))recordAchievement(s,'wins');
@@ -1453,6 +1463,7 @@ function validAdventureSlot(id,state){
 const adventureSnapshot=state=>{const copy=structuredClone(state);delete copy.companions;delete copy.companionSaveVersion;delete copy.activeAdventureId;return copy;};
 // Keep the active snapshot at the root, and store each adventure exactly once by identity.
 export function packCompanionSave(active,companions){
+ if(active.saveEpoch!==SAVE_EPOCH||Object.values(companions).some(c=>c.saveEpoch!==SAVE_EPOCH))throw Error('Rechargez la nouvelle version avant de sauvegarder.');
  syncProfile(active,companions);const slots={};
  for(const [id,state]of Object.entries(companions)){if(!validAdventureSlot(id,state))throw Error('Emplacement d’aventure invalide.');slots[id]=adventureSnapshot(state);}
  const id=adventureId(active);
@@ -1461,9 +1472,11 @@ export function packCompanionSave(active,companions){
 }
 export function restoreCompanionSave(raw){
  if(!raw||raw.version!==1)throw Error('Sauvegarde non reconnue.');
+ if(raw.saveEpoch!==SAVE_EPOCH){const active=fresh();active.profile.cosmicResetNoticePending=true;return {active,companions:{},profile:active.profile,changed:true,reset:true};}
  const companions={};let changed=false;
  const restore=value=>{
   if(!value||value.version!==1||!value.hero||!(Object.hasOwn(CLASSES,value.hero.key)||Object.hasOwn(LEGACY_KEYS,value.hero.key))||!Array.isArray(value.items)||!Number.isSafeInteger(value.hero.level)||value.hero.level<1)throw Error('Progression de compagnon invalide.');
+  if(value.saveEpoch!==SAVE_EPOCH)throw Error('Cette aventure appartient à une ancienne version.');
   const state=adventureSnapshot(value);changed=migrateBalance(state)||changed;return state;
  };
  if(raw.companionSaveVersion!=null){
