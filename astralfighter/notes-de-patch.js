@@ -19,6 +19,20 @@
  * },
  */
 window.ASTRAL_PATCH_NOTES = [
+    {
+    id: "2026-10-05-05",
+    date: "2026-10-05",
+    titre: "Refonte complet des items ASTRAL x Cosmique",
+    introduction: "Équipements Cosmique",
+    sections: [
+      {
+        titre: "Forge Cosmique en Boutique Cosmique et items Astral en Cosmique",
+        points: [
+          "Nous retirons la forge Cosmique ainsi qu'un reset pour accueillir les équipements Cosmiques qui viennent remplacer les équipements Astral"
+        ],
+      },
+    ],
+  },
   {
     id: "2026-10-05-04",
     date: "2026-10-05",
