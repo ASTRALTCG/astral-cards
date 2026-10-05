@@ -19,6 +19,20 @@
  * },
  */
 window.ASTRAL_PATCH_NOTES = [
+  {
+    id: "2026-10-05-04",
+    date: "2026-10-05",
+    titre: "Test de la fonction mise à jour ",
+    introduction: "Test",
+    sections: [
+      {
+        titre: "Simple test, coucou ^_^",
+        points: [
+          "None"
+        ],
+      },
+    ],
+  },
     {
     id: "2026-10-05-03",
     date: "2026-10-05",
